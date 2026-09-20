@@ -61,6 +61,8 @@ families:
     # "defensive violence" of its party programme); nothing else is overridden.
     # Ownership, markets, agent and grounds split the family and are per member.
     stances:
+      d1_alignment: { accept: [ordinary_relations_all], weight: 1 }
+      d1_small_property: { accept: [protected_alongside_social], weight: 1 }
       d1_expropriation: { accept: [full_market_compensation, compensation_where_hardship, buy_out_gradually], reject: [no_compensation, workers_take_directly], weight: 2 }
       d1_reforms_accumulate: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
       d1_price_signals: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 1 }
@@ -167,6 +169,11 @@ families:
     # sandinismo, the one flat member, also holds. sandinismo overrides
     # pluralism and liberties, and clears the grounds default.
     stances:
+      d1_race_structure: { accept: [division_within_the_class, colonial_relation_inside], weight: 1 }
+      d1_autonomous_movements:
+        accept: [section_under_the_programme]
+        reject: [beyond_the_movement]
+        weight: 2
       d1_expropriation: { accept: [no_compensation], reject: [full_market_compensation, no_transfer_at_all], weight: 2 }
       d1_owners_resist: { accept: [resist_by_any_means], reject: [accept_the_law, fight_within_rules], weight: 2 }
       d1_reforms_accumulate: { accept: [strongly_disagree, disagree], reject: [strongly_agree, agree], weight: 2 }
@@ -221,6 +228,15 @@ families:
     # Defaults are the family's internationalism and class analysis, which all
     # eight share. The state, the party and elections are per member.
     stances:
+      d1_nation_unity: { accept: [disagree, strongly_disagree], reject: [strongly_agree], weight: 2 }
+      d1_race_structure:
+        accept: [division_within_the_class]
+        reject: [own_structure_not_reducible, colonial_relation_inside]
+        weight: 2
+      d1_small_property:
+        accept: [absorbed_into_common]
+        reject: [spread_them_widely, protected_alongside_social]
+        weight: 2
       d1_expropriation: { accept: [no_compensation, workers_take_directly], reject: [full_market_compensation, buy_out_gradually, no_transfer_at_all], weight: 2 }
       d1_owners_resist: { accept: [never_gets_that_far, resist_by_any_means], reject: [accept_the_law], weight: 2 }
       d1_reforms_accumulate: { accept: [strongly_disagree, disagree], reject: [strongly_agree, agree], weight: 2 }

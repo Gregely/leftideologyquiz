@@ -436,4 +436,79 @@ rules. Every entry must have passed `npm run validate`.
             d2_community_in_common's question). peronism's organisational form
             became the movement-plus-unions front it actually was rather than
             the social-democratic mass party. Check then read 86 of 93.
+2026-09-20  content/questions.yaml      +9 depth-1 questions (batch 2)
+            The cross-cutting half of the deferred depth-1 rows, blueprint §2
+            dimensions D7-D23, taken exactly as docs/depth1-batches.md split
+            them: d1_autonomy_without_state, d1_nation_unity, d1_alignment,
+            d1_violence_initiation, d1_race_structure, d1_autonomous_movements,
+            d1_small_property, d1_internal_hierarchy, d1_reserved_places. Depth
+            1 is now 46 of the 46 the inventory says are writable. Nothing in
+            the existing questions was edited; every follow-up added here is
+            declared on a batch-2 question.
+
+2026-09-20  content/questions.yaml      the race and caste tags travel in pairs
+            `race` and `caste` had no feeder at all. Two questions each is what
+            the display threshold needs (earned >= 2, strength >= 0.6), so
+            d1_race_structure forces d1_autonomous_movements and
+            d1_internal_hierarchy forces d1_reserved_places on every scoring
+            answer, the way d1_owners_resist forces d1_reforms_accumulate. A tag
+            measured once is then measured twice. Both followers are gated on
+            and interpolate their leader, which brings the depth-1 bank to six
+            stems that quote an earlier answer against the prototype's two.
+
+            `gender` is deliberately not fed here, against the blueprint §9
+            plan. The schema allows one tag per option, so giving this question
+            a women's-movement option beside its racially-oppressed one would
+            have made a respondent who backs both pick one — a principle 4 and 5
+            failure. The tag keeps its two existing feeders (d1_care_work,
+            d1_gender_division) and reaches its threshold without this one.
+
+2026-09-20  content/families.yaml       family defaults for the batch-2 nine
+            Three families gained defaults, each at 0% override: social_democracy
+            on d1_alignment and d1_small_property, marxism_leninism on
+            d1_race_structure and d1_autonomous_movements, left_communism on
+            d1_nation_unity, d1_race_structure and d1_small_property. Four
+            families were deliberately left without one. marxism_leninism has no
+            default on d1_alignment because six of the nine under that node
+            would override it (Titoism non-aligned, Juche and Hoxhaism alone,
+            Deng ordinary relations, Guevarism and Castroism carrying the
+            revolution abroad) — far past the 75% rule, so alignment is authored
+            per member. anti_colonial has none for the same reason: three of
+            eleven are non-aligned, two want a regional union and two stand
+            alone. anarchism has none on d1_small_property (mutualism and
+            anarchist communism are opposed on it) and religious_left none
+            either (Gandhian trusteeship against the community of goods).
+
+2026-09-20  content/ideologies.yaml     batch-2 stances, 46 ideologies
+            Authored where the tradition takes a position, silent where it does
+            not. Seven weight-3 stances, each a position without which the
+            ideology would be another one: Bundist autonomy without territory
+            and the Austromarxist version of it, the Ba'athist claim that one
+            nation split between states should be one state, Titoist
+            non-alignment, the Fanonian identity of racial ranking and economic
+            order, distributist small property, and the Ambedkarite and
+            Lohiaite answers on a hereditary ranking. Weights were kept low
+            wherever d1_world_revolution already scores the same doctrine
+            (Juche, Hoxhaism, Nkrumaism, Chavismo, orthodox Trotskyism on
+            d1_alignment) so that one doctrine is not counted twice.
+
+2026-09-20  content/ideologies.yaml     three stances corrected, one added
+            ambedkarism's weight 3 moves from d1_single_subject to
+            d1_internal_hierarchy. The d1_single_subject cell ("class is at the
+            centre, but oppressed groups need organisations of their own") was
+            the closest the bank could get to the caste claim when no question
+            asked about caste; it is a poor fit — the tradition does not put
+            class at the centre — and it is now a weight-2 stance with the
+            weight 3 where the doctrine actually lives.
+            democratic_confederalism loses its d1_violence override, which
+            restated its parent social_ecology's weight-1 "defensive only" at
+            weight 2 and so made the child strictly the narrower distribution;
+            the same position is now carried properly by d1_violence_initiation.
+            Its new d1_autonomy_without_state went in at weight 3 and came down
+            to 2, because d1_nation_self_gov already states that doctrine at
+            weight 3. christian_communism gained d1_small_property (the
+            community of goods, which is what the earliest Christian communities
+            are said to have practised) after the first batch-2 check run showed
+            it diluted to a tie with anarchism by questions it had no position
+            on.
 ```

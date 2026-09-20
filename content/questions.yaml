@@ -1213,6 +1213,371 @@ questions:
         mode: boost
         boost: 1.5
 
+  # --- batch 2 of the deferred depth-1 rows (docs/depth1-batches.md) ---------
+  # Blueprint §2 dimensions D7-D23: the cross-cutting questions, which is where
+  # the `nation`, `race` and `caste` modifier tags are fed. Two pairs travel
+  # together by a forced follow-up (d1_race_structure → d1_autonomous_movements,
+  # d1_internal_hierarchy → d1_reserved_places), so a tag measured once is
+  # measured twice — which is what the display threshold of two needs.
+
+  - id: d1_autonomy_without_state
+    depth: 1
+    kind: likert5
+    tags: [nation, self_government]
+    text: >-
+      A people ruled from a capital that is not its own can be genuinely
+      self-governing without a state of its own — through its own language, its
+      own schools, its own elected bodies, wherever its members happen to live.
+    modifier_tags:
+      strongly_agree: nation
+      agree: nation
+    follow_ups:
+      - when:
+          answer_in: [strongly_agree, agree]
+        ask: [d1_nation_self_gov]
+        mode: boost
+        boost: 2.0
+      - when:
+          answer_in: [strongly_disagree, disagree]
+        ask: [d1_nation_unity]
+        mode: boost
+        boost: 1.5
+
+  - id: d1_nation_unity
+    depth: 1
+    kind: likert5
+    tags: [nation, self_government]
+    text: >-
+      A people split between several states by borders that outsiders drew
+      should be brought back together into one state of its own.
+    modifier_tags:
+      strongly_agree: nation
+      agree: nation
+    follow_ups:
+      - when:
+          answer_in: [strongly_agree, agree]
+        ask: [d1_alignment]
+        mode: boost
+        boost: 2.0
+
+  - id: d1_alignment
+    depth: 1
+    kind: single_choice
+    tags: [internationalism, state]
+    text: >-
+      A poor country has just come through a revolution, or has just won its
+      independence. The great powers are watching it closely. Where should it
+      stand in the world?
+    options:
+      - id: join_the_socialist_camp
+        short: with the countries that have made the same change
+        label: >-
+          With the countries that have made the same change. Alone, any one of
+          them can be picked off; together they are strong enough that none has
+          to face the powerful by itself.
+      - id: non_aligned_together
+        short: with the other poor countries, in neither camp
+        label: >-
+          With the other poor countries, in a grouping of its own that takes
+          trade and aid from either side and instructions from neither.
+      - id: union_with_neighbours
+        short: merged into a union with its neighbours
+        label: >-
+          Merged into a union with the neighbours who share its position. Each
+          of them apart is too small for independence to amount to much.
+      - id: stand_alone_self_reliant
+        short: on its own feet, depending on nobody
+        label: >-
+          On its own feet, depending on nobody. Every offer of help arrives with
+          conditions attached, and a country living on them is governed from
+          somewhere else.
+      - id: help_revolutions_elsewhere
+        short: behind the movements still fighting elsewhere
+        label: >-
+          Behind the movements still fighting in other countries. One that
+          settles down to govern itself alone will be strangled whichever camp
+          it picks.
+      - id: ordinary_relations_all
+        short: in ordinary relations with everybody
+        label: >-
+          In ordinary relations with everybody — trade, treaties, the
+          international bodies. Picking a camp buys quarrels it does not need
+          and costs it the markets it does.
+    follow_ups:
+      - when:
+          answer_in: [stand_alone_self_reliant, help_revolutions_elsewhere, union_with_neighbours]
+        ask: [d1_world_revolution]
+        mode: boost
+        boost: 2.0
+
+  - id: d1_violence_initiation
+    depth: 1
+    kind: single_choice
+    tags: [violence, strategy, organisation]
+    text: >-
+      Most people in a country are not behind the movement yet. A small group
+      inside it is certain the moment has come, and is ready to take up arms.
+      Should it act?
+    options:
+      - id: action_creates_conditions
+        short: act, because the first blow makes the conditions
+        label: >-
+          Yes. People are convinced by seeing the thing done, not by being asked
+          to wait. The first blow creates the conditions everyone else has been
+          waiting for.
+      - id: small_groups_act_now
+        short: act, because there is no moment to wait for
+        label: >-
+          Yes, and there is no moment to wait for. Small groups acting on their
+          own account, now, are what revolt is. A mass movement is nobody's
+          precondition.
+      - id: organisation_judges_moment
+        short: only if the leadership judges the moment has come
+        label: >-
+          Only if the movement's own leadership, weighing the whole situation,
+          judges that the moment has come. That is not a judgement a group can
+          make for itself.
+      - id: substitutes_for_the_class
+        short: no, it puts itself in the place of everyone else
+        label: >-
+          No. A handful acting for everyone else puts itself in their place, and
+          what comes out of it takes orders rather than decisions.
+      - id: only_under_attack
+        short: only if people are actually being attacked
+        label: >-
+          Only if people are actually being attacked. Arms taken up before that
+          are something the group has chosen rather than something it was driven
+          to.
+      - id: force_never_opens_it
+        short: no, and not later either
+        label: >-
+          No, and not later either. Nothing a small armed group does opens the
+          way to a free society. What a minority can do ahead of everyone else
+          is refuse, openly and unarmed.
+    follow_ups:
+      - when:
+          answer_in: [action_creates_conditions, small_groups_act_now]
+        ask: [d1_guiding_leader]
+        mode: boost
+        boost: 1.5
+
+  - id: d1_race_structure
+    depth: 1
+    kind: single_choice
+    tags: [race, class]
+    text: >-
+      Think of a country where the worst-paid work, the heaviest policing and
+      the worst housing all fall on people of one origin. What is that, at
+      bottom?
+    options:
+      - id: own_structure_not_reducible
+        short: a structure of its own
+        label: >-
+          A structure of domination in its own right, with a history of its own.
+          Change who owns the factories and it is still there, because it was
+          never only about ownership.
+      - id: division_within_the_class
+        short: a division driven through the working class
+        label: >-
+          A division driven through the working class. It is kept up because it
+          holds wages down for everybody, so ending exploitation is what ends
+          it.
+      - id: two_names_one_process
+        short: two names for one process
+        label: >-
+          Two names for one process. The labour of some people was made cheap by
+          conquest, so the class order was built on that ranking from the start.
+          Neither can be attacked alone.
+      - id: colonial_relation_inside
+        short: colonial rule carried on inside one country
+        label: >-
+          The relation between a coloniser and the colonised, carried on inside
+          one country's borders. Those held down are a people apart with a claim
+          of their own, not a section of somebody else's class.
+      - id: legacy_wearing_away
+        short: the residue of an injustice already abolished
+        label: >-
+          The residue of an injustice already abolished. Equal law, decent
+          schools and steady work wear it down, and each generation inherits
+          less of it than the last.
+    modifier_tags:
+      own_structure_not_reducible: race
+      two_names_one_process: race
+      colonial_relation_inside: race
+    follow_ups:
+      - when:
+          answer_in:
+            [own_structure_not_reducible, division_within_the_class, two_names_one_process, colonial_relation_inside, legacy_wearing_away]
+        ask: [d1_autonomous_movements]
+        mode: force
+
+  - id: d1_autonomous_movements
+    depth: 1
+    kind: single_choice
+    tags: [movements, race, organisation]
+    requires:
+      answered:
+        d1_race_structure:
+          [own_structure_not_reducible, division_within_the_class, two_names_one_process, colonial_relation_inside, legacy_wearing_away]
+    text: >-
+      You said it is {{answers.d1_race_structure.short}}. Workers in that
+      position now want a body of their own inside the labour movement, picking
+      their own officers, deciding their own demands. What should the movement
+      say to them?
+    options:
+      - id: oppose_separate_bodies
+        label: >-
+          Argue against it. Dividing the movement along the lines employers use
+          is how the thing is kept alive, and everyone who works loses by it.
+      - id: section_under_the_programme
+        label: >-
+          Welcome it as a section of the movement, working to the programme the
+          movement as a whole has agreed. Acting as one body is what makes any
+          demand stick.
+      - id: back_it_autonomous
+        label: >-
+          Back it, and leave it to run itself. The people carrying that
+          oppression know it best, and a movement that insists on directing them
+          repeats what it says it is against.
+      - id: beyond_the_movement
+        label: >-
+          Back it, and accept that it need not stay inside the labour movement
+          at all. Its own organisations, its own institutions, its own politics,
+          allied where the interests actually meet.
+      - id: one_front_of_many
+        label: >-
+          Treat it as one movement among the many a majority has to be built out
+          of, with none of them under the others and none of them the main one.
+    modifier_tags:
+      back_it_autonomous: race
+      beyond_the_movement: race
+    follow_ups:
+      - when:
+          answer_in: [one_front_of_many]
+        ask: [d1_single_subject]
+        mode: boost
+        boost: 2.0
+
+  - id: d1_small_property
+    depth: 1
+    kind: single_choice
+    tags: [ownership, property]
+    text: >-
+      A family owns the smallholding, the workshop or the little shop it works
+      in, and employs nobody but itself. In the society you want, what becomes
+      of holdings like that?
+    options:
+      - id: spread_them_widely
+        label: >-
+          They are the model. As many families as possible should own something
+          they work themselves, so that nobody depends on an employer or an
+          official for a living.
+      - id: protected_alongside_social
+        label: >-
+          They stay, and are protected, while the large enterprises pass into
+          social ownership. Small proprietors are not the enemy, and treating
+          them as one makes enemies nobody needed.
+      - id: drawn_into_cooperation
+        label: >-
+          They are left alone, and drawn into co-operatives over time by example
+          and by support — at their own pace, never by force.
+      - id: absorbed_into_common
+        label: >-
+          They go the way of everything else, into common ownership. Making
+          things to sell is the thing being ended, and a small owner selling is
+          still doing it.
+      - id: merged_into_large_units
+        label: >-
+          They are combined into large modern units. Small holdings mean long
+          hours, poor tools and debt to the merchant, and scale is what frees
+          the people working them.
+    follow_ups:
+      - when:
+          answer_in: [spread_them_widely, merged_into_large_units]
+        ask: [d1_land]
+        mode: boost
+        boost: 1.5
+
+  - id: d1_internal_hierarchy
+    depth: 1
+    kind: single_choice
+    tags: [hierarchy, caste]
+    tooltip: >-
+      A ranking of this kind is usually called caste. Hereditary estates and
+      orders of birth in other societies work the same way: the group a person
+      is born into is fixed for life and passed on to their children.
+    text: >-
+      In some countries people are born into ranked groups, and the rank someone
+      is born into still shapes the work they get, who they may marry, where
+      they may live. What should a movement for a fairer economy do about it?
+    options:
+      - id: abolish_by_law_and_organisation
+        short: attack it head on, first
+        label: >-
+          Attack it head on, and first: rights written into law, schooling, and
+          organisations run by the people it puts at the bottom. Nothing that
+          happens to the economy dissolves it on its own.
+      - id: break_with_the_tradition
+        short: break with the tradition itself
+        label: >-
+          Break with the teaching that ranks people by birth, altogether. Those
+          it ranks lowest owe nothing to a tradition that has justified their
+          treatment for as long as it has existed.
+      - id: reform_from_within
+        short: change it from inside
+        label: >-
+          Change it from inside, by the example of people who refuse its rules
+          and by persuading those who keep them. A ranking held up by belief is
+          not ended by a law against belief.
+      - id: dissolves_with_development
+        short: let development dissolve it
+        label: >-
+          Industry, schooling and cities dissolve it. What holds it up is the
+          village economy it grew in, so that is what a movement should be
+          changing.
+      - id: fought_together_with_class
+        short: fight it together with exploitation
+        label: >-
+          Fight it and exploitation as one thing. The people at the bottom of
+          the ranking are the people doing the worst work, and a movement that
+          separates the two loses both.
+      - id: equal_rights_leave_customs
+        short: guarantee equal rights and leave customs alone
+        label: >-
+          Guarantee equal rights and equal treatment in law, and leave people's
+          own customs alone. A state deciding which traditions are acceptable is
+          a worse danger than the one it corrects.
+    modifier_tags:
+      abolish_by_law_and_organisation: caste
+      break_with_the_tradition: caste
+      fought_together_with_class: caste
+    follow_ups:
+      - when:
+          answer_in:
+            [abolish_by_law_and_organisation, break_with_the_tradition, reform_from_within, dissolves_with_development, fought_together_with_class, equal_rights_leave_customs]
+        ask: [d1_reserved_places]
+        mode: force
+      - when:
+          answer_in: [break_with_the_tradition, reform_from_within]
+        ask: [d1_religion_and_liberation]
+        mode: boost
+        boost: 2.0
+
+  - id: d1_reserved_places
+    depth: 1
+    kind: likert5
+    tags: [hierarchy, caste]
+    requires:
+      answered:
+        d1_internal_hierarchy:
+          [abolish_by_law_and_organisation, break_with_the_tradition, reform_from_within, dissolves_with_development, fought_together_with_class, equal_rights_leave_customs]
+    text: >-
+      You said a movement should {{answers.d1_internal_hierarchy.short}}. Places
+      in parliament, in universities and in public jobs should be kept aside for
+      people born into the groups such a ranking holds at the bottom.
+    modifier_tags:
+      strongly_agree: caste
+      agree: caste
   # ---------------------------------------------------------------------------
   # Depth 2 — place within a family
   # ---------------------------------------------------------------------------

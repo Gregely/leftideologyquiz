@@ -118,6 +118,7 @@ ideologies:
       contribution and inherited privilege abolished.
     reading: []
     stances:
+      d1_small_property: { accept: [merged_into_large_units], weight: 2 }
       d1_price_signals: { accept: [disagree], weight: 2 }
       d1_reforms_accumulate: { accept: [agree], weight: 1 }
       d1_owners_resist: { accept: [accept_the_law], weight: 1 }
@@ -154,6 +155,9 @@ ideologies:
       fair opportunity within a regulated market economy.
     reading: []
     stances:
+      d1_alignment: { accept: [ordinary_relations_all], weight: 2 }
+      d1_race_structure: { accept: [legacy_wearing_away], weight: 2 }
+      d1_internal_hierarchy: { accept: [equal_rights_leave_customs], weight: 2 }
       d1_expropriation: { accept: [full_market_compensation, no_transfer_at_all], weight: 2 }
       d1_owners_resist: { accept: [accept_the_law], weight: 2 }
       d1_party_needed: { accept: [argued_out_between_people], weight: 1 }
@@ -191,6 +195,7 @@ ideologies:
       individual autonomy rather than subordinating it to the state.
     reading: []
     stances:
+      d1_internal_hierarchy: { accept: [equal_rights_leave_customs], weight: 1 }
       d1_expropriation: { accept: [full_market_compensation, buy_out_gradually], reject: [no_compensation], weight: 2 }
       d1_owners_resist: { accept: [fight_within_rules], weight: 1 }
       d1_party_needed: { accept: [argued_out_between_people], weight: 1 }
@@ -225,6 +230,14 @@ ideologies:
       capital nor the state stands between people and their livelihood.
     reading: []
     stances:
+      d1_small_property:
+        accept: [spread_them_widely]
+        reject: [absorbed_into_common, merged_into_large_units]
+        weight: 3
+        note: >-
+          Defining: productive property spread as widely as possible among families is the whole
+          programme. Reverse it and there is nothing left to distinguish it from the
+          collectivism it was written against.
       d1_expropriation: { accept: [no_transfer_at_all], weight: 2 }
       d1_land: { accept: [ceiling_on_holdings], reject: [state_or_collective_farms], weight: 2 }
       d1_religion_and_liberation: { accept: [ally_of_liberation], weight: 2 }
@@ -289,6 +302,7 @@ ideologies:
       economy, treating the resulting settlement as durable.
     reading: []
     stances:
+      d1_race_structure: { accept: [legacy_wearing_away], weight: 1 }
       d1_owners_resist: { accept: [fight_within_rules, capital_strike], weight: 2 }
       d1_state_neutrality: { accept: [staffed_by_one_layer], weight: 2 }
       d1_distribution:
@@ -407,6 +421,14 @@ ideologies:
       something a socialist state should accommodate rather than dissolve.
     reading: []
     stances:
+      d1_autonomy_without_state:
+        accept: [strongly_agree, agree]
+        reject: [strongly_disagree]
+        weight: 3
+        note: >-
+          Defining: national difference is accommodated by autonomy attaching to persons inside
+          a shared state, neither dissolved nor partitioned. Reverse it and what is left is the
+          rest of the family with no national policy of its own.
       d1_owners_resist: { accept: [resist_by_any_means], weight: 2 }
       d1_state_neutrality: { accept: [balance_of_forces], weight: 2 }
       d1_nation_self_gov:
@@ -439,6 +461,8 @@ ideologies:
       the worst outcomes rather than through changing who owns what.
     reading: []
     stances:
+      d1_alignment: { accept: [ordinary_relations_all], weight: 1 }
+      d1_race_structure: { accept: [legacy_wearing_away], weight: 1 }
       d1_expropriation: { accept: [no_transfer_at_all], weight: 2 }
       d1_state_neutrality: { accept: [it_is_a_proper_check], weight: 2 }
       d1_wealth_from_periphery: { accept: [disagree], weight: 1 }
@@ -555,6 +579,11 @@ ideologies:
       democratic demands into a shared political front.
     reading: []
     stances:
+      d1_race_structure:
+        accept: [own_structure_not_reducible]
+        reject: [division_within_the_class]
+        weight: 2
+      d1_autonomous_movements: { accept: [one_front_of_many], reject: [oppose_separate_bodies], weight: 2 }
       d1_party_needed: { accept: [argued_out_between_people, no_ready_made_politics], reject: [union_ideas_only], weight: 2 }
       d1_state_neutrality: { accept: [balance_of_forces], weight: 2 }
       d1_single_subject:
@@ -583,6 +612,7 @@ ideologies:
       pluralism and civil liberties intact throughout.
     reading: []
     stances:
+      d1_autonomous_movements: { accept: [one_front_of_many], weight: 1 }
       d1_state_neutrality:
         accept: [balance_of_forces]
         reject: [built_to_protect_property]
@@ -664,6 +694,7 @@ ideologies:
       through political and industrial organisation.
     reading: []
     stances:
+      d1_small_property: { accept: [drawn_into_cooperation], weight: 1 }
       d1_expropriation: { accept: [buy_out_gradually, compensation_where_hardship], weight: 1 }
       d1_owners_resist: { accept: [fight_within_rules], weight: 1 }
       d1_reforms_accumulate: { accept: [agree], weight: 1 }
@@ -692,6 +723,7 @@ ideologies:
       episode to be admired from a distance.
     reading: []
     stances:
+      d1_small_property: { accept: [absorbed_into_common], reject: [spread_them_widely], weight: 2 }
       d1_land: { accept: [village_holds_in_common], weight: 1 }
       d1_police_and_army: { accept: [no_armed_body], weight: 2 }
       d1_organisation_form: { accept: [federation_of_local_groups], weight: 1 }
@@ -770,6 +802,7 @@ ideologies:
       support and common ownership.
     reading: []
     stances:
+      d1_violence_initiation: { accept: [force_never_opens_it], weight: 1 }
       d1_police_and_army: { accept: [no_armed_body], weight: 2 }
       d1_growth:
         accept: [strongly_disagree]
@@ -795,6 +828,15 @@ ideologies:
       production kept at a scale people can govern themselves.
     reading: []
     stances:
+      d1_violence_initiation:
+        accept: [force_never_opens_it]
+        reject: [action_creates_conditions, small_groups_act_now]
+        weight: 2
+      d1_small_property: { accept: [spread_them_widely], reject: [merged_into_large_units], weight: 2 }
+      d1_internal_hierarchy:
+        accept: [reform_from_within]
+        reject: [break_with_the_tradition, abolish_by_law_and_organisation]
+        weight: 2
       d1_land: { accept: [ceiling_on_holdings, village_holds_in_common], weight: 2 }
       d1_state_neutrality: { accept: [any_apparatus_defends_itself], weight: 2 }
       d1_police_and_army:
@@ -844,6 +886,8 @@ ideologies:
       rather than the working class of the rich world.
     reading: []
     stances:
+      d1_alignment: { accept: [non_aligned_together], weight: 1 }
+      d1_race_structure: { accept: [colonial_relation_inside], weight: 1 }
       d1_expropriation: { accept: [no_compensation], weight: 2 }
       d1_owners_resist: { accept: [resist_by_any_means], weight: 2 }
       d1_reforms_accumulate: { accept: [strongly_disagree], weight: 2 }
@@ -882,6 +926,15 @@ ideologies:
       overthrowing it rather than by being granted independence.
     reading: []
     stances:
+      d1_race_structure:
+        accept: [two_names_one_process]
+        reject: [division_within_the_class, legacy_wearing_away]
+        weight: 3
+        note: >-
+          Defining: in a colonised country the racial ranking and the economic order are one
+          fact — you are rich because you belong to the ruling people, and belong to it because
+          you are rich. Reverse it, and colonial racism is a division inside a class system that
+          class struggle will end, which is the reading this tradition was written against.
       d1_expropriation: { accept: [no_compensation], weight: 2 }
       d1_land: { accept: [to_those_who_work_it], weight: 1 }
       d1_owners_resist: { accept: [resist_by_any_means], weight: 2 }
@@ -941,6 +994,7 @@ ideologies:
       from cooperative villages and self-reliance.
     reading: []
     stances:
+      d1_small_property: { accept: [drawn_into_cooperation], reject: [merged_into_large_units], weight: 2 }
       d1_land:
         accept: [village_holds_in_common]
         reject: [to_those_who_work_it, ceiling_on_holdings]
@@ -980,6 +1034,8 @@ ideologies:
       escape neo-colonial dependence.
     reading: []
     stances:
+      d1_alignment: { accept: [union_with_neighbours], weight: 1 }
+      d1_nation_unity: { accept: [agree], weight: 1 }
       d1_expropriation: { accept: [compensation_where_hardship], weight: 1 }
       d1_land: { accept: [state_or_collective_farms], weight: 1 }
       d1_owners_resist: { accept: [resist_by_any_means], weight: 1 }
@@ -1047,6 +1103,26 @@ ideologies:
       law, education and self-organisation is the primary task.
     reading: []
     stances:
+      d1_internal_hierarchy:
+        accept: [abolish_by_law_and_organisation, break_with_the_tradition]
+        reject: [dissolves_with_development, reform_from_within, equal_rights_leave_customs]
+        weight: 3
+        note: >-
+          Defining: the hereditary ranking is a structure of its own, attacked head on through
+          law, education and organisations of those it puts at the bottom. Reverse it — expect
+          economic change to dissolve it — and this is the claim the tradition exists to refute.
+      d1_reserved_places:
+        accept: [strongly_agree, agree]
+        reject: [strongly_disagree, disagree]
+        weight: 2
+      d1_autonomous_movements:
+        accept: [beyond_the_movement]
+        reject: [section_under_the_programme, oppose_separate_bodies]
+        weight: 2
+      d1_single_subject:
+        accept: [class_plus_autonomous]
+        reject: [class_decisive, national_unity_first]
+        weight: 2
       d1_expropriation: { accept: [full_market_compensation, compensation_where_hardship], weight: 2 }
       d1_land: { accept: [state_or_collective_farms], weight: 2 }
       d1_owners_resist: { accept: [accept_the_law], weight: 1 }
@@ -1055,15 +1131,6 @@ ideologies:
       d1_police_and_army: { accept: [accountable_professional_force], weight: 2 }
       d1_organisation_form: { accept: [mass_membership_party], weight: 2 }
       d1_imperialism_primary: null
-      d1_single_subject:
-        accept: [class_plus_autonomous]
-        reject: [class_decisive, national_unity_first]
-        weight: 3
-        note: >-
-          Defining: the hereditary status order is a structure of its own, and
-          those it ranks lowest need organisations and representation of their
-          own. Reverse it and economic change is expected to dissolve it, which
-          is the claim this tradition was built to refute.
       d1_state_role: { accept: [use_and_expand], reject: [abolish_outright], weight: 2 }
       d1_change_route: { accept: [win_elections_and_legislate], reject: [protracted_armed_struggle], weight: 2 }
       d1_individual_sovereignty: { accept: [rights_balanced_by_law], weight: 2 }
@@ -1084,6 +1151,16 @@ ideologies:
       disobedience against both caste and class privilege.
     reading: []
     stances:
+      d1_internal_hierarchy:
+        accept: [fought_together_with_class]
+        reject: [dissolves_with_development, equal_rights_leave_customs]
+        weight: 3
+        note: >-
+          Defining: the hereditary ranking is how class works in this country, so it is fought
+          in the same movement and at the same time as exploitation. Reverse it — treat it as
+          dissolving with development — and this is the developmental socialism it split from.
+      d1_reserved_places: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
+      d1_small_property: { accept: [spread_them_widely], reject: [merged_into_large_units], weight: 2 }
       d1_land: { accept: [ceiling_on_holdings, to_those_who_work_it], weight: 2 }
       d1_reforms_accumulate: { accept: [disagree], weight: 1 }
       d1_organisation_form: { accept: [mass_membership_party], weight: 1 }
@@ -1106,6 +1183,10 @@ ideologies:
       with the private sector permitted but directed.
     reading: []
     stances:
+      d1_alignment: { accept: [non_aligned_together], reject: [join_the_socialist_camp], weight: 2 }
+      d1_small_property: { accept: [protected_alongside_social], weight: 2 }
+      d1_internal_hierarchy: { accept: [dissolves_with_development], weight: 2 }
+      d1_reserved_places: { accept: [agree], weight: 1 }
       d1_expropriation: { accept: [full_market_compensation, compensation_where_hardship], weight: 2 }
       d1_land: { accept: [ceiling_on_holdings, public_with_secure_tenure], weight: 2 }
       d1_owners_resist: { accept: [accept_the_law, fight_within_rules], weight: 2 }
@@ -1146,6 +1227,7 @@ ideologies:
       wealth and regional integration against imperial pressure.
     reading: []
     stances:
+      d1_alignment: { accept: [union_with_neighbours], weight: 1 }
       d1_expropriation: { accept: [compensation_where_hardship], weight: 1 }
       d1_land: { accept: [to_those_who_work_it, village_holds_in_common], weight: 1 }
       d1_owners_resist: { accept: [capital_strike, resist_by_any_means], weight: 2 }
@@ -1180,6 +1262,7 @@ ideologies:
       and the indigenous question are the same question.
     reading: []
     stances:
+      d1_race_structure: { accept: [two_names_one_process], weight: 2 }
       d1_land:
         accept: [village_holds_in_common]
         reject: [ceiling_on_holdings, title_follows_use]
@@ -1226,6 +1309,15 @@ ideologies:
       carrying the national mission.
     reading: []
     stances:
+      d1_autonomy_without_state: { accept: [disagree], weight: 1 }
+      d1_nation_unity:
+        accept: [strongly_agree]
+        reject: [strongly_disagree, disagree]
+        weight: 3
+        note: >-
+          Defining: one nation split between states that others drew, to be made one state
+          again. Reverse it and what remains is a state-led socialism with no reason to call
+          itself what it calls itself.
       d1_expropriation: { accept: [no_compensation, compensation_where_hardship], weight: 1 }
       d1_land: { accept: [ceiling_on_holdings, to_those_who_work_it], weight: 1 }
       d1_owners_resist: { accept: [resist_by_any_means], weight: 1 }
@@ -1265,6 +1357,8 @@ ideologies:
       stands above both landlords and foreign capital.
     reading: []
     stances:
+      d1_nation_unity: { accept: [strongly_agree, agree], weight: 2 }
+      d1_alignment: { accept: [non_aligned_together], weight: 2 }
       d1_expropriation: { accept: [compensation_where_hardship], weight: 1 }
       d1_land: { accept: [ceiling_on_holdings, to_those_who_work_it], weight: 2 }
       d1_owners_resist: { accept: [resist_by_any_means], weight: 1 }
@@ -1302,6 +1396,10 @@ ideologies:
       labour movement that owns its own institutions.
     reading: []
     stances:
+      d1_autonomy_without_state:
+        accept: [strongly_disagree, disagree]
+        reject: [strongly_agree]
+        weight: 2
       d1_land: { accept: [village_holds_in_common], weight: 2 }
       d1_reforms_accumulate: { accept: [agree], weight: 1 }
       d1_police_and_army: { accept: [popular_militia], weight: 2 }
@@ -1341,6 +1439,11 @@ ideologies:
           differ in which people the claim is made for, not in any position this
           test can ask about.
     stances:
+      d1_autonomy_without_state:
+        accept: [disagree, strongly_disagree]
+        reject: [strongly_agree]
+        weight: 2
+      d1_nation_unity: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
       d1_expropriation: { accept: [no_compensation, workers_take_directly], weight: 2 }
       d1_land: { accept: [public_with_secure_tenure, to_those_who_work_it], weight: 1 }
       d1_owners_resist: { accept: [resist_by_any_means], weight: 2 }
@@ -1384,6 +1487,11 @@ ideologies:
           differ in which people the claim is made for, not in any position this
           test can ask about.
     stances:
+      d1_autonomy_without_state:
+        accept: [disagree, strongly_disagree]
+        reject: [strongly_agree]
+        weight: 2
+      d1_nation_unity: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
       d1_expropriation: { accept: [no_compensation], weight: 1 }
       d1_owners_resist: { accept: [resist_by_any_means], weight: 1 }
       d1_state_neutrality: { accept: [built_to_protect_property], weight: 1 }
@@ -1415,6 +1523,15 @@ ideologies:
       territorial separation or assimilation.
     reading: []
     stances:
+      d1_autonomy_without_state:
+        accept: [strongly_agree]
+        reject: [strongly_disagree, disagree]
+        weight: 3
+        note: >-
+          Defining: self-government in language, schools and institutions where the people
+          already live, instead of a territory of their own. Reverse it and this is one more
+          territorial nationalism, which is the position the tradition was formed against.
+      d1_nation_unity: { accept: [disagree, strongly_disagree], reject: [strongly_agree], weight: 2 }
       d1_expropriation: { accept: [no_compensation], weight: 1 }
       d1_owners_resist: { accept: [capital_strike], weight: 1 }
       d1_reforms_accumulate: { accept: [agree], weight: 1 }
@@ -1450,6 +1567,7 @@ ideologies:
       between classes rather than abolishing them.
     reading: []
     stances:
+      d1_small_property: { accept: [protected_alongside_social], weight: 2 }
       d1_expropriation: { accept: [full_market_compensation], weight: 1 }
       d1_owners_resist: { accept: [capital_strike, resist_by_any_means], weight: 1 }
       d1_reforms_accumulate: { accept: [agree], weight: 1 }
@@ -1487,6 +1605,11 @@ ideologies:
       state must be broken rather than captured.
     reading: []
     stances:
+      d1_violence_initiation:
+        accept: [organisation_judges_moment]
+        reject: [small_groups_act_now, action_creates_conditions]
+        weight: 2
+      d1_small_property: { accept: [drawn_into_cooperation], reject: [spread_them_widely], weight: 2 }
       d1_party_needed:
         accept: [union_ideas_only]
         reject: [revolutionary_through_struggle, no_ready_made_politics]
@@ -1572,6 +1695,14 @@ ideologies:
       firm centralised control against encirclement and sabotage.
     reading: []
     stances:
+      d1_alignment:
+        accept: [join_the_socialist_camp]
+        reject: [ordinary_relations_all, non_aligned_together]
+        weight: 2
+      d1_small_property:
+        accept: [merged_into_large_units]
+        reject: [spread_them_widely, protected_alongside_social]
+        weight: 2
       d1_guiding_leader:
         accept: [leaders_thought_settles]
         reject: [members_decide, no_leaders]
@@ -1600,6 +1731,13 @@ ideologies:
       independence from any bloc.
     reading: []
     stances:
+      d1_alignment:
+        accept: [non_aligned_together]
+        reject: [join_the_socialist_camp, stand_alone_self_reliant]
+        weight: 3
+        note: >-
+          Defining: independence from every bloc, in a grouping of countries in the same
+          position. Reverse it and the break that made this a separate current never happens.
       d1_price_signals: { accept: [agree], weight: 2 }
       d1_land: { accept: [to_those_who_work_it], weight: 1 }
       d1_ownership:
@@ -1632,6 +1770,7 @@ ideologies:
       isolation if necessary.
     reading: []
     stances:
+      d1_alignment: { accept: [stand_alone_self_reliant], weight: 1 }
       d1_world_revolution:
         accept: [self_reliance]
         reject: [yes_one_country, regional_union]
@@ -1654,6 +1793,11 @@ ideologies:
       of person motivated by solidarity rather than material reward.
     reading: []
     stances:
+      d1_alignment: { accept: [help_revolutions_elsewhere], reject: [ordinary_relations_all], weight: 2 }
+      d1_violence_initiation:
+        accept: [action_creates_conditions]
+        reject: [organisation_judges_moment, substitutes_for_the_class]
+        weight: 2
       d1_violence:
         accept: [armed_struggle_now]
         reject: [not_needed_legal, principled_nonviolence]
@@ -1680,6 +1824,10 @@ ideologies:
       internationalist solidarity with other liberation movements.
     reading: []
     stances:
+      d1_alignment:
+        accept: [help_revolutions_elsewhere]
+        reject: [stand_alone_self_reliant, ordinary_relations_all]
+        weight: 2
       d1_change_route: { accept: [protracted_armed_struggle, organised_insurrection], weight: 2 }
       d1_imperialism_primary: { accept: [nations_primary, both_intertwined], weight: 2 }
       d1_decisive_agent: { accept: [peasants_rural_poor, all_wage_workers], weight: 1 }
@@ -1697,6 +1845,8 @@ ideologies:
       the workers and peasants.
     reading: []
     stances:
+      d1_nation_unity: { accept: [strongly_agree], reject: [strongly_disagree], weight: 2 }
+      d1_alignment: { accept: [join_the_socialist_camp], weight: 1 }
       d1_nation_self_gov:
         accept: [own_state_socialist]
         reject: [class_over_nation]
@@ -1754,6 +1904,7 @@ ideologies:
       united around a single leadership.
     reading: []
     stances:
+      d1_alignment: { accept: [stand_alone_self_reliant], weight: 1 }
       d1_world_revolution:
         accept: [self_reliance]
         reject: [only_holding_operation, regional_union]
@@ -1785,6 +1936,7 @@ ideologies:
       continued leadership by the communist party.
     reading: []
     stances:
+      d1_alignment: { accept: [ordinary_relations_all], reject: [help_revolutions_elsewhere], weight: 2 }
       d1_price_signals:
         accept: [strongly_agree, agree]
         reject: [strongly_disagree]
@@ -1856,6 +2008,7 @@ ideologies:
       lead them, and that class struggle continues under socialism.
     reading: []
     stances:
+      d1_violence_initiation: { accept: [organisation_judges_moment], weight: 1 }
       d1_expropriation: { accept: [no_compensation], reject: [no_transfer_at_all], weight: 2 }
       d1_land: { accept: [to_those_who_work_it], reject: [ceiling_on_holdings, title_follows_use], weight: 2 }
       d1_owners_resist: { accept: [resist_by_any_means], reject: [accept_the_law], weight: 2 }
@@ -1923,6 +2076,10 @@ ideologies:
       ideology and leadership.
     reading: []
     stances:
+      d1_violence_initiation:
+        accept: [action_creates_conditions]
+        reject: [organisation_judges_moment]
+        weight: 2
       # "Initiate the war now" is not separable from the parent's armed-struggle
       # answer by any depth-1 option; it is d2_peoples_war. The guiding-leader
       # stance below is the one depth-1 position held against the parent.
@@ -2049,6 +2206,16 @@ ideologies:
       layer running it is removed by political revolution.
     reading: []
     stances:
+      d1_alignment:
+        accept: [help_revolutions_elsewhere]
+        reject: [join_the_socialist_camp, non_aligned_together]
+        weight: 1
+      d1_violence_initiation:
+        accept: [substitutes_for_the_class]
+        reject: [action_creates_conditions]
+        weight: 2
+      d1_race_structure: { accept: [division_within_the_class], weight: 1 }
+      d1_autonomous_movements: { accept: [back_it_autonomous], reject: [oppose_separate_bodies], weight: 2 }
       d1_expropriation: { accept: [no_compensation], reject: [full_market_compensation, no_transfer_at_all], weight: 2 }
       d1_land: { accept: [state_or_collective_farms], weight: 1 }
       d1_owners_resist: { accept: [resist_by_any_means], reject: [accept_the_law], weight: 2 }
@@ -2219,6 +2386,7 @@ ideologies:
       above them substitutes itself for the class.
     reading: []
     stances:
+      d1_violence_initiation: { accept: [substitutes_for_the_class], weight: 2 }
       d1_party_needed:
         accept: [revolutionary_through_struggle]
         reject: [union_ideas_only]
@@ -2258,6 +2426,11 @@ ideologies:
       whether it is correct.
     reading: []
     stances:
+      d1_violence_initiation: { accept: [organisation_judges_moment], weight: 2 }
+      d1_autonomous_movements:
+        accept: [oppose_separate_bodies]
+        reject: [beyond_the_movement, one_front_of_many]
+        weight: 2
       d1_party_needed:
         accept: [union_ideas_only]
         reject: [revolutionary_through_struggle]
@@ -2298,6 +2471,8 @@ ideologies:
       since freedom is always freedom for the one who thinks differently.
     reading: []
     stances:
+      d1_autonomy_without_state: { accept: [disagree, strongly_disagree], weight: 2 }
+      d1_violence_initiation: { accept: [substitutes_for_the_class], weight: 2 }
       d1_reforms_accumulate:
         accept: [strongly_disagree, disagree]
         reject: [strongly_agree, agree]
@@ -2397,6 +2572,7 @@ ideologies:
       autonomously from parties and unions alike.
     reading: []
     stances:
+      d1_autonomous_movements: { accept: [back_it_autonomous], weight: 1 }
       d1_party_needed: { accept: [revolutionary_through_struggle], reject: [union_ideas_only], weight: 2 }
       d1_organisation_form: { accept: [as_little_as_possible, federation_of_local_groups], weight: 2 }
       d1_state_role:
@@ -2463,6 +2639,7 @@ ideologies:
       majority for it rather than trade on immediate demands.
     reading: []
     stances:
+      d1_violence_initiation: { accept: [substitutes_for_the_class], weight: 2 }
       d1_reforms_accumulate:
         accept: [strongly_disagree, disagree]
         reject: [strongly_agree, agree]
@@ -2509,6 +2686,7 @@ ideologies:
       exchange between producers needs no state to police it.
     reading: []
     stances:
+      d1_small_property: { accept: [spread_them_widely], reject: [absorbed_into_common], weight: 2 }
       d1_land: { accept: [title_follows_use], reject: [state_or_collective_farms, public_with_secure_tenure], weight: 2 }
       d1_price_signals: { accept: [strongly_agree], reject: [strongly_disagree], weight: 2 }
       d1_ownership:
@@ -2574,6 +2752,7 @@ ideologies:
       state at any stage.
     reading: []
     stances:
+      d1_small_property: { accept: [absorbed_into_common], reject: [spread_them_widely], weight: 2 }
       d1_land: { accept: [village_holds_in_common], reject: [title_follows_use], weight: 2 }
       d1_price_signals: { accept: [strongly_disagree], weight: 2 }
       d1_distribution:
@@ -2649,6 +2828,10 @@ ideologies:
       rather than deferred to a mass movement that may never arrive.
     reading: []
     stances:
+      d1_violence_initiation:
+        accept: [small_groups_act_now]
+        reject: [substitutes_for_the_class, organisation_judges_moment]
+        weight: 2
       d1_organisation_form: { accept: [as_little_as_possible], weight: 2 }
       d1_violence:
         accept: [offensive_action]
@@ -2673,6 +2856,7 @@ ideologies:
       revocable by each person in it.
     reading: []
     stances:
+      d1_small_property: { accept: [spread_them_widely], weight: 2 }
       d1_expropriation: null
       d1_land: { accept: [title_follows_use], weight: 2 }
       d1_price_signals: { accept: [strongly_agree], weight: 2 }
@@ -2741,6 +2925,7 @@ ideologies:
       the bottom up.
     reading: []
     stances:
+      d1_race_structure: { accept: [own_structure_not_reducible], weight: 2 }
       d1_land: { accept: [village_holds_in_common], weight: 1 }
       d1_price_signals: { accept: [disagree], weight: 1 }
       d1_change_by_example:
@@ -2798,6 +2983,7 @@ ideologies:
       in voluntary community and simple labour.
     reading: []
     stances:
+      d1_violence_initiation: { accept: [force_never_opens_it], weight: 2 }
       d1_police_and_army:
         accept: [no_armed_body]
         reject: [rebuilt_under_new_authority, accountable_professional_force]
@@ -2847,6 +3033,8 @@ ideologies:
           state of their own. They arose among different peoples and differ
           mainly in emphasis, which position questions can only partly reach.
     stances:
+      d1_autonomy_without_state: { accept: [strongly_agree, agree], weight: 2 }
+      d1_violence_initiation: { accept: [only_under_attack], weight: 2 }
       d1_land:
         accept: [village_holds_in_common]
         reject: [ceiling_on_holdings, title_follows_use]
@@ -2893,6 +3081,10 @@ ideologies:
           state of their own. They arose among different peoples and differ
           mainly in emphasis, which position questions can only partly reach.
     stances:
+      d1_autonomy_without_state: { accept: [strongly_agree], reject: [strongly_disagree], weight: 2 }
+      d1_nation_unity: { accept: [disagree, strongly_disagree], reject: [strongly_agree], weight: 2 }
+      d1_violence_initiation: { accept: [only_under_attack], reject: [force_never_opens_it], weight: 2 }
+      d1_autonomous_movements: { accept: [back_it_autonomous], weight: 2 }
       d1_nation_self_gov:
         accept: [confederation_no_state]
         reject: [own_state_socialist, independence_first]
@@ -2901,7 +3093,6 @@ ideologies:
           Defining: a people governs itself through confederated assemblies and
           refuses a state of its own. Reverse it and this is the national
           liberation movement it broke with.
-      d1_violence: { accept: [defensive_only], reject: [principled_nonviolence], weight: 2 }
       d1_gender_division: { accept: [strongly_agree], weight: 2 }
       d1_decisive_agent: { accept: [many_movements], weight: 1 }
       d1_single_subject: { accept: [class_plus_autonomous], weight: 2 }
