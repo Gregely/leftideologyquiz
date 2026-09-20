@@ -1,0 +1,70 @@
+/*
+ * Design tokens. Editorial and quiet: paper, ink, one red.
+ * System font stacks only — SPEC.md §12 rules out remotely hosted fonts.
+ */
+
+:root {
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --paper: #f6f2ea;
+  --paper-raised: #fffdf8;
+  --ink: #1c1a17;
+  --ink-soft: #57524a;
+  --ink-faint: #8a847a;
+  --rule: #d9d2c5;
+  --rule-strong: #b9b0a0;
+  --accent: #b3261e;
+  --accent-ink: #ffffff;
+  --accent-wash: #f6e3df;
+  --focus: #1f5fbf;
+  --notice: #fbf1d6;
+  --notice-rule: #d9b75a;
+
+  --radius: 6px;
+  --radius-pill: 999px;
+  --gutter: 16px;
+  --measure: 40rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.3125rem;
+  --text-xl: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  --text-2xl: clamp(2rem, 1.5rem + 2.6vw, 3rem);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration: 180ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #16140f;
+    --paper-raised: #201d17;
+    --ink: #ece6da;
+    --ink-soft: #b8b0a2;
+    --ink-faint: #8a8376;
+    --rule: #3a352c;
+    --rule-strong: #564f43;
+    --accent: #ff7a6b;
+    --accent-ink: #1a0d0b;
+    --accent-wash: #3b1f1b;
+    --focus: #8ab4ff;
+    --notice: #2d2616;
+    --notice-rule: #8a7433;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration: 0ms;
+  }
+}

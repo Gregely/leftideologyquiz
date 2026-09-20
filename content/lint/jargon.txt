@@ -1,0 +1,137 @@
+# Jargon — the movement's technical vocabulary.
+#
+# SPEC.md §11 principle 6: the stem must be answerable without knowing the
+# ideology's vocabulary. Describe the idea in plain words and put the technical
+# term in a tooltip.
+#
+# `npm run lint:content` enforces two things:
+#   - a term from this list in a STEM is an error, always. The stem is what
+#     everyone answers; it cannot assume the vocabulary.
+#   - a term in an OPTION is an error unless the question's tooltip mentions it.
+#     Options may use a camp's own words (principle 5 requires it), but the
+#     reader has to be able to look them up.
+#
+# Questions marked `self_id: true` are exempt, since naming traditions is the
+# whole point of those (principle 10).
+#
+# Matching is case-insensitive, on whole words. Editable: a term earns its place
+# here if a respondent could plausibly answer the question wrongly through not
+# knowing it, not merely because it sounds technical.
+
+# --- the core analytical vocabulary -------------------------------------------
+dialectical
+dialectics
+praxis
+proletariat
+proletarian
+bourgeoisie
+bourgeois
+petit-bourgeois
+petty-bourgeois
+lumpenproletariat
+class consciousness
+false consciousness
+alienation
+commodity fetishism
+surplus value
+primitive accumulation
+mode of production
+relations of production
+forces of production
+base and superstructure
+immiseration
+reification
+interpellation
+subaltern
+materialist conception
+
+# --- party, state and strategy -------------------------------------------------
+vanguard
+vanguardism
+democratic centralism
+dictatorship of the proletariat
+entryism
+entrism
+united front
+popular front
+permanent revolution
+socialism in one country
+uneven and combined development
+degenerated workers' state
+deformed workers' state
+state capitalism
+bureaucratic collectivism
+dual power
+counter-power
+substitutionism
+spontaneism
+economism
+tailism
+adventurism
+ultraleftism
+opportunism
+revisionism
+class collaboration
+transitional programme
+minimum programme
+maximum programme
+
+# --- councils, communes and self-organisation ----------------------------------
+soviet
+workers' council
+councilism
+autogestion
+self-management
+prefiguration
+prefigurative
+communisation
+communization
+invariance
+organic centralism
+libertarian municipalism
+confederalism
+affinity group
+propaganda of the deed
+direct action
+mutual aid
+expropriation
+occupancy and use
+usufruct
+mutualist
+
+# --- Maoist and anti-colonial vocabulary ---------------------------------------
+mass line
+protracted people's war
+new democracy
+foco
+foquismo
+cadre
+agitprop
+comprador
+neo-colonialism
+neocolonialism
+dependency theory
+unequal exchange
+labour aristocracy
+labor aristocracy
+national question
+self-determination
+
+# --- economics and policy -------------------------------------------------------
+decommodification
+socialisation
+socialization
+nationalisation
+nationalization
+rentier
+usury
+social reproduction
+hegemony
+hegemonic
+neoliberalism
+neoliberal
+imperialism
+imperialist
+syndicalism
+syndicalist
+anarcho-syndicalism

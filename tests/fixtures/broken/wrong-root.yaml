@@ -1,0 +1,4 @@
+# Deliberately broken: root key should be `questions`, and should be a list.
+question_bank:
+  q_one:
+    depth: 1

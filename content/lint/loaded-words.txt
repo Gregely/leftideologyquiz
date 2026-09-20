@@ -1,0 +1,106 @@
+# Loaded words — language that tells the respondent what to think.
+#
+# SPEC.md §11 principle 5: every camp must recognise its own view, no option is
+# obviously the "reasonable" one. These are the words that most often give the
+# game away — either by flattering one option or by sneering at another.
+#
+# Reported as WARNINGS, not errors, because judgement is needed. An option
+# written in a camp's own voice may legitimately contain a word from this list:
+# a planner really would call the other side's position "wishful", and refusing
+# them that word would flatten the voice principle 5 asks for. What is not
+# legitimate is the *author* using these words — in a stem, or about a camp the
+# option does not belong to.
+#
+# Rule of thumb when triaging a warning: would a committed member of the camp
+# that option belongs to write this word about their own position? If yes, keep
+# it and add a `lint_waiver`. If it is the author's voice leaking in, cut it.
+#
+# Deliberately NOT on this list: radical, progressive, reactionary,
+# authoritarian, libertarian, totalitarian, reformist, revolutionary, utopian.
+# All of these are descriptive terms of art in this domain and several are
+# ideology names; listing them would produce constant noise and train people to
+# ignore the warnings.
+#
+# Removed after use: "plainly". It fired on "say so plainly", which is ordinary
+# English rather than the author asserting agreement, and two false positives out
+# of five warnings is how a list stops being read.
+#
+# Editable. Lines starting with # are comments.
+
+# --- the author asserting agreement -------------------------------------------
+obviously
+clearly
+surely
+undeniably
+of course
+needless to say
+everyone knows
+it goes without saying
+self-evident
+common sense
+no serious person
+any serious
+
+# --- diminishing one side -------------------------------------------------------
+merely
+simply
+just a
+nothing more than
+little more than
+naive
+naively
+naivety
+simplistic
+crude
+childish
+foolish
+foolishly
+misguided
+deluded
+delusional
+fantasy
+fantasist
+wishful
+romantic
+romanticise
+romanticize
+nostalgic
+sentimental
+absurd
+ridiculous
+laughable
+discredited
+debunked
+outdated
+obsolete
+backward
+
+# --- flattering one side --------------------------------------------------------
+sensible
+reasonable
+realistic
+pragmatic
+practical
+mature
+sophisticated
+enlightened
+rational
+hard-headed
+clear-eyed
+grown-up
+serious-minded
+
+# --- prejudging the outcome -----------------------------------------------------
+proven
+disproven
+failed
+inevitably
+doomed
+unworkable
+impractical
+hopeless
+never works
+always fails
+history shows
+history has shown
+experience shows

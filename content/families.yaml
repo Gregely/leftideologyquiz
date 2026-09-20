@@ -1,0 +1,226 @@
+# Families — the top level of the ideology tree (SPEC.md §2.1).
+#
+# Family defaults cover the depth-1 core only. Each family's comment says how
+# many members hold the default and who overrides it.
+#
+# THE 75% RULE (SPEC.md §5.2a, CLAUDE.md § Content rules). A family default is
+# written for a question only when at least ~75% of the family's members would
+# give the same answer with real conviction. Below that, leave the question
+# without a family default and author each member's stance individually.
+# A default is inherited by every member that does not override it, so a default
+# a quarter of the family disagrees with is not a shortcut — it is a claim put
+# into the mouths of ideologies that never made it. `npm run coverage` reports
+# the override share per default and warns above 30%. Only a different position
+# (accept/reject set) counts; restating the family position at another weight —
+# a sect making it a weight-3 shibboleth, say — is shown but not counted.
+#
+# Family ids are the ones `requires: family_mass_gte` clauses in
+# content/questions.yaml refer to. Renaming one is a breaking content change;
+# display names are free to move.
+
+families:
+  - id: early_socialism
+    name: Pre-Marxist and early socialism
+    order: 1
+    summary: >-
+      The socialisms worked out before Marx's account settled the field:
+      cooperative communities founded by example, association arranged to suit
+      what people actually enjoy doing, the rule of those who produce, and the
+      peasant commune as a road that need not pass through capitalism first.
+    # No defaults: the four agree on no depth-1 position with 75% conviction,
+    # not even on change by example (Saint-Simonians sought to win over the
+    # powerful; Narodniks built from an institution that already existed).
+    stances: {}
+
+  - id: liberal_left
+    name: Liberal left
+    order: 2
+    summary: >-
+      Holds that a society of free and equal citizens requires the state to
+      guarantee the material conditions of freedom, and pursues that through
+      constitutional and parliamentary means.
+    # Defaults only where all three members agree: distributism dissents from
+    # the other two on ownership, markets and the state, so everything else is
+    # authored per member.
+    stances:
+      d1_violence: { accept: [not_needed_legal], weight: 2 }
+      d1_pluralism_after: { accept: [competitive_elections], reject: [one_party], weight: 2 }
+
+  - id: social_democracy
+    name: Social democracy
+    order: 3
+    summary: >-
+      Seeks to win office through elections and use public power to
+      decommodify what people need, extend democratic control over the economy,
+      and shift the balance of power towards labour.
+    # 6-7 of 7 on each default. Austromarxism overrides d1_violence (the
+    # "defensive violence" of its party programme); nothing else is overridden.
+    # Ownership, markets, agent and grounds split the family and are per member.
+    stances:
+      d1_religion_and_liberation: { accept: [private_matter], weight: 1 }
+      d1_state_role: { accept: [use_and_expand], reject: [smash_and_replace, abolish_outright], weight: 2 }
+      d1_change_route: { accept: [win_elections_and_legislate], reject: [organised_insurrection, protracted_armed_struggle], weight: 2 }
+      d1_pluralism_after: { accept: [competitive_elections], reject: [one_party], weight: 2 }
+      d1_civil_liberties: { accept: [liberties_are_the_point, ordinary_law_only], reject: [conditional_on_revolution], weight: 2 }
+      d1_violence: { accept: [not_needed_legal], weight: 2 }
+      d1_change_by_example: { accept: [win_legislation], weight: 1 }
+
+  - id: market_socialism
+    name: Market and cooperative socialism
+    order: 4
+    summary: >-
+      Holds that social ownership is compatible with, and best served by,
+      enterprises that remain distinct from one another — owned by those who
+      work in them or by the public, and coordinating through markets or
+      negotiated association rather than a single plan.
+    # A family of two: a default needs both members.
+    stances:
+      d1_workplace_control: { accept: [workers_self_manage], reject: [owners_under_regulation], weight: 2 }
+      d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
+
+  - id: post_marxist
+    name: Post-Marxist and new left
+    order: 5
+    summary: >-
+      Retains the socialist aim while rejecting the claim that class position
+      determines political allegiance, and builds a majority by linking many
+      distinct democratic demands — ecological, national, democratic — into a
+      shared political front.
+    # A family of three: a default needs all three. They agree on democratic
+    # pluralism and liberties and on little else, which is the family's known
+    # weakness (docs/question-blueprint.md §10.9).
+    stances:
+      d1_pluralism_after: { accept: [competitive_elections], reject: [one_party], weight: 2 }
+      d1_civil_liberties: { accept: [liberties_are_the_point], reject: [conditional_on_revolution], weight: 2 }
+
+  - id: religious_left
+    name: Religious left
+    order: 6
+    summary: >-
+      Grounds the case against exploitation and for common provision in a
+      religious tradition, treating solidarity with the poor as a requirement of
+      faith rather than only of politics.
+    # Six of six ground their politics in faith. Violence, ownership and the
+    # state split the family (Gandhian and Buddhist non-violence against
+    # liberation theology's just rebellion), so those are per member.
+    stances:
+      d1_religion_and_liberation: { accept: [ally_of_liberation, reform_the_tradition], reject: [obstacle_to_liberation], weight: 2 }
+      d1_faith_grounds:
+        accept: [grounds_it]
+        reject: [secular_reason]
+        weight: 3
+        note: >-
+          Defining for the family. A member that held the same economics on
+          secular grounds would be a secular socialism, and belong elsewhere.
+
+  - id: anti_colonial
+    name: Anti-colonial and decolonial left
+    order: 7
+    summary: >-
+      Treats colonial and imperial domination as the primary structure to be
+      broken — including the forms of it that survive formal independence, and
+      the hierarchies of domination reproduced internally within a liberated
+      country — and treats liberation from it as the ground on which a socialist
+      society can be built.
+    # 9 of 11: ambedkarism clears it (its target is caste, and its quarrel with
+    # the nationalist movement was that independence left caste intact) and
+    # nehruvian_socialism overrides it (development, not rupture).
+    stances:
+      d1_wealth_from_periphery: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
+      d1_imperialism_primary: { accept: [nations_primary, both_intertwined], reject: [not_primary_structure], weight: 2 }
+
+  - id: national_question
+    name: National-question left
+    order: 8
+    summary: >-
+      Holds that the nation is the unit of emancipation: a people's right to
+      govern itself — in a state of its own, or in autonomy within somebody
+      else's — is the question a socialist politics has to answer, and the
+      social question is answered through it rather than instead of it.
+    # No defaults: what "the nation" means divides the family (a state of one's
+    # own, unity across borders, autonomy without territory), and so does
+    # everything downstream of it.
+    stances: {}
+
+  - id: marxism_leninism
+    name: Marxism–Leninism and descendants
+    order: 9
+    summary: >-
+      Holds that a disciplined party must take state power, replace the old
+      apparatus, and direct a planned economy through a transition it expects to
+      be long and contested.
+    # Most positions live on the leninism and marxism_leninism nodes, which ten
+    # members inherit through the tendency tree. Family defaults cover what
+    # sandinismo, the one flat member, also holds. sandinismo overrides
+    # pluralism and liberties, and clears the grounds default.
+    stances:
+      d1_state_role: { accept: [smash_and_replace], reject: [use_and_expand, abolish_outright], weight: 2 }
+      d1_party_role: { accept: [lead_and_direct], reject: [refuse_to_direct, dissolve_into_movement], weight: 2 }
+      d1_violence: { accept: [rupture_necessary, armed_struggle_now], reject: [principled_nonviolence], weight: 2 }
+      d1_pluralism_after: { accept: [one_party, one_movement_with_allies], reject: [no_state_to_contest], weight: 2 }
+      d1_civil_liberties: { accept: [conditional_on_revolution, restrict_during_emergency], reject: [liberties_are_the_point], weight: 2 }
+      d1_state_after_transition: { accept: [withers_as_functions_end], reject: [never_existed_as_such], weight: 2 }
+      d1_faith_grounds: { accept: [material_interest, secular_reason], reject: [grounds_it], weight: 1 }
+
+  - id: maoism
+    name: Maoism
+    order: 10
+    summary: >-
+      Holds that the rural poor are a revolutionary force in their own right and
+      that class struggle continues inside a socialist society, requiring the
+      masses to be mobilised against its own officials.
+    # No defaults: every member descends from mao_zedong_thought, which carries
+    # the shared positions and passes them down the tendency tree.
+    stances: {}
+
+  - id: trotskyism
+    name: Trotskyism
+    order: 11
+    summary: >-
+      Keeps the Leninist party form while holding that a revolution confined to
+      one poor country produces a privileged administrative layer that must be
+      removed by a further political revolution.
+    # No defaults: every member descends from orthodox_trotskyism, which carries
+    # the shared positions and passes them down the tendency tree.
+    stances: {}
+
+  - id: left_communism
+    name: Left communism and autonomism
+    order: 12
+    summary: >-
+      Broke left from the Leninist tradition: hostile to managing a transitional
+      state, and holding that the class acts through its own organs rather than
+      through a party that governs on its behalf.
+    # No family default on parliamentary participation. Hostility to electoral
+    # work is the usual shorthand for this family, but De Leonism seeks a
+    # political mandate at the ballot box, Impossibilism stands candidates, and
+    # Luxemburg argued for contesting elections against her own party's
+    # majority. Three of eight is far past the 75% rule, so that question is
+    # authored per member. See docs/roster-decisions.md.
+    # Defaults are the family's internationalism and class analysis, which all
+    # eight share. The state, the party and elections are per member.
+    stances:
+      d1_religion_and_liberation: { accept: [obstacle_to_liberation], weight: 1 }
+      d1_world_revolution: { accept: [wrong_question, only_holding_operation], reject: [yes_one_country, self_reliance], weight: 2 }
+      d1_imperialism_primary: { accept: [class_everywhere], reject: [nations_primary, development_gap], weight: 2 }
+      d1_nation_self_gov: { accept: [class_over_nation], reject: [unify_divided_nation, independence_first], weight: 2 }
+      d1_single_subject: { accept: [class_decisive], reject: [national_unity_first], weight: 2 }
+      d1_faith_grounds: { accept: [material_interest, secular_reason], reject: [grounds_it], weight: 1 }
+
+  - id: anarchism
+    name: Anarchism
+    order: 13
+    summary: >-
+      Holds that concentrated coercive authority reproduces domination whoever
+      holds it, and that the means used to reach a free society have to be of
+      the same kind as the society intended.
+    # The anti-state core, 14 of 14. No default on violence, property,
+    # distribution or strategy: those are the family's internal divisions.
+    # christian_anarchism overrides the grounds default and zapatismo clears it.
+    stances:
+      d1_religion_and_liberation: { accept: [obstacle_to_liberation], weight: 1 }
+      d1_state_role: { accept: [abolish_outright, bypass_and_build], reject: [use_and_expand, smash_and_replace, win_own_state], weight: 2 }
+      d1_pluralism_after: { accept: [no_state_to_contest], reject: [one_party, one_movement_with_allies], weight: 2 }
+      d1_party_role: { accept: [refuse_to_direct, dissolve_into_movement], reject: [lead_and_direct], weight: 2 }
+      d1_world_revolution: { accept: [wrong_question], reject: [yes_one_country], weight: 1 }
+      d1_faith_grounds: { accept: [secular_reason, material_interest], weight: 1 }

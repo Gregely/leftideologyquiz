@@ -1,0 +1,24 @@
+# Deliberately broken: two questions share an id.
+questions:
+  - id: q_same
+    depth: 1
+    kind: single_choice
+    text: The first stem.
+    options:
+      - id: opt_a
+        label: The first position.
+      - id: opt_b
+        label: The second position.
+      - id: opt_c
+        label: The third position.
+  - id: q_same
+    depth: 1
+    kind: single_choice
+    text: The second stem, reusing the id above.
+    options:
+      - id: opt_d
+        label: The first position.
+      - id: opt_e
+        label: The second position.
+      - id: opt_f
+        label: The third position.

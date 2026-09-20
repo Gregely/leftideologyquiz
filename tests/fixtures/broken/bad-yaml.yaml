@@ -1,0 +1,9 @@
+# Deliberately broken: unclosed quote on the `text` value.
+questions:
+  - id: q_broken
+    depth: 1
+    kind: single_choice
+    text: "a stem that never closes
+    options:
+      - id: opt_a
+        label: A

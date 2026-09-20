@@ -1,0 +1,147 @@
+/**
+ * The real bank under /content, checked the same way `npm run validate` checks
+ * it. This is the regression test that a content edit has to pass; the warning
+ * assertion is deliberately exact so a new warning has to be looked at rather
+ * than accumulating unnoticed.
+ */
+
+import { readFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { describe, expect, it } from 'vitest';
+import { parseContent } from '../src/content/load.js';
+import { validateContent } from '../src/content/validate.js';
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const read = (p: string) => readFileSync(join(ROOT, p), 'utf8');
+
+const loaded = parseContent({
+  families: read('content/families.yaml'),
+  ideologies: read('content/ideologies.yaml'),
+  questions: read('content/questions.yaml'),
+});
+const issues = [...loaded.issues, ...validateContent(loaded)];
+const errors = issues.filter((i) => i.severity === 'error');
+const warnings = issues.filter((i) => i.severity === 'warning');
+
+describe('content/', () => {
+  it('loads', () => {
+    expect(loaded.content).not.toBeNull();
+  });
+
+  it('has no validation errors', () => {
+    expect(errors.map((i) => `${i.file} ${i.id} [${i.code}] ${i.message}`)).toEqual([]);
+  });
+
+  it('produces only the warnings the depth-1 bank should produce', () => {
+    // Asserting the set of codes rather than a hundred individual lines — but
+    // asserting it exactly, so a *new* kind of warning has to be looked at
+    // rather than lost in the noise.
+    expect([...new Set(warnings.map((i) => i.code))].sort()).toEqual([
+      'id/family-ideology-collision',
+      'inherit/no-distinguishing-stance',
+      'question/no-stances',
+    ]);
+  });
+
+  it('flags the two ids that name both a family and an ideology', () => {
+    // Deliberate and recorded in docs/roster-decisions.md §4. The engine keys
+    // its tree by kind so these cannot collide there; the warning exists
+    // because they are ambiguous to a human reading a `requires` clause.
+    expect(
+      warnings.filter((i) => i.code === 'id/family-ideology-collision').map((i) => i.id).sort(),
+    ).toEqual(['market_socialism', 'marxism_leninism']);
+  });
+
+  it('leaves no ideology without stances', () => {
+    expect(warnings.filter((i) => i.code === 'stance/none').map((i) => i.id)).toEqual([]);
+  });
+
+  it('names the Trotskyist splits the depth-1 core cannot distinguish', () => {
+    // Every member of the family descends from orthodox_trotskyism and differs
+    // from it only on questions the inventory puts at depth 3 (the nature of a
+    // bureaucratic planned economy, defencism, entry work). Until those are
+    // written, these five resolve to exactly their parent's stances. That is the
+    // honest state, recorded in docs/coverage-gaps.md, not a defect to paper
+    // over with a weight.
+    expect(
+      warnings
+        .filter((i) => i.code === 'inherit/no-distinguishing-stance')
+        .map((i) => i.id)
+        .sort(),
+    ).toEqual(['cliffism', 'lambertism', 'morenism', 'posadism', 'shachtmanism']);
+  });
+
+});
+
+describe('content/ shape', () => {
+  const content = loaded.content;
+
+  it('gives every family at least one member ideology', () => {
+    const orphans = (content?.families ?? [])
+      .filter((f) => (content?.ideologiesByFamily.get(f.id) ?? []).length === 0)
+      .map((f) => f.id);
+    expect(orphans).toEqual([]);
+  });
+
+  it('holds the roster the source list specifies', () => {
+    // 93 is fixed by the source roster. The family count is not: families are
+    // split and merged on the evidence of the 75% rule (SPEC.md §5.2a), and
+    // green_and_historical was dissolved because no default could describe it.
+    expect(content?.ideologies).toHaveLength(93);
+    expect(content?.families).toHaveLength(13);
+  });
+
+  it('gives every family at least two members', () => {
+    // A family of one cannot have a default worth writing — there is nothing
+    // for it to generalise over.
+    const tooSmall = (content?.families ?? [])
+      .map((f) => ({ id: f.id, n: (content?.ideologiesByFamily.get(f.id) ?? []).length }))
+      .filter((f) => f.n < 2);
+    expect(tooSmall).toEqual([]);
+  });
+
+  it('gives every ideology a tier, and every boundary entry both markers', () => {
+    const mismatched = (content?.ideologies ?? [])
+      .filter((i) => (i.roster_tier === 'boundary') !== i.boundary)
+      .map((i) => i.id);
+    expect(mismatched).toEqual([]);
+    expect((content?.ideologies ?? []).filter((i) => i.boundary)).toHaveLength(12);
+  });
+
+  it('keeps every tendency parent inside its own family', () => {
+    const crossFamily = (content?.ideologies ?? [])
+      .filter((i) => i.tendency && content?.ideologyById.get(i.tendency)?.family !== i.family)
+      .map((i) => i.id);
+    expect(crossFamily).toEqual([]);
+  });
+
+  // Stance coverage is tracked in docs/roster-todo.md, regenerated by
+  // `npx tsx scripts/roster-todo.ts`. Asserting a threshold here while the bank
+  // is being rebuilt would either fail on correct skeleton content or have to
+  // be lowered until it passed, which is the tuning CLAUDE.md rule 4 forbids.
+  it.todo('gives every ideology >= 15 effective stances, >= 5 at depth 3 (SPEC.md §9)');
+
+  it('keeps every depth-3 question behind a requires clause', () => {
+    // SPEC.md §11 principle 8: ideology-specific questions only appear once
+    // gating has shown they are relevant.
+    const ungated = (content?.questions ?? [])
+      .filter((q) => q.depth === 3 && !q.requires)
+      .map((q) => q.id);
+    expect(ungated).toEqual([]);
+  });
+
+  // The ~10% cap on history-class questions (SPEC.md §9) is a property of the
+  // finished 250-300 bank. Against a 19-question seed it would permit 1.9
+  // questions, so asserting it here would mean either failing content that is
+  // fine or loosening the number until it passes. It belongs to
+  // `npm run lint:content`, which is not built yet.
+  it('flags its history-class questions rather than leaving them implicit', () => {
+    const flagged = (content?.questions ?? []).filter((q) => q.history_class).map((q) => q.id);
+    expect(flagged).toEqual([
+      'd3_bureaucratic_planned_economy',
+      'd3_war_between_such_states',
+      'd3_class_struggle_under_socialism',
+    ]);
+  });
+});

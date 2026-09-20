@@ -1,0 +1,14 @@
+# Deliberately broken: `weighting` is not a field of a question.
+questions:
+  - id: q_typo_field
+    depth: 1
+    kind: single_choice
+    text: A stem.
+    weighting: 2
+    options:
+      - id: opt_a
+        label: The first position.
+      - id: opt_b
+        label: The second position.
+      - id: opt_c
+        label: The third position.

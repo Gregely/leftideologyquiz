@@ -1,0 +1,271 @@
+# Named entities — people, events, organisations, states-as-cases.
+#
+# SPEC.md §11 principle 1: no stem or option may require knowing a date, a named
+# event, a named person or a named organisation. Those may appear only in
+# tooltips, as optional context. `npm run lint:content` errors on any of these
+# appearing in a stem, an option label or an option short form; tooltips are
+# exempt, and so are questions marked `self_id: true`, where naming traditions
+# is the point (principle 10).
+#
+# Matching is case-insensitive and on whole words, so "Marx" does not match
+# "Marxist" — ideology labels and -ism words belong in jargon.txt instead.
+#
+# Editable. Add a term when a question slips one past; remove one if it is
+# generating false positives on ordinary English. Lines starting with # are
+# comments; blank lines are ignored.
+
+# --- people: the Marxist tradition -------------------------------------------
+Marx
+Engels
+Lenin
+Trotsky
+Stalin
+Kautsky
+Bernstein
+Luxemburg
+Liebknecht
+Zetkin
+Kollontai
+Bebel
+Plekhanov
+Bukharin
+Khrushchev
+Brezhnev
+Gorbachev
+
+# --- people: anarchism -------------------------------------------------------
+Bakunin
+Kropotkin
+Proudhon
+Malatesta
+Goldman
+Berkman
+Stirner
+Bookchin
+Makhno
+Durruti
+Tolstoy
+Godwin
+Rocker
+
+# --- people: left communism, autonomism, situationism ------------------------
+Bordiga
+Pannekoek
+Gorter
+Ruhle
+Mattick
+Debord
+Vaneigem
+Camatte
+Negri
+Tronti
+Bifo
+
+# --- people: Trotskyist tendencies -------------------------------------------
+Cliff
+Shachtman
+Mandel
+Pablo
+Grant
+Moreno
+Lambert
+Posadas
+Healy
+Cannon
+Burnham
+
+# --- people: Maoism and Asian socialism --------------------------------------
+Mao
+Zhou Enlai
+Lin Biao
+Jiang Qing
+Deng Xiaoping
+Xi Jinping
+Hua Guofeng
+Pol Pot
+Prachanda
+Gonzalo
+Guzman
+Sison
+Ho Chi Minh
+Kim Il-sung
+Kim Jong-il
+Kim Jong-un
+
+# --- people: Latin America ---------------------------------------------------
+Castro
+Guevara
+Allende
+Chavez
+Maduro
+Ortega
+Mariategui
+Peron
+Lula
+Morales
+Marcos
+
+# --- people: anti-colonial and national liberation ---------------------------
+Fanon
+Cabral
+Nkrumah
+Nyerere
+Sankara
+Lumumba
+Senghor
+Nasser
+Aflaq
+Ocalan
+Ben-Gurion
+Borochov
+Connolly
+Larkin
+Ambedkar
+Lohia
+Nehru
+Gandhi
+Bhagat Singh
+
+# --- people: social democracy, Fabianism, guild socialism --------------------
+Attlee
+Bevan
+Beveridge
+Blair
+Corbyn
+Sanders
+Hardie
+Webb
+Cole
+Penty
+Chesterton
+Belloc
+Bauer
+Renner
+Adler
+Berlinguer
+Togliatti
+Thorez
+Dubcek
+
+# --- people: religious left --------------------------------------------------
+Gutierrez
+Boff
+Romero
+Camara
+Muntzer
+Winstanley
+
+# --- people: utopian, syndicalist and historical ------------------------------
+Owen
+Fourier
+Saint-Simon
+De Leon
+Debs
+Sorel
+Pelloutier
+Blanqui
+Lassalle
+Babeuf
+Blanc
+Herzen
+Chernyshevsky
+Bakuninist
+
+# --- people: outside the left, cited in argument ------------------------------
+Keynes
+Hayek
+Friedman
+Thatcher
+Reagan
+Polanyi
+
+# --- events ------------------------------------------------------------------
+Paris Commune
+October Revolution
+February Revolution
+Russian Revolution
+Bolshevik Revolution
+Chinese Revolution
+Cuban Revolution
+Spanish Civil War
+Spanish Revolution
+Kronstadt
+Long March
+Cultural Revolution
+Great Leap Forward
+Hundred Flowers
+Prague Spring
+Arab Spring
+Easter Rising
+Winter Palace
+Haymarket
+Barcelona May Days
+Hungarian Uprising
+Tiananmen
+Berlin Wall
+Great Purge
+Moscow Trials
+Molotov-Ribbentrop
+Bandung
+Tricontinental
+
+# --- organisations and internationals -----------------------------------------
+Bolsheviks
+Mensheviks
+Comintern
+Cominform
+First International
+Second International
+Third International
+Fourth International
+Socialist International
+Communist Party
+Labour Party
+Fabian Society
+Militant tendency
+Red Guards
+Red Army
+Cheka
+NKVD
+KGB
+Stasi
+Khmer Rouge
+Shining Path
+Black Panther Party
+Sinn Fein
+Histadrut
+Mondragon
+
+# --- organisations: acronyms ---------------------------------------------------
+CPSU
+SPD
+POUM
+CNT
+FAI
+IWW
+FSLN
+FMLN
+EZLN
+PKK
+YPG
+ANC
+PLO
+IRA
+ETA
+NATO
+IMF
+World Bank
+
+# --- states and regimes cited as cases -----------------------------------------
+Soviet Union
+USSR
+People's Republic of China
+North Korea
+DPRK
+East Germany
+Yugoslavia
+Albania
+Kampuchea
+Rojava
+Chiapas
+Kibbutz

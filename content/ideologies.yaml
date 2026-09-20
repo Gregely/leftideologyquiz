@@ -1,0 +1,2518 @@
+# Ideologies — the purged roster, 93 entries.
+#
+# Skeleton: `stances: {}` and `reading: []` throughout. Stances are authored
+# once the question bank is rebuilt against this roster; docs/roster-todo.md
+# tracks the count per ideology.
+#
+# `tendency` names another ideology in the same family that acts as this one's
+# parent node. It is set only where a descent is genuinely uncontested, so most
+# entries have none — a flat family is more honest than an invented lineage.
+# Every parent proposed here is recorded in docs/roster-decisions.md.
+#
+# Tiering: core = an ideology a test-taker could plausibly land on; niche = the
+# rest; boundary = the entries marked as boundary cases on the source roster.
+# Exclusions are recorded in docs/roster-purged.md.
+
+ideologies:
+
+  # ===========================================================================
+  # Pre-Marxist and early socialism
+  # ===========================================================================
+
+  - id: narodnism
+    name: Narodnism
+    aliases: [Narodnichestvo, agrarian socialism, populist socialism]
+    family: early_socialism
+    roster_tier: niche
+    summary: >-
+      Holds that a peasant country can reach socialism through its existing
+      village commune without first passing through capitalism, if the
+      intelligentsia goes to the people rather than over them.
+    reading: []
+    stances:
+      d1_decisive_agent:
+        accept: [peasants_rural_poor]
+        reject: [industrial_workers]
+        weight: 3
+        note: >-
+          Defining: the peasant commune is the road to socialism. Reverse it and
+          the country must pass through capitalism and build an industrial
+          working class first, which is the position Narodnism argued against.
+      d1_ownership: { accept: [common_ownership_no_market], weight: 1 }
+      d1_technology_scale: { accept: [break_it_up_for_local_control], weight: 1 }
+
+  - id: owenism
+    name: Owenism
+    aliases: [Owenite socialism, cooperative socialism]
+    family: early_socialism
+    roster_tier: niche
+    summary: >-
+      Holds that character is formed by circumstances, so building cooperative
+      communities with humane work, education and common ownership will
+      demonstrate a better order and spread it by example.
+    reading: []
+    stances:
+      d1_change_by_example:
+        accept: [spread_by_example]
+        reject: [support_wider_struggle]
+        weight: 3
+        note: >-
+          Defining: the model community demonstrates the better order and it
+          spreads by imitation. Without that, Owenism is a factory reform
+          programme rather than a socialism.
+      d1_state_role: { accept: [bypass_and_build], weight: 2 }
+      d1_change_route: { accept: [prefigure_and_replace], reject: [organised_insurrection], weight: 2 }
+      d1_distribution: { accept: [by_labour], weight: 2 }
+      d1_individual_sovereignty: { accept: [collective_prior], weight: 2 }
+      d1_faith_grounds: { accept: [secular_reason], reject: [grounds_it], weight: 2 }
+      d1_violence: { accept: [principled_nonviolence, not_needed_legal], weight: 1 }
+      d1_technology_scale: { accept: [run_it_and_socialise_gains], weight: 1 }
+
+  - id: fourierism
+    name: Fourierism
+    aliases: [Fourierist associationism, phalansterianism]
+    family: early_socialism
+    roster_tier: niche
+    summary: >-
+      Holds that work becomes attractive when it is matched to people's actual
+      passions, and that communities should be organised so that everyone does
+      what they are drawn to in varied short spells.
+    reading: []
+    stances:
+      d1_change_by_example:
+        accept: [spread_by_example]
+        reject: [support_wider_struggle]
+        weight: 3
+        note: >-
+          Defining: one working association would show that attractive work is
+          possible and the rest would follow. Reverse it and the phalanx is no
+          longer the method, only an ideal.
+      d1_state_role: { accept: [bypass_and_build], weight: 2 }
+      d1_change_route: { accept: [prefigure_and_replace], reject: [organised_insurrection], weight: 2 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 2 }
+      d1_workplace_control: { accept: [workers_self_manage], weight: 1 }
+      d1_violence: { accept: [principled_nonviolence, not_needed_legal], weight: 1 }
+
+  - id: saint_simonianism
+    name: Saint-Simonianism
+    aliases: [Saint-Simonian socialism, industrialism]
+    family: early_socialism
+    roster_tier: niche
+    summary: >-
+      Holds that society should be directed by those who actually produce —
+      engineers, scientists, industrialists and workers — with reward following
+      contribution and inherited privilege abolished.
+    reading: []
+    stances:
+      d1_distribution:
+        accept: [by_labour]
+        reject: [by_need]
+        weight: 3
+        note: >-
+          Defining: reward follows capacity and work, with inherited privilege
+          abolished. Reverse it and the attack on idle ownership, which is the
+          doctrine's point, falls away.
+      d1_state_role: { accept: [use_and_expand], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 2 }
+      d1_planning_or_market: { accept: [central_plan_with_targets, computed_plan], weight: 2 }
+      d1_workplace_control: { accept: [public_authority_manages], weight: 2 }
+      d1_technology_scale: { accept: [run_it_and_socialise_gains], reject: [forgo_it], weight: 2 }
+      d1_growth: { accept: [strongly_agree], weight: 2 }
+      d1_change_by_example: { accept: [win_legislation], weight: 1 }
+      d1_individual_sovereignty: { accept: [collective_prior], weight: 1 }
+
+  # ===========================================================================
+  # Liberal left
+  # ===========================================================================
+
+  - id: social_liberalism
+    name: Social liberalism
+    aliases: [left-liberalism, new liberalism, progressive liberalism]
+    family: liberal_left
+    roster_tier: core
+    summary: >-
+      Holds that formal liberty is empty without the material conditions to use
+      it, so the state should guarantee health, education, income security and
+      fair opportunity within a regulated market economy.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [private_matter], weight: 1 }
+      d1_ownership:
+        accept: [private_with_strong_public]
+        reject: [common_ownership_no_market, public_ownership_planned]
+        weight: 3
+        note: >-
+          Defining: a regulated market economy with a guaranteed floor. Reverse
+          it and the position becomes liberal or democratic socialism.
+      d1_distribution: { accept: [market_income_plus_floor], reject: [by_need], weight: 2 }
+      d1_state_role: { accept: [use_and_expand], reject: [smash_and_replace, abolish_outright], weight: 2 }
+      d1_change_route: { accept: [win_elections_and_legislate], reject: [organised_insurrection], weight: 2 }
+      d1_planning_or_market: { accept: [regulated_market], reject: [central_plan_with_targets], weight: 2 }
+      d1_workplace_control: { accept: [owners_under_regulation, codetermination], weight: 2 }
+      d1_civil_liberties: { accept: [liberties_are_the_point, ordinary_law_only], reject: [conditional_on_revolution], weight: 2 }
+      d1_imperialism_primary: { accept: [not_primary_structure], weight: 2 }
+      d1_decisive_agent: { accept: [citizens_majority], weight: 2 }
+      d1_individual_sovereignty: { accept: [rights_balanced_by_law], weight: 2 }
+      d1_change_by_example: { accept: [win_legislation], weight: 2 }
+      d1_party_role: { accept: [fight_for_its_line_democratically], weight: 1 }
+      d1_faith_grounds: { accept: [ethical_ideal], weight: 1 }
+      d1_guiding_leader: { accept: [members_decide], weight: 1 }
+
+  - id: liberal_socialism
+    name: Liberal socialism
+    aliases: [social-liberal socialism, ethical liberal socialism]
+    family: liberal_left
+    roster_tier: core
+    summary: >-
+      Holds that liberal freedoms and socialist economics require each other,
+      and that social ownership is justified precisely because it extends
+      individual autonomy rather than subordinating it to the state.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [private_matter], weight: 1 }
+      d1_civil_liberties:
+        accept: [liberties_are_the_point]
+        reject: [conditional_on_revolution, restrict_during_emergency]
+        weight: 3
+        note: >-
+          Defining: liberal freedoms are what socialism is for, not a means to
+          it. Reverse it and what is left is socialism without the liberalism.
+      d1_state_role: { accept: [use_and_expand], weight: 2 }
+      d1_change_route: { accept: [win_elections_and_legislate], weight: 2 }
+      d1_faith_grounds: { accept: [ethical_ideal], weight: 2 }
+      d1_individual_sovereignty: { accept: [rights_balanced_by_law, freedom_through_association], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned, worker_owned_market], weight: 1 }
+      d1_planning_or_market: { accept: [regulated_market, market_between_worker_firms], weight: 1 }
+      d1_workplace_control: { accept: [workers_self_manage, codetermination], weight: 1 }
+      d1_distribution: { accept: [market_income_plus_floor], weight: 1 }
+      d1_change_by_example: { accept: [win_legislation], weight: 1 }
+
+  - id: distributism
+    name: Distributism
+    aliases: [distributivism]
+    family: liberal_left
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that productive property should be spread as widely as possible
+      among families, smallholders and guilds, so that neither large private
+      capital nor the state stands between people and their livelihood.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [ally_of_liberation], weight: 2 }
+      d1_ownership:
+        accept: [widely_held_small_property]
+        reject: [public_ownership_planned, common_ownership_no_market, private_with_strong_public]
+        weight: 3
+        note: >-
+          Defining: productive property spread as widely as possible. Reverse it
+          and nothing separates it from either large private capital or
+          collective ownership, both of which it exists to oppose.
+      d1_faith_grounds: { accept: [grounds_it], weight: 2 }
+      d1_technology_scale: { accept: [break_it_up_for_local_control], reject: [run_it_and_socialise_gains], weight: 2 }
+      d1_planning_or_market: { accept: [regulated_market], reject: [central_plan_with_targets], weight: 1 }
+      d1_change_route: { accept: [win_elections_and_legislate], weight: 1 }
+
+  # ===========================================================================
+  # Social democracy
+  # ===========================================================================
+
+  - id: kautskyism
+    name: Kautskyism
+    aliases: [orthodox Marxism, Second International Marxism]
+    family: social_democracy
+    roster_tier: core
+    summary: >-
+      Holds that capitalism's own development makes the working class the
+      majority, so a mass socialist party should win power through the ballot
+      and inherit an economy already ripe for socialisation.
+    reading: []
+    stances:
+      d1_ownership:
+        accept: [public_ownership_planned]
+        reject: [private_with_strong_public]
+        weight: 3
+        note: >-
+          Defining: socialised production is the final goal the ballot is for.
+          Reverse it and Kautskyism becomes the revisionism it argued against.
+      d1_party_role: { accept: [fight_for_its_line_democratically], weight: 2 }
+      d1_decisive_agent: { accept: [all_wage_workers, industrial_workers], weight: 2 }
+      d1_faith_grounds: { accept: [material_interest], weight: 2 }
+      d1_single_subject: { accept: [class_decisive], weight: 2 }
+      d1_planning_or_market: { accept: [central_plan_with_targets], weight: 1 }
+      d1_workplace_control: { accept: [public_authority_manages], weight: 1 }
+      d1_imperialism_primary: { accept: [class_everywhere], weight: 1 }
+      d1_distribution: { accept: [by_labour], weight: 1 }
+      d1_guiding_leader: { accept: [collective_leadership], weight: 1 }
+
+  - id: classical_social_democracy
+    name: Classical social democracy
+    aliases: [post-war social democracy, welfare-state social democracy]
+    family: social_democracy
+    roster_tier: core
+    summary: >-
+      Uses parliamentary majorities and strong unions to build universal public
+      provision, full employment and collective bargaining on top of a mixed
+      economy, treating the resulting settlement as durable.
+    reading: []
+    stances:
+      d1_distribution:
+        accept: [market_income_plus_floor]
+        reject: [by_need]
+        weight: 3
+        note: >-
+          Defining: a universal floor on top of market incomes is the settlement
+          itself. Reverse it and the goal becomes replacing the market, which is
+          democratic socialism.
+      d1_ownership: { accept: [private_with_strong_public], weight: 2 }
+      d1_planning_or_market: { accept: [regulated_market], weight: 2 }
+      d1_workplace_control: { accept: [codetermination, owners_under_regulation], weight: 2 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 2 }
+      d1_party_role: { accept: [fight_for_its_line_democratically], weight: 1 }
+      d1_imperialism_primary: { accept: [not_primary_structure], weight: 1 }
+      d1_faith_grounds: { accept: [ethical_ideal], weight: 1 }
+      d1_individual_sovereignty: { accept: [rights_balanced_by_law], weight: 1 }
+      d1_growth: { accept: [agree], weight: 1 }
+      d1_guiding_leader: { accept: [collective_leadership], weight: 1 }
+
+  - id: bernsteinian_revisionism
+    name: Bernsteinian revisionism
+    aliases: [revisionism, evolutionary socialism]
+    family: social_democracy
+    tendency: classical_social_democracy
+    roster_tier: niche
+    summary: >-
+      Holds that capitalism will not collapse of its own accord, so socialism
+      has to be reached by the accumulation of reforms, and that the movement's
+      daily work matters more than the final goal.
+    reading: []
+    stances:
+      d1_faith_grounds: { accept: [ethical_ideal], reject: [material_interest], weight: 2 }
+      d1_change_by_example: { accept: [win_legislation], weight: 2 }
+
+  - id: fabianism
+    name: Fabianism
+    aliases: [Fabian socialism, gradualism]
+    family: social_democracy
+    roster_tier: niche
+    summary: >-
+      Holds that socialism arrives by permeating existing institutions with
+      expert argument and incremental legislation, so that collective provision
+      is adopted because it is demonstrably better administered.
+    reading: []
+    stances:
+      d1_change_by_example:
+        accept: [win_legislation]
+        reject: [spread_by_example]
+        weight: 3
+        note: >-
+          Defining: permeation — prove a measure works and have government adopt
+          it. Reverse it and gradualism by expert persuasion has no method left.
+      d1_workplace_control: { accept: [public_authority_manages], reject: [union_runs_it], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 2 }
+      d1_decisive_agent: { accept: [citizens_majority], weight: 2 }
+      d1_distribution: { accept: [market_income_plus_floor], weight: 2 }
+      d1_planning_or_market: { accept: [central_plan_with_targets], weight: 1 }
+      d1_imperialism_primary: { accept: [not_primary_structure], weight: 1 }
+      d1_faith_grounds: { accept: [ethical_ideal], weight: 1 }
+      d1_individual_sovereignty: { accept: [collective_prior], weight: 1 }
+      d1_technology_scale: { accept: [run_it_and_socialise_gains], weight: 1 }
+
+  - id: democratic_socialism
+    name: Democratic socialism
+    aliases: [parliamentary socialism]
+    family: social_democracy
+    roster_tier: core
+    summary: >-
+      Uses elections and mass organisation to replace private ownership of the
+      major productive assets with social ownership, holding that socialism
+      without democracy is not socialism.
+    reading: []
+    stances:
+      d1_ownership:
+        accept: [public_ownership_planned, worker_owned_market]
+        reject: [private_with_strong_public]
+        weight: 3
+        note: >-
+          Defining: private ownership of the major productive assets is to be
+          replaced, by electoral means. Reverse it and this is classical social
+          democracy's permanent mixed economy.
+      d1_workplace_control: { accept: [workers_self_manage, codetermination], weight: 2 }
+      d1_party_role: { accept: [fight_for_its_line_democratically], weight: 2 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 2 }
+      d1_single_subject: { accept: [class_plus_autonomous], weight: 2 }
+      d1_imperialism_primary: { accept: [both_intertwined], weight: 1 }
+      d1_faith_grounds: { accept: [ethical_ideal], weight: 1 }
+      d1_guiding_leader: { accept: [members_decide], weight: 1 }
+
+  - id: austromarxism
+    name: Austromarxism
+    aliases: [Austrian Marxism]
+    family: social_democracy
+    roster_tier: niche
+    summary: >-
+      Seeks a democratic road to socialism through patient mass organisation and
+      workers' self-education, and treats national and cultural difference as
+      something a socialist state should accommodate rather than dissolve.
+    reading: []
+    stances:
+      d1_nation_self_gov:
+        accept: [autonomy_where_we_live]
+        reject: [own_state_socialist, independence_first]
+        weight: 3
+        note: >-
+          Defining: national self-government by person rather than territory,
+          inside a multinational state. Reverse it and this is ordinary Second
+          International social democracy.
+      d1_violence: { accept: [defensive_only], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 2 }
+      d1_party_role: { accept: [fight_for_its_line_democratically], weight: 2 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 1 }
+      d1_faith_grounds: { accept: [material_interest], weight: 1 }
+      d1_imperialism_primary: { accept: [class_everywhere], weight: 1 }
+      d1_single_subject: { accept: [class_decisive], weight: 1 }
+      d1_distribution: { accept: [by_labour], weight: 1 }
+
+  - id: third_way
+    name: Third Way
+    aliases: [New Labour, market-liberal social democracy, radical centre]
+    family: social_democracy
+    tendency: bernsteinian_revisionism
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Accepts market allocation and private ownership as settled and pursues
+      social justice through investment in skills, opportunity and a floor under
+      the worst outcomes rather than through changing who owns what.
+    reading: []
+    stances:
+      d1_wealth_from_periphery: { accept: [disagree], weight: 1 }
+      d1_planning_or_market:
+        accept: [regulated_market]
+        reject: [central_plan_with_targets, negotiated_plan_between_units]
+        weight: 3
+        note: >-
+          Defining: markets are settled, and the task is to equip people to do
+          well inside them. Reverse it and this is ordinary social democracy.
+      d1_workplace_control: { accept: [owners_under_regulation], reject: [workers_self_manage, union_runs_it], weight: 2 }
+      d1_decisive_agent: { accept: [citizens_majority], reject: [industrial_workers], weight: 2 }
+      d1_imperialism_primary: { accept: [not_primary_structure], weight: 2 }
+      d1_individual_sovereignty: { accept: [rights_balanced_by_law], weight: 2 }
+      d1_growth: { accept: [agree], weight: 2 }
+
+  # ===========================================================================
+  # Market and cooperative socialism
+  # ===========================================================================
+
+  - id: market_socialism
+    name: Market socialism
+    aliases: [socialist market economy, worker-cooperative socialism]
+    family: market_socialism
+    roster_tier: core
+    summary: >-
+      Holds that enterprises should be owned by those who work in them or by the
+      public, while competing and trading in markets, because prices carry
+      information no planning body can assemble.
+    reading: []
+    stances:
+      d1_ownership:
+        accept: [worker_owned_market]
+        reject: [public_ownership_planned, private_with_strong_public]
+        weight: 3
+        note: >-
+          Defining: the firms are owned by the people who work in them. Reverse
+          it and the market is an ordinary capitalist one.
+      d1_planning_or_market:
+        accept: [market_between_worker_firms]
+        reject: [central_plan_with_targets, direct_allocation_by_need]
+        weight: 3
+        note: >-
+          Defining: markets coordinate the socially owned firms. Reverse it and
+          this is planned socialism.
+      d1_state_role: { accept: [use_and_expand], weight: 2 }
+      d1_change_route: { accept: [win_elections_and_legislate], weight: 2 }
+      d1_distribution: { accept: [by_labour, market_income_plus_floor], weight: 1 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 1 }
+      d1_violence: { accept: [not_needed_legal], weight: 1 }
+      d1_civil_liberties: { accept: [liberties_are_the_point], weight: 1 }
+      d1_party_role: { accept: [fight_for_its_line_democratically], weight: 1 }
+
+  - id: guild_socialism
+    name: Guild socialism
+    aliases: [national guilds]
+    family: market_socialism
+    roster_tier: core
+    summary: >-
+      Holds that industries should be run by self-governing guilds of those who
+      work in them, with a state representing people as consumers, so that
+      neither producers nor the public dominates the other.
+    reading: []
+    stances:
+      d1_planning_or_market:
+        accept: [negotiated_plan_between_units]
+        reject: [central_plan_with_targets, market_between_worker_firms]
+        weight: 3
+        note: >-
+          Defining: self-governing guilds negotiate with bodies representing
+          people as consumers. Reverse it and it becomes either state planning
+          or market socialism.
+      d1_workplace_control:
+        accept: [workers_self_manage, union_runs_it]
+        reject: [public_authority_manages, owners_under_regulation]
+        weight: 3
+        note: >-
+          Defining: self-government in industry is the whole point. Reverse it
+          and what is left is nationalisation, which guild socialists rejected
+          as rule by officials.
+      d1_state_role: { accept: [use_and_expand], weight: 1 }
+      d1_change_route: { accept: [build_counter_power_then_rupture, win_elections_and_legislate], weight: 1 }
+      d1_violence: { accept: [not_needed_legal], weight: 1 }
+
+  # ===========================================================================
+  # Post-Marxist and new left
+  # ===========================================================================
+
+  - id: post_marxism
+    name: Post-Marxism
+    aliases: [radical democracy, post-Marxist radical democracy]
+    family: post_marxist
+    roster_tier: core
+    summary: >-
+      Holds that there is no single revolutionary subject given in advance, and
+      that a socialist majority has to be built by linking many distinct
+      democratic demands into a shared political front.
+    reading: []
+    stances:
+      d1_single_subject:
+        accept: [no_privileged_subject]
+        reject: [class_decisive]
+        weight: 3
+        note: >-
+          Defining: no social position is guaranteed a political role, so a
+          majority has to be built by linking demands. Reverse it and this is
+          Marxism.
+      d1_decisive_agent: { accept: [many_movements], reject: [industrial_workers], weight: 2 }
+      d1_change_route: { accept: [long_cultural_work, win_elections_and_legislate], weight: 2 }
+      d1_state_role: { accept: [use_and_expand], weight: 1 }
+      d1_violence: { accept: [not_needed_legal], weight: 1 }
+      d1_individual_sovereignty: { accept: [rights_balanced_by_law], weight: 1 }
+      d1_party_role: { accept: [fight_for_its_line_democratically], weight: 1 }
+
+  - id: eurocommunism
+    name: Eurocommunism
+    aliases: [democratic communism, the Italian road to socialism]
+    family: post_marxist
+    roster_tier: core
+    summary: >-
+      Holds that a mass communist party should pursue socialism by winning
+      consent across society and competing in free elections, keeping political
+      pluralism and civil liberties intact throughout.
+    reading: []
+    stances:
+      d1_pluralism_after:
+        accept: [competitive_elections]
+        reject: [one_party, one_movement_with_allies]
+        weight: 3
+        note: >-
+          Defining: a communist party that keeps multi-party democracy after
+          winning power. Reverse it and this is Marxism-Leninism.
+      d1_change_route: { accept: [win_elections_and_legislate, long_cultural_work], reject: [organised_insurrection], weight: 2 }
+      d1_state_role: { accept: [use_and_expand], reject: [smash_and_replace], weight: 2 }
+      d1_party_role: { accept: [fight_for_its_line_democratically], weight: 2 }
+      d1_single_subject: { accept: [class_plus_autonomous], weight: 2 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 2 }
+      d1_violence: { accept: [not_needed_legal], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 1 }
+      d1_faith_grounds: { accept: [material_interest], weight: 1 }
+      d1_imperialism_primary: { accept: [both_intertwined], weight: 1 }
+      d1_guiding_leader: { accept: [collective_leadership], weight: 1 }
+
+  - id: ecosocialism
+    name: Ecosocialism
+    aliases: [eco-socialism, green socialism]
+    family: post_marxist
+    roster_tier: core
+    summary: >-
+      Holds that ecological breakdown follows from production organised for
+      accumulation, so the remedy is social ownership and democratic direction
+      of the economy within ecological limits.
+    reading: []
+    stances:
+      d1_wealth_from_periphery: { accept: [agree, strongly_agree], weight: 1 }
+      d1_ecology_priority:
+        accept: [strongly_agree]
+        reject: [strongly_disagree]
+        weight: 3
+        note: >-
+          Defining: production for accumulation is the cause of ecological
+          crisis, and limits come before output. Reverse it and this is a
+          productivist socialism with a green programme attached.
+      d1_growth: { accept: [strongly_disagree, disagree], reject: [strongly_agree], weight: 2 }
+      d1_single_subject: { accept: [class_plus_autonomous, no_privileged_subject], weight: 2 }
+      d1_planning_or_market: { accept: [negotiated_plan_between_units], weight: 2 }
+      d1_imperialism_primary: { accept: [both_intertwined], weight: 2 }
+      d1_ownership: { accept: [common_ownership_no_market, public_ownership_planned], weight: 1 }
+      d1_technology_scale: { accept: [run_it_under_direct_control, break_it_up_for_local_control], weight: 1 }
+      d1_decisive_agent: { accept: [many_movements], weight: 1 }
+      d1_workplace_control: { accept: [workers_self_manage], weight: 1 }
+
+  # ===========================================================================
+  # Religious left
+  # ===========================================================================
+
+  - id: christian_socialism
+    name: Christian socialism
+    aliases: [social gospel socialism]
+    family: religious_left
+    roster_tier: core
+    summary: >-
+      Holds that the gospel requires a cooperative economy ordered to human need
+      rather than to profit, and that Christians are obliged to work for it
+      through political and industrial organisation.
+    reading: []
+    stances:
+      d1_ownership: { accept: [worker_owned_market, private_with_strong_public], weight: 2 }
+      d1_workplace_control: { accept: [workers_self_manage, codetermination], weight: 2 }
+      d1_change_route: { accept: [win_elections_and_legislate], reject: [organised_insurrection], weight: 2 }
+      d1_state_role: { accept: [use_and_expand], weight: 1 }
+      d1_violence: { accept: [not_needed_legal], weight: 1 }
+      d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
+      d1_civil_liberties: { accept: [liberties_are_the_point], weight: 1 }
+      d1_distribution: { accept: [market_income_plus_floor], weight: 1 }
+
+  - id: christian_communism
+    name: Christian communism
+    aliases: [apostolic communism]
+    family: religious_left
+    roster_tier: niche
+    summary: >-
+      Holds that the common ownership practised by the earliest Christian
+      communities is the form of life the gospel actually commands, not an
+      episode to be admired from a distance.
+    reading: []
+    stances:
+      d1_ownership:
+        accept: [common_ownership_no_market]
+        reject: [private_with_strong_public, widely_held_small_property]
+        weight: 3
+        note: >-
+          Defining: the common purse, held as a command rather than an ideal.
+          Reverse it and this is Christian socialism, which accepts private
+          property under obligation.
+      d1_distribution: { accept: [by_need], reject: [market_income_plus_floor], weight: 2 }
+      d1_change_by_example: { accept: [spread_by_example], weight: 2 }
+      d1_violence: { accept: [principled_nonviolence], weight: 2 }
+      d1_state_role: { accept: [bypass_and_build], weight: 1 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 1 }
+
+  - id: liberation_theology
+    name: Liberation theology
+    aliases: [theology of liberation]
+    family: religious_left
+    roster_tier: core
+    summary: >-
+      Holds that God takes the side of the oppressed, so faith is judged by
+      whether it joins their struggle, and reads structural poverty as a sin
+      built into how society is arranged.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [reform_the_tradition, ally_of_liberation], reject: [obstacle_to_liberation], weight: 2 }
+      d1_wealth_from_periphery: { accept: [strongly_agree], weight: 2 }
+      d1_decisive_agent: { accept: [peasants_rural_poor, colonised_peoples], weight: 2 }
+      d1_imperialism_primary: { accept: [both_intertwined, nations_primary], weight: 2 }
+      d1_single_subject: { accept: [class_plus_autonomous], weight: 2 }
+      d1_violence: { accept: [defensive_only, rupture_necessary], reject: [principled_nonviolence], weight: 2 }
+      d1_change_by_example: { accept: [support_wider_struggle], weight: 1 }
+      d1_ownership: { accept: [public_ownership_planned, common_ownership_no_market], weight: 1 }
+      d1_change_route: { accept: [build_counter_power_then_rupture], weight: 1 }
+
+  - id: islamic_socialism
+    name: Islamic socialism
+    aliases: [Muslim socialism]
+    family: religious_left
+    roster_tier: core
+    summary: >-
+      Holds that Islamic obligations of almsgiving, the prohibition of usury and
+      stewardship of common wealth require an economy of collective provision
+      and limits on private accumulation.
+    reading: []
+    stances:
+      d1_distribution: { accept: [market_income_plus_floor], reject: [by_need], weight: 2 }
+      d1_ownership: { accept: [private_with_strong_public, public_ownership_planned], weight: 2 }
+      d1_imperialism_primary: { accept: [nations_primary, both_intertwined], weight: 2 }
+      d1_planning_or_market: { accept: [regulated_market], weight: 1 }
+      d1_state_role: { accept: [use_and_expand, win_own_state], weight: 1 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 1 }
+
+  - id: buddhist_socialism
+    name: Buddhist socialism
+    aliases: [dhammic socialism]
+    family: religious_left
+    roster_tier: niche
+    summary: >-
+      Holds that an economy driven by the cultivation of craving produces
+      suffering, and that right livelihood points towards sufficiency, mutual
+      support and common ownership.
+    reading: []
+    stances:
+      d1_growth:
+        accept: [strongly_disagree]
+        reject: [strongly_agree, agree]
+        weight: 3
+        note: >-
+          Defining: enough is the aim, because wanting more is the cause of the
+          harm. Reverse it and the tradition's whole economic argument, which is
+          about craving rather than ownership, disappears.
+      d1_ecology_priority: { accept: [strongly_agree, agree], weight: 2 }
+      d1_violence: { accept: [principled_nonviolence], weight: 2 }
+      d1_technology_scale: { accept: [break_it_up_for_local_control], weight: 1 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 1 }
+
+  - id: gandhian_socialism
+    name: Gandhian socialism
+    aliases: [Sarvodaya, Gandhian sarvodaya]
+    family: religious_left
+    roster_tier: niche
+    summary: >-
+      Holds that a just society is built from self-reliant villages and
+      non-violent means, with wealth held in trust for the community and
+      production kept at a scale people can govern themselves.
+    reading: []
+    stances:
+      d1_violence:
+        accept: [principled_nonviolence]
+        reject: [rupture_necessary, armed_struggle_now, offensive_action]
+        weight: 3
+        note: >-
+          Defining: non-violence is a principle and not a tactic, binding even
+          when it costs. Reverse it and nothing separates this from any other
+          village socialism.
+      d1_technology_scale:
+        accept: [break_it_up_for_local_control, forgo_it]
+        reject: [run_it_and_socialise_gains]
+        weight: 3
+        note: >-
+          Defining: production by the masses at village scale, not mass
+          production. Reverse it and this becomes the planned-industry
+          development it was formed in opposition to.
+      d1_change_by_example: { accept: [spread_by_example], weight: 2 }
+      d1_ownership: { accept: [widely_held_small_property], reject: [public_ownership_planned], weight: 2 }
+      d1_state_role: { accept: [bypass_and_build], weight: 2 }
+      d1_growth: { accept: [strongly_disagree, disagree], weight: 2 }
+      d1_ecology_priority: { accept: [agree], weight: 1 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 1 }
+
+  # ===========================================================================
+  # Anti-colonial and decolonial left
+  # ===========================================================================
+
+  - id: third_worldism
+    name: Third Worldism
+    aliases: [tricontinentalism]
+    family: anti_colonial
+    roster_tier: core
+    summary: >-
+      Holds that the decisive division is between imperial centres and the
+      countries they drain, so the revolutionary agent is the exploited nations
+      rather than the working class of the rich world.
+    reading: []
+    stances:
+      d1_wealth_from_periphery:
+        accept: [strongly_agree]
+        reject: [disagree, strongly_disagree]
+        weight: 3
+        note: >-
+          Defining: the transfer of wealth from poor countries to rich ones is
+          the fact the whole politics rests on. Reverse it and there is no
+          reason left to treat the world division as the primary one.
+      d1_imperialism_primary:
+        accept: [nations_primary]
+        reject: [class_everywhere, not_primary_structure]
+        weight: 3
+        note: >-
+          Defining: the main division in the world runs between rich nations and
+          poor ones, not inside each of them. Reverse it and this is ordinary
+          Marxist internationalism.
+      d1_decisive_agent: { accept: [colonised_peoples], reject: [industrial_workers], weight: 2 }
+      d1_world_revolution: { accept: [regional_union, self_reliance], weight: 1 }
+      d1_state_role: { accept: [win_own_state, smash_and_replace], weight: 1 }
+
+  - id: fanonism
+    name: Fanonism
+    aliases: [Fanonian anti-colonialism]
+    family: anti_colonial
+    roster_tier: core
+    summary: >-
+      Holds that colonialism is a total system reaching into the psyche, and
+      that the colonised remake themselves as free people through the act of
+      overthrowing it rather than by being granted independence.
+    reading: []
+    stances:
+      d1_violence:
+        accept: [armed_struggle_now, rupture_necessary]
+        reject: [principled_nonviolence, not_needed_legal]
+        weight: 3
+        note: >-
+          Defining: the colonised are remade as free people in the act of
+          throwing off colonial rule by force. Reverse it and what is left is a
+          constitutional decolonisation this tradition regards as a handover.
+      d1_decisive_agent: { accept: [peasants_rural_poor, colonised_peoples], reject: [industrial_workers], weight: 2 }
+      d1_change_route: { accept: [protracted_armed_struggle], weight: 2 }
+      d1_state_role: { accept: [smash_and_replace, win_own_state], weight: 2 }
+      d1_single_subject: { accept: [class_plus_autonomous], weight: 1 }
+      d1_nation_self_gov: { accept: [own_state_socialist, independence_first], weight: 1 }
+
+  - id: cabralism
+    name: Cabralism
+    aliases: [Cabralian national liberation]
+    family: anti_colonial
+    roster_tier: niche
+    summary: >-
+      Holds that national liberation is an act of cultural recovery as much as
+      of arms, and that the educated class must commit class suicide to merge
+      with the peasantry it claims to lead.
+    reading: []
+    stances:
+      d1_decisive_agent: { accept: [peasants_rural_poor, colonised_peoples], weight: 2 }
+      d1_change_route: { accept: [protracted_armed_struggle], weight: 2 }
+      d1_nation_self_gov: { accept: [own_state_socialist], weight: 2 }
+      d1_party_role: { accept: [lead_and_direct], weight: 2 }
+      d1_violence: { accept: [rupture_necessary, armed_struggle_now], weight: 1 }
+      d1_world_revolution: { accept: [self_reliance, regional_union], weight: 1 }
+
+  - id: ujamaa
+    name: Ujamaa
+    aliases: [Tanzanian African socialism, familyhood socialism]
+    family: anti_colonial
+    roster_tier: niche
+    summary: >-
+      Holds that African societies already contain the socialist principle in
+      the extended family and communal land, and that development should build
+      from cooperative villages and self-reliance.
+    reading: []
+    stances:
+      d1_decisive_agent:
+        accept: [peasants_rural_poor]
+        reject: [industrial_workers]
+        weight: 3
+        note: >-
+          Defining: socialism is built out of the village and the people already
+          working the land. Reverse it and the programme becomes the
+          industrialisation it was written against.
+      d1_world_revolution: { accept: [self_reliance], weight: 2 }
+      d1_ownership: { accept: [common_ownership_no_market, public_ownership_planned], weight: 2 }
+      d1_pluralism_after: { accept: [one_party], weight: 2 }
+      d1_change_by_example: { accept: [spread_by_example], weight: 2 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 2 }
+      d1_violence: { accept: [not_needed_legal, defensive_only], weight: 1 }
+      d1_technology_scale: { accept: [break_it_up_for_local_control], weight: 1 }
+
+  - id: nkrumaism
+    name: Nkrumaism
+    aliases: [consciencism, Nkrumahism]
+    family: anti_colonial
+    roster_tier: niche
+    summary: >-
+      Holds that political independence is worthless without economic
+      independence, and that only continental African unity is large enough to
+      escape neo-colonial dependence.
+    reading: []
+    stances:
+      d1_world_revolution:
+        accept: [regional_union]
+        reject: [self_reliance, yes_one_country]
+        weight: 3
+        note: >-
+          Defining: a single continental union, because a state this small
+          cannot be independent of the powers on its own. Reverse it and this is
+          one more national African socialism.
+      d1_nation_self_gov: { accept: [unify_divided_nation], weight: 2 }
+      d1_pluralism_after: { accept: [one_party], weight: 2 }
+      d1_technology_scale: { accept: [run_it_and_socialise_gains], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 2 }
+      d1_party_role: { accept: [lead_and_direct], weight: 1 }
+      d1_decisive_agent: { accept: [colonised_peoples], weight: 1 }
+      d1_growth: { accept: [agree], weight: 1 }
+
+  - id: sankarism
+    name: Sankarism
+    aliases: [Sankarist revolutionary democracy]
+    family: anti_colonial
+    roster_tier: niche
+    summary: >-
+      Holds that a poor country becomes free by refusing aid and debt, feeding
+      and clothing itself from its own production, and dismantling the
+      privileges of its own officials alongside colonial ones.
+    reading: []
+    stances:
+      d1_world_revolution:
+        accept: [self_reliance]
+        reject: [regional_union, yes_one_country]
+        weight: 3
+        note: >-
+          Defining: refuse the aid and the debt, and live on what the country
+          produces. Reverse it and the programme is ordinary development policy
+          with radical language.
+      d1_decisive_agent: { accept: [peasants_rural_poor], weight: 2 }
+      d1_party_role: { accept: [lead_and_direct], weight: 1 }
+      d1_growth: { accept: [disagree], weight: 1 }
+      d1_ecology_priority: { accept: [agree], weight: 1 }
+      d1_gender_division: { accept: [strongly_agree, agree], weight: 1 }
+
+  - id: ambedkarism
+    name: Ambedkarism
+    aliases: [Ambedkarite socialism, Navayana socialism]
+    family: anti_colonial
+    roster_tier: core
+    summary: >-
+      Holds that caste is a structure of domination in its own right which
+      economic change alone will not dissolve, so annihilating caste through
+      law, education and self-organisation is the primary task.
+    reading: []
+    stances:
+      d1_imperialism_primary: null
+      d1_single_subject:
+        accept: [class_plus_autonomous]
+        reject: [class_decisive, national_unity_first]
+        weight: 3
+        note: >-
+          Defining: the hereditary status order is a structure of its own, and
+          those it ranks lowest need organisations and representation of their
+          own. Reverse it and economic change is expected to dissolve it, which
+          is the claim this tradition was built to refute.
+      d1_state_role: { accept: [use_and_expand], reject: [abolish_outright], weight: 2 }
+      d1_change_route: { accept: [win_elections_and_legislate], reject: [protracted_armed_struggle], weight: 2 }
+      d1_individual_sovereignty: { accept: [rights_balanced_by_law], weight: 2 }
+      d1_civil_liberties: { accept: [liberties_are_the_point], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 2 }
+      d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
+      d1_violence: { accept: [not_needed_legal], weight: 2 }
+      d1_faith_grounds: { accept: [ethical_ideal], weight: 1 }
+
+  - id: lohiaite_socialism
+    name: Lohiaite socialism
+    aliases: [Lohiaism, Indian democratic socialism]
+    family: anti_colonial
+    roster_tier: niche
+    summary: >-
+      Holds that socialism in a poor and caste-divided country must be built
+      from below through small-scale technology, decentralised power and civil
+      disobedience against both caste and class privilege.
+    reading: []
+    stances:
+      d1_single_subject: { accept: [class_plus_autonomous], reject: [class_decisive], weight: 2 }
+      d1_technology_scale: { accept: [break_it_up_for_local_control], reject: [run_it_and_socialise_gains], weight: 2 }
+      d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
+      d1_change_route: { accept: [win_elections_and_legislate], weight: 1 }
+      d1_violence: { accept: [defensive_only, not_needed_legal], weight: 1 }
+      d1_ownership: { accept: [widely_held_small_property], weight: 1 }
+
+  - id: nehruvian_socialism
+    name: Nehruvian socialism
+    aliases: [Indian state socialism, the socialistic pattern of society]
+    family: anti_colonial
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that a newly independent country should industrialise through state
+      planning, public heavy industry and a secular democratic constitution,
+      with the private sector permitted but directed.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [private_matter], weight: 2 }
+      d1_imperialism_primary: { accept: [development_gap], reject: [nations_primary], weight: 2 }
+      d1_technology_scale:
+        accept: [run_it_and_socialise_gains]
+        reject: [forgo_it, break_it_up_for_local_control]
+        weight: 3
+        note: >-
+          Defining: planned heavy industry is how a poor country stops being
+          poor. Reverse it and this becomes the village-scale programme it was
+          formed against.
+      d1_ownership: { accept: [public_ownership_planned, private_with_strong_public], weight: 2 }
+      d1_planning_or_market: { accept: [central_plan_with_targets], weight: 2 }
+      d1_growth: { accept: [strongly_agree], weight: 2 }
+      d1_state_role: { accept: [use_and_expand], reject: [smash_and_replace], weight: 2 }
+      d1_change_route: { accept: [win_elections_and_legislate], weight: 2 }
+      d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
+      d1_civil_liberties: { accept: [liberties_are_the_point], weight: 1 }
+      d1_faith_grounds: { accept: [secular_reason, ethical_ideal], weight: 1 }
+      d1_violence: { accept: [not_needed_legal], weight: 1 }
+
+  - id: chavismo
+    name: Chavismo
+    aliases: [Bolivarianism, socialism of the twenty-first century]
+    family: anti_colonial
+    roster_tier: core
+    summary: >-
+      Holds that a socialist transformation can be carried through by winning
+      elections and then building communal councils, nationalised resource
+      wealth and regional integration against imperial pressure.
+    reading: []
+    stances:
+      d1_change_route:
+        accept: [win_elections_and_legislate]
+        reject: [organised_insurrection, protracted_armed_struggle]
+        weight: 3
+        note: >-
+          Defining: power was taken at the ballot box and the state rewritten
+          from inside it. Reverse it and this is the armed road its neighbours
+          took.
+      d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
+      d1_world_revolution: { accept: [regional_union], weight: 2 }
+      d1_state_role: { accept: [use_then_dissolve, use_and_expand], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned, worker_owned_market], weight: 1 }
+      d1_change_by_example: { accept: [network_of_alternatives], weight: 1 }
+      d1_decisive_agent: { accept: [all_wage_workers, citizens_majority], weight: 1 }
+
+  - id: mariateguism
+    name: Mariáteguism
+    aliases: [Indo-American socialism, Peruvian Marxism]
+    family: anti_colonial
+    roster_tier: niche
+    summary: >-
+      Holds that socialism in the Americas must grow from indigenous communal
+      traditions rather than be copied from Europe, and that the land question
+      and the indigenous question are the same question.
+    reading: []
+    stances:
+      d1_decisive_agent:
+        accept: [peasants_rural_poor]
+        reject: [citizens_majority]
+        weight: 3
+        note: >-
+          Defining: the indigenous peasant communities are the base of the
+          revolution, not a survival to be modernised away. Reverse it and this
+          is the imported European model it refused.
+      d1_ownership: { accept: [common_ownership_no_market], weight: 2 }
+      d1_single_subject: { accept: [class_plus_autonomous], weight: 2 }
+      d1_party_role: { accept: [lead_and_direct], weight: 1 }
+      d1_change_route: { accept: [build_counter_power_then_rupture], weight: 1 }
+      d1_change_by_example: { accept: [support_wider_struggle], weight: 1 }
+
+  # ===========================================================================
+  # National-question left
+  # ===========================================================================
+
+  - id: baathism
+    name: Ba'athism
+    aliases: [Arab Ba'ath socialism]
+    family: national_question
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that the Arab nation should be unified, freed from foreign control
+      and developed through state-led socialism, with a single vanguard party
+      carrying the national mission.
+    reading: []
+    stances:
+      d1_wealth_from_periphery: { accept: [strongly_agree, agree], weight: 2 }
+      d1_nation_self_gov:
+        accept: [unify_divided_nation]
+        reject: [autonomy_where_we_live, class_over_nation]
+        weight: 3
+        note: >-
+          Defining: one nation split by borders drawn from outside, to be made
+          one state again. Reverse it and what is left is a local nationalism of
+          the kind this tradition exists to oppose.
+      d1_single_subject: { accept: [national_unity_first], reject: [class_decisive], weight: 2 }
+      d1_pluralism_after: { accept: [one_movement_with_allies, one_party], reject: [no_state_to_contest], weight: 2 }
+      d1_world_revolution: { accept: [regional_union], weight: 2 }
+      d1_party_role: { accept: [lead_and_direct], weight: 2 }
+      d1_imperialism_primary: { accept: [nations_primary], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned, private_with_strong_public], weight: 1 }
+      d1_state_role: { accept: [win_own_state, use_and_expand], weight: 1 }
+      d1_faith_grounds: { accept: [ethical_ideal], weight: 1 }
+      d1_civil_liberties: { accept: [conditional_on_revolution], weight: 1 }
+
+  - id: nasserism
+    name: Nasserism
+    aliases: [Arab socialism, Nasserist pan-Arabism]
+    family: national_question
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that Arab independence requires nationalising strategic industry,
+      redistributing land and building a large public sector under a state that
+      stands above both landlords and foreign capital.
+    reading: []
+    stances:
+      d1_wealth_from_periphery: { accept: [strongly_agree, agree], weight: 2 }
+      d1_single_subject:
+        accept: [national_unity_first]
+        reject: [class_decisive]
+        weight: 3
+        note: >-
+          Defining: an alliance of the working forces of the nation — workers,
+          peasants, soldiers, professionals and national business — against
+          class struggle between them. Reverse it and this is Marxism.
+      d1_nation_self_gov: { accept: [unify_divided_nation], weight: 2 }
+      d1_pluralism_after: { accept: [one_party], weight: 2 }
+      d1_imperialism_primary: { accept: [nations_primary, development_gap], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned, private_with_strong_public], weight: 2 }
+      d1_world_revolution: { accept: [regional_union], weight: 2 }
+      d1_guiding_leader: { accept: [leaders_thought_settles], weight: 1 }
+      d1_technology_scale: { accept: [run_it_and_socialise_gains], weight: 1 }
+      d1_state_role: { accept: [use_and_expand], weight: 1 }
+
+  - id: labour_zionism
+    name: Labour Zionism
+    aliases: [socialist Zionism, Poale Zion tradition]
+    family: national_question
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that Jewish national self-determination and socialism must be built
+      together through collective settlement, cooperative agriculture and a
+      labour movement that owns its own institutions.
+    reading: []
+    stances:
+      d1_state_role:
+        accept: [win_own_state]
+        reject: [bypass_and_build]
+        weight: 3
+        note: >-
+          Defining: a state of their own for a people without one, built by
+          their own labour. Reverse it and the position is the diaspora autonomy
+          it argued against.
+      d1_nation_self_gov: { accept: [own_state_socialist, independence_first], reject: [autonomy_where_we_live], weight: 2 }
+      d1_change_by_example: { accept: [spread_by_example], weight: 2 }
+      d1_workplace_control: { accept: [union_runs_it, workers_self_manage], weight: 2 }
+      d1_ownership: { accept: [worker_owned_market, public_ownership_planned], weight: 1 }
+      d1_pluralism_after: { accept: [competitive_elections], weight: 1 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 1 }
+
+  - id: connollyism
+    name: Irish republican socialism
+    aliases: [Connollyism, republican socialism]
+    family: national_question
+    roster_tier: core
+    summary: >-
+      Holds that national independence and workers' ownership are one struggle,
+      because a republic that leaves capital and landlordism in place has not
+      actually ended foreign rule.
+    reading: []
+    inseparable_from:
+      - ideology: abertzale_left
+        note: >-
+          Irish republican socialism and the Basque abertzale left hold the same
+          position: a socialist republic for a people governed from outside,
+          with independence and social change treated as one struggle. They
+          differ in which people the claim is made for, not in any position this
+          test can ask about.
+    stances:
+      d1_nation_self_gov:
+        accept: [own_state_socialist]
+        reject: [independence_first, class_over_nation]
+        weight: 3
+        note: >-
+          Defining: independence and social ownership are one struggle, and a
+          republic that leaves the owners in place is only a change of flag.
+          Reverse it and it becomes either plain nationalism or plain socialism.
+      d1_state_role: { accept: [win_own_state, smash_and_replace], weight: 2 }
+      d1_workplace_control: { accept: [union_runs_it, workers_self_manage], weight: 2 }
+      d1_imperialism_primary: { accept: [both_intertwined], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned, common_ownership_no_market], weight: 1 }
+      d1_change_route: { accept: [organised_insurrection, build_counter_power_then_rupture], weight: 1 }
+      d1_violence: { accept: [rupture_necessary], weight: 1 }
+      d1_decisive_agent: { accept: [industrial_workers], weight: 1 }
+
+  - id: abertzale_left
+    name: Basque abertzale left
+    aliases: [ezker abertzalea, Basque patriotic left]
+    family: national_question
+    roster_tier: core
+    summary: >-
+      Holds that Basque self-determination and socialism are inseparable, and
+      that a sovereign Basque society should be built from its own language,
+      popular assemblies and cooperative economy.
+    reading: []
+    inseparable_from:
+      - ideology: connollyism
+        note: >-
+          The Basque abertzale left and Irish republican socialism hold the same
+          position: a socialist republic for a people governed from outside,
+          with independence and social change treated as one struggle. They
+          differ in which people the claim is made for, not in any position this
+          test can ask about.
+    stances:
+      d1_nation_self_gov:
+        accept: [own_state_socialist]
+        reject: [independence_first, class_over_nation]
+        weight: 3
+        note: >-
+          Defining: self-determination and socialism are inseparable for this
+          people. Reverse it and it becomes either plain nationalism or a
+          socialism indifferent to the national question.
+      d1_state_role: { accept: [win_own_state, smash_and_replace], weight: 2 }
+      d1_imperialism_primary: { accept: [both_intertwined], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 1 }
+      d1_pluralism_after: { accept: [competitive_elections], weight: 1 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 1 }
+      d1_single_subject: { accept: [class_plus_autonomous], weight: 1 }
+
+  - id: bundism
+    name: Bundism
+    aliases: [Jewish labour Bundism, doikayt]
+    family: national_question
+    roster_tier: niche
+    summary: >-
+      Holds that Jewish workers should build socialism where they live, in their
+      own language and culture, with national-cultural autonomy rather than
+      territorial separation or assimilation.
+    reading: []
+    stances:
+      d1_nation_self_gov:
+        accept: [autonomy_where_we_live]
+        reject: [own_state_socialist, independence_first, unify_divided_nation]
+        weight: 3
+        note: >-
+          Defining: self-government here, where the people already live, rather
+          than a territory somewhere else. Reverse it and this becomes the
+          territorial nationalism it was formed against.
+      d1_faith_grounds: { accept: [secular_reason], reject: [grounds_it], weight: 2 }
+      d1_single_subject: { accept: [class_plus_autonomous], weight: 2 }
+      d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
+      d1_state_role: { accept: [use_and_expand], weight: 1 }
+      d1_decisive_agent: { accept: [industrial_workers, all_wage_workers], weight: 1 }
+      d1_imperialism_primary: { accept: [class_everywhere], weight: 1 }
+      d1_civil_liberties: { accept: [liberties_are_the_point], weight: 1 }
+
+  - id: peronism
+    name: Peronism
+    aliases: [justicialism, the justicialist movement]
+    family: national_question
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that social justice, economic sovereignty and political independence
+      are won by organised labour allied to a national state that mediates
+      between classes rather than abolishing them.
+    reading: []
+    stances:
+      d1_wealth_from_periphery: { accept: [agree], weight: 1 }
+      d1_single_subject:
+        accept: [national_unity_first]
+        reject: [class_decisive]
+        weight: 3
+        note: >-
+          Defining: labour and national business reconciled inside an organised
+          community, with the state holding the balance. Reverse it and this is
+          the class politics it was built to displace.
+      d1_imperialism_primary: { accept: [development_gap], weight: 2 }
+      d1_guiding_leader: { accept: [leaders_thought_settles], weight: 2 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 2 }
+      d1_distribution: { accept: [market_income_plus_floor], weight: 2 }
+      d1_ownership: { accept: [private_with_strong_public, public_ownership_planned], weight: 2 }
+      d1_workplace_control: { accept: [owners_under_regulation, codetermination], weight: 1 }
+      d1_change_route: { accept: [win_elections_and_legislate], weight: 1 }
+
+  # ===========================================================================
+  # Marxism–Leninism and descendants
+  # ===========================================================================
+
+  - id: leninism
+    name: Leninism
+    aliases: [Bolshevism]
+    family: marxism_leninism
+    roster_tier: core
+    summary: >-
+      Holds that a disciplined party of professional revolutionaries is required
+      to turn spontaneous struggle into a seizure of power, and that the old
+      state must be broken rather than captured.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [obstacle_to_liberation, private_matter], weight: 2 }
+      d1_wealth_from_periphery: { accept: [agree], weight: 1 }
+      d1_change_route:
+        accept: [organised_insurrection]
+        reject: [win_elections_and_legislate, prefigure_and_replace]
+        weight: 3
+        note: >-
+          Defining: the decisive moment is short and an organisation has to be
+          built in advance to take it. Reverse it and the parliamentary road is
+          enough, which is the position this broke from.
+      d1_party_role:
+        accept: [lead_and_direct]
+        reject: [refuse_to_direct, dissolve_into_movement]
+        weight: 3
+        note: >-
+          Defining: a disciplined organisation supplies the programme the
+          movement will not arrive at on its own. Reverse it and there is no
+          Leninism left, only the mass party it argued with.
+      d1_world_revolution: { accept: [only_holding_operation], reject: [self_reliance], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 2 }
+      d1_planning_or_market: { accept: [central_plan_with_targets], weight: 2 }
+      d1_decisive_agent: { accept: [industrial_workers, all_wage_workers], weight: 2 }
+      d1_single_subject: { accept: [class_decisive], weight: 2 }
+      d1_imperialism_primary: { accept: [both_intertwined, class_everywhere], weight: 2 }
+      d1_distribution: { accept: [by_labour], weight: 2 }
+      d1_guiding_leader: { accept: [collective_leadership], weight: 2 }
+      d1_change_by_example: { accept: [support_wider_struggle], weight: 2 }
+      d1_workplace_control: { accept: [public_authority_manages], weight: 1 }
+      d1_technology_scale: { accept: [run_it_and_socialise_gains], weight: 1 }
+      d1_individual_sovereignty: { accept: [collective_prior], weight: 1 }
+      d1_growth: { accept: [agree], weight: 1 }
+
+  - id: marxism_leninism
+    name: Marxism–Leninism
+    aliases: [orthodox communism, the general line]
+    family: marxism_leninism
+    tendency: leninism
+    roster_tier: core
+    summary: >-
+      Holds that the vanguard party leads the state through a long transition,
+      directing a planned economy and defending the revolution against internal
+      and external enemies until classes are abolished.
+    reading: []
+    stances:
+      d1_world_revolution:
+        accept: [yes_one_country]
+        reject: [only_holding_operation, wrong_question]
+        weight: 3
+        note: >-
+          Defining: socialism can be built and held in one country. Reverse it
+          and the whole post-revolutionary programme — the pace, the
+          self-sufficiency, the quarrel with Trotskyism — goes with it.
+
+  - id: stalinism
+    name: Stalinism
+    aliases: [socialism in one country]
+    family: marxism_leninism
+    tendency: marxism_leninism
+    lineage: true
+    roster_tier: core
+    summary: >-
+      Holds that a socialist state can and must be built in one country through
+      rapid industrialisation and collectivisation, with the party exercising
+      firm centralised control against encirclement and sabotage.
+    reading: []
+    stances:
+      d1_guiding_leader:
+        accept: [leaders_thought_settles]
+        reject: [members_decide, no_leaders]
+        weight: 3
+        note: >-
+          Defining: one leader's line settles disputes, and defending that
+          record is what marks the tradition out. Reverse it and this is the
+          general Marxist-Leninist line.
+      d1_growth: { accept: [strongly_agree], weight: 2 }
+      d1_technology_scale: { accept: [run_it_and_socialise_gains], weight: 2 }
+      d1_civil_liberties: { accept: [conditional_on_revolution], weight: 2 }
+      # The state grows stronger as socialism advances, and withers only once
+      # the encirclement ends: the doctrinal break with the general line, which
+      # expects it to fall away with the transition.
+      d1_state_after_transition: { accept: [retained_as_planner], reject: [never_existed_as_such], weight: 2 }
+
+  - id: titoism
+    name: Titoism
+    aliases: [Yugoslav self-management socialism, workers' self-management]
+    family: marxism_leninism
+    tendency: marxism_leninism
+    roster_tier: core
+    summary: >-
+      Holds that socialism means enterprises run by their own workers' councils
+      within a market, a state that devolves rather than concentrates power, and
+      independence from any bloc.
+    reading: []
+    stances:
+      d1_ownership:
+        accept: [worker_owned_market]
+        reject: [public_ownership_planned]
+        weight: 3
+        note: >-
+          Defining: social ownership held by the workforce of each enterprise
+          rather than by the ministries. Reverse it and this is the Soviet model
+          it broke from.
+      d1_workplace_control:
+        accept: [workers_self_manage]
+        reject: [public_authority_manages]
+        weight: 3
+        note: >-
+          Defining: the workers' council runs the enterprise. Reverse it and
+          self-management, which is the whole distinguishing claim, is gone.
+      d1_planning_or_market: { accept: [market_between_worker_firms], reject: [central_plan_with_targets], weight: 2 }
+
+  - id: hoxhaism
+    name: Hoxhaism
+    aliases: [anti-revisionist Marxism–Leninism]
+    family: marxism_leninism
+    tendency: stalinism
+    lineage: true
+    roster_tier: niche
+    summary: >-
+      Holds that every major communist state after Stalin abandoned Marxism for
+      revisionism, so the task is to defend the original line intact, in
+      isolation if necessary.
+    reading: []
+    stances:
+      d1_world_revolution:
+        accept: [self_reliance]
+        reject: [yes_one_country, regional_union]
+        weight: 3
+        note: >-
+          Defining: every other socialist state abandoned the line, so this one
+          stands alone. Reverse it and the anti-revisionist quarrel that
+          constitutes the tradition disappears.
+
+  - id: guevarism
+    name: Guevarism
+    aliases: [foquismo, Guevarist internationalism]
+    family: marxism_leninism
+    tendency: marxism_leninism
+    lineage: true
+    roster_tier: core
+    summary: >-
+      Holds that a committed armed nucleus can create revolutionary conditions
+      rather than wait for them, and that socialism requires forming a new kind
+      of person motivated by solidarity rather than material reward.
+    reading: []
+    stances:
+      d1_violence:
+        accept: [armed_struggle_now]
+        reject: [not_needed_legal, principled_nonviolence]
+        weight: 3
+        note: >-
+          Defining: an armed nucleus creates the revolutionary conditions rather
+          than waiting for them. Reverse it and this is the orthodox line that
+          the party builds and waits.
+      d1_change_route: { accept: [protracted_armed_struggle], reject: [win_elections_and_legislate], weight: 3, note: "Defining: the guerrilla column, not the mass party, is the form the revolution takes. Reverse it and foquismo has no content." }
+      d1_world_revolution: { accept: [only_holding_operation], reject: [yes_one_country], weight: 2 }
+      d1_decisive_agent: { accept: [peasants_rural_poor], weight: 2 }
+      d1_imperialism_primary: { accept: [nations_primary, both_intertwined], weight: 2 }
+      d1_distribution: { accept: [by_need], weight: 1 }
+
+  - id: castroism
+    name: Castroism
+    aliases: [Fidelismo, Cuban socialism]
+    family: marxism_leninism
+    tendency: marxism_leninism
+    roster_tier: core
+    summary: >-
+      Holds that a small country can sustain socialism under permanent siege
+      through mass mobilisation, universal health and education, and
+      internationalist solidarity with other liberation movements.
+    reading: []
+    stances:
+      d1_change_route: { accept: [protracted_armed_struggle, organised_insurrection], weight: 2 }
+      d1_imperialism_primary: { accept: [nations_primary, both_intertwined], weight: 2 }
+      d1_decisive_agent: { accept: [peasants_rural_poor, all_wage_workers], weight: 1 }
+      d1_guiding_leader: { accept: [collective_leadership], weight: 1 }
+
+  - id: ho_chi_minh_thought
+    name: Ho Chi Minh Thought
+    aliases: [Vietnamese Marxism–Leninism]
+    family: marxism_leninism
+    tendency: marxism_leninism
+    roster_tier: niche
+    summary: >-
+      Holds that national independence and socialism are a single task in a
+      colonised country, pursued by a party that unites the whole nation behind
+      the workers and peasants.
+    reading: []
+    stances:
+      d1_nation_self_gov:
+        accept: [own_state_socialist]
+        reject: [class_over_nation]
+        weight: 3
+        note: >-
+          Defining: national independence and socialism are the same struggle,
+          in that order of urgency. Reverse it and the tradition loses what
+          distinguishes it from the general line.
+      d1_change_route: { accept: [protracted_armed_struggle], weight: 2 }
+      d1_decisive_agent: { accept: [peasants_rural_poor, industrial_workers], weight: 2 }
+      d1_imperialism_primary: { accept: [nations_primary, both_intertwined], weight: 2 }
+      d1_pluralism_after: { accept: [one_movement_with_allies, one_party], reject: [no_state_to_contest], weight: 1 }
+
+  - id: sandinismo
+    name: Sandinismo
+    aliases: [Sandinista national liberation]
+    family: marxism_leninism
+    roster_tier: niche
+    summary: >-
+      Holds that national liberation, a mixed economy, political pluralism and
+      mass popular organisation can be combined in one revolutionary project
+      rooted in the poor majority.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [ally_of_liberation], reject: [obstacle_to_liberation], weight: 2 }
+      d1_wealth_from_periphery: { accept: [strongly_agree, agree], weight: 2 }
+      d1_pluralism_after:
+        accept: [competitive_elections]
+        reject: [one_party]
+        weight: 3
+        note: >-
+          Defining: elections and a mixed economy were founding commitments, not
+          concessions, and office was handed over when they were lost. Reverse
+          it and this is the one-party road.
+      d1_civil_liberties: { accept: [restrict_during_emergency], reject: [conditional_on_revolution], weight: 2 }
+      d1_faith_grounds: null
+      d1_change_route: { accept: [organised_insurrection], weight: 2 }
+      d1_imperialism_primary: { accept: [nations_primary, both_intertwined], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned, private_with_strong_public], weight: 1 }
+      d1_decisive_agent: { accept: [peasants_rural_poor, all_wage_workers], weight: 1 }
+
+  - id: juche
+    name: Juche
+    aliases: [Kimilsungism, self-reliance thought]
+    family: marxism_leninism
+    tendency: marxism_leninism
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that a nation is master of its own destiny only through political
+      independence, economic self-sufficiency and self-defence, with the masses
+      united around a single leadership.
+    reading: []
+    stances:
+      d1_world_revolution:
+        accept: [self_reliance]
+        reject: [only_holding_operation, regional_union]
+        weight: 3
+        note: >-
+          Defining: the nation carries its revolution by its own strength and
+          takes direction from no other state. Reverse it and this is a bloc
+          member like any other.
+      d1_guiding_leader:
+        accept: [leaders_thought_settles]
+        reject: [members_decide, no_leaders]
+        weight: 3
+        note: >-
+          Defining: the leader is the centre of the political body and settles
+          what the line is. Reverse it and collective leadership returns and the
+          doctrine collapses into ordinary Marxism-Leninism.
+      d1_pluralism_after: { accept: [one_movement_with_allies, one_party], reject: [no_state_to_contest], weight: 1 }
+
+  - id: deng_xiaoping_theory
+    name: Deng Xiaoping Theory
+    aliases: [socialism with Chinese characteristics, reform and opening up]
+    family: marxism_leninism
+    tendency: marxism_leninism
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that a socialist country in the primary stage must develop its
+      productive forces first, using markets and foreign investment under
+      continued leadership by the communist party.
+    reading: []
+    stances:
+      d1_planning_or_market:
+        accept: [regulated_market]
+        reject: [central_plan_with_targets, direct_allocation_by_need]
+        weight: 3
+        note: >-
+          Defining: markets do the allocating while the party holds the
+          commanding heights. Reverse it and this is the planned economy the
+          reform was a break from.
+      d1_growth:
+        accept: [strongly_agree]
+        reject: [strongly_disagree]
+        weight: 3
+        note: >-
+          Defining: development comes first and distribution later, because
+          poverty is not socialism. Reverse it and the whole justification for
+          the market reforms goes.
+      d1_ownership: { accept: [public_ownership_planned, private_with_strong_public], weight: 2 }
+      d1_pluralism_after: { accept: [one_movement_with_allies, one_party], reject: [no_state_to_contest], weight: 2 }
+      d1_technology_scale: { accept: [run_it_and_socialise_gains], weight: 2 }
+
+  - id: xi_jinping_thought
+    name: Xi Jinping Thought
+    aliases: [socialism with Chinese characteristics for a new era]
+    family: marxism_leninism
+    tendency: deng_xiaoping_theory
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that the reform period's growth must now be turned towards common
+      prosperity, ecological civilisation and national rejuvenation, with the
+      party's leadership strengthened across all spheres.
+    reading: []
+    stances:
+      d1_guiding_leader:
+        accept: [leaders_thought_settles]
+        reject: [members_decide]
+        weight: 3
+        note: >-
+          Defining: one leader's thought is the guide the party is required to
+          study and apply. Reverse it and this is the collective leadership of
+          the reform era.
+      d1_growth: { accept: [agree], reject: [strongly_disagree], weight: 2 }
+      d1_ecology_priority: { accept: [agree], weight: 2 }
+      d1_civil_liberties: { accept: [conditional_on_revolution], weight: 2 }
+
+  # ===========================================================================
+  # Maoism
+  # ===========================================================================
+
+  - id: mao_zedong_thought
+    name: Mao Zedong Thought
+    aliases: [Maoism, the mass line]
+    family: maoism
+    roster_tier: core
+    summary: >-
+      Holds that revolution in a peasant country proceeds by surrounding the
+      cities from the countryside, that the party must learn from the masses to
+      lead them, and that class struggle continues under socialism.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [obstacle_to_liberation], weight: 1 }
+      d1_wealth_from_periphery: { accept: [agree], weight: 1 }
+      d1_decisive_agent:
+        accept: [peasants_rural_poor]
+        reject: [citizens_majority]
+        weight: 3
+        note: >-
+          Defining: the rural poor are the main force of the revolution, not its
+          auxiliary. Reverse it and this is the Marxism-Leninism it adapted.
+      d1_change_route: { accept: [protracted_armed_struggle], reject: [win_elections_and_legislate], weight: 2 }
+      d1_state_role: { accept: [smash_and_replace], weight: 2 }
+      d1_party_role: { accept: [lead_and_direct], weight: 2 }
+      d1_violence: { accept: [armed_struggle_now, rupture_necessary], weight: 2 }
+      d1_pluralism_after: { accept: [one_party, one_movement_with_allies], weight: 2 }
+      d1_civil_liberties: { accept: [conditional_on_revolution], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 2 }
+      d1_state_after_transition: { accept: [withers_as_functions_end], weight: 2 }
+      d1_single_subject: { accept: [class_decisive], weight: 2 }
+      d1_world_revolution: { accept: [self_reliance, yes_one_country], weight: 1 }
+      d1_imperialism_primary: { accept: [both_intertwined, nations_primary], weight: 1 }
+      d1_planning_or_market: { accept: [central_plan_with_targets], weight: 1 }
+      d1_distribution: { accept: [by_labour], weight: 1 }
+      d1_faith_grounds: { accept: [material_interest], weight: 1 }
+      d1_individual_sovereignty: { accept: [collective_prior], weight: 1 }
+      d1_peasantry: { accept: [strongly_agree], weight: 2 }
+
+  - id: marxism_leninism_maoism
+    name: Marxism–Leninism–Maoism
+    aliases: [MLM]
+    family: maoism
+    tendency: mao_zedong_thought
+    roster_tier: core
+    summary: >-
+      Holds that Maoism is a third and higher stage of Marxism, centred on
+      protracted people's war and on cultural revolution as the means of
+      preventing capitalist restoration.
+    reading: []
+    # No depth-1 stance of its own. It accepts exactly what
+    # mao_zedong_thought accepts on every question the depth-1 core asks; what
+    # separates it — whether people's war is universal or one country's road —
+    # is d2_universal_stage. Restating the parent's position at a higher
+    # weight would have moved mass off the parent without stating a
+    # difference.
+    stances: {}
+
+  - id: gonzalo_thought
+    name: Gonzalo Thought
+    aliases: [Marxism–Leninism–Maoism–Gonzalo Thought]
+    family: maoism
+    tendency: marxism_leninism_maoism
+    lineage: true
+    roster_tier: niche
+    summary: >-
+      Holds that people's war is universally applicable and must be initiated
+      rather than awaited, under a militarised party built around a guiding
+      ideology and leadership.
+    reading: []
+    stances:
+      # "Initiate the war now" is not separable from the parent's armed-struggle
+      # answer by any depth-1 option; it is d2_peoples_war. The guiding-leader
+      # stance below is the one depth-1 position held against the parent.
+      d1_guiding_leader:
+        accept: [leaders_thought_settles]
+        reject: [members_decide, no_leaders]
+        weight: 3
+        note: >-
+          Defining: one leader's thought is the guide of the party and settles
+          disputes. Reverse it and the tradition is indistinguishable from the
+          general Maoist line.
+
+  - id: prachanda_path
+    name: Prachanda Path
+    aliases: [Nepalese Maoism]
+    family: maoism
+    tendency: marxism_leninism_maoism
+    lineage: true
+    roster_tier: niche
+    summary: >-
+      Holds that people's war in a small country must be combined with urban
+      insurrection and, at the decisive moment, with negotiation and
+      competitive multiparty politics.
+    reading: []
+    stances:
+      d1_pluralism_after:
+        accept: [competitive_elections]
+        reject: [one_party]
+        weight: 3
+        note: >-
+          Defining: the war ends in multi-party competition rather than a
+          one-party state. Reverse it and this is the parent doctrine.
+      d1_change_route: { accept: [protracted_armed_struggle, win_elections_and_legislate], weight: 2 }
+      d1_civil_liberties: { accept: [restrict_during_emergency], weight: 1 }
+
+  - id: mlm_third_worldism
+    name: MLM–Third Worldism
+    aliases: [Third-Worldist Maoism]
+    family: maoism
+    tendency: marxism_leninism_maoism
+    roster_tier: niche
+    summary: >-
+      Holds that workers in wealthy countries are bought off by imperial
+      superprofits, so the revolutionary subject is the exploited populations of
+      the global periphery.
+    reading: []
+    stances:
+      d1_wealth_from_periphery: { accept: [strongly_agree], reject: [disagree, strongly_disagree], weight: 2 }
+      d1_imperialism_primary:
+        accept: [nations_primary]
+        reject: [class_everywhere, both_intertwined]
+        weight: 3
+        note: >-
+          Defining: workers in rich countries are paid out of what is taken from
+          poor ones and are not a revolutionary force. Reverse it and this is
+          ordinary Maoism.
+      d1_decisive_agent: { accept: [colonised_peoples, peasants_rural_poor], reject: [industrial_workers], weight: 2 }
+
+  - id: mao_spontex
+    name: Mao-spontex
+    aliases: [spontaneist Maoism, libertarian Maoism]
+    family: maoism
+    tendency: mao_zedong_thought
+    roster_tier: niche
+    summary: >-
+      Holds that the point of the cultural revolution was the masses acting
+      against every entrenched authority, including the party's, so revolt
+      should be encouraged from below rather than directed from above.
+    reading: []
+    stances:
+      d1_party_role:
+        accept: [refuse_to_direct, dissolve_into_movement]
+        reject: [lead_and_direct]
+        weight: 3
+        note: >-
+          Defining: the revolt is against every authority, the party's included.
+          Reverse it and this is the Maoism it took the mass line from.
+      d1_decisive_agent: { accept: [industrial_workers, many_movements], reject: [peasants_rural_poor], weight: 2 }
+      d1_change_route: { accept: [build_counter_power_then_rupture], reject: [protracted_armed_struggle], weight: 2 }
+      d1_civil_liberties: null
+      d1_guiding_leader: { accept: [no_leaders], weight: 1 }
+
+  - id: pol_potism
+    name: Pol Potism
+    aliases: [Khmer Rouge ideology, Democratic Kampuchea line]
+    family: maoism
+    tendency: mao_zedong_thought
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that a total and immediate break with the existing order is required
+      — emptying the cities, abolishing money and markets at once, and building
+      an agrarian communism through national self-reliance.
+    reading: []
+    stances:
+      d1_world_revolution:
+        accept: [self_reliance]
+        reject: [only_holding_operation, regional_union]
+        weight: 3
+        note: >-
+          Defining: the country builds alone, sealed from every neighbour and
+          ally. Reverse it and the forced isolation that shaped everything else
+          goes with it.
+      d1_ownership: { accept: [common_ownership_no_market], reject: [private_with_strong_public], weight: 2 }
+      d1_planning_or_market: { accept: [direct_allocation_by_need], reject: [regulated_market], weight: 2 }
+      d1_technology_scale: { accept: [forgo_it, break_it_up_for_local_control], weight: 1 }
+
+  # ===========================================================================
+  # Trotskyism
+  # ===========================================================================
+
+  - id: orthodox_trotskyism
+    name: Orthodox Trotskyism
+    aliases: [degenerated workers' state tendency, Fourth Internationalism]
+    family: trotskyism
+    lineage: true
+    roster_tier: core
+    summary: >-
+      Holds that a bureaucratically run planned economy remains a workers' state
+      in its property forms, to be defended against capitalist states while the
+      layer running it is removed by political revolution.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [obstacle_to_liberation, private_matter], weight: 1 }
+      d1_wealth_from_periphery: { accept: [agree], weight: 1 }
+      d1_world_revolution:
+        accept: [only_holding_operation]
+        reject: [yes_one_country, self_reliance]
+        weight: 3
+        note: >-
+          Defining: a revolution held in one country decays into rule by
+          officials unless it spreads. Reverse it and this is Marxism-Leninism.
+      d1_pluralism_after:
+        accept: [socialist_parties_only]
+        reject: [one_party, competitive_elections]
+        weight: 3
+        note: >-
+          Defining: soviet democracy among parties that stand on the revolution,
+          against the single party. Reverse it and the case for a further
+          political revolution against the officials has no content.
+      d1_state_role: { accept: [smash_and_replace], weight: 2 }
+      d1_party_role: { accept: [lead_and_direct], weight: 2 }
+      d1_change_route: { accept: [organised_insurrection, build_counter_power_then_rupture], weight: 2 }
+      d1_state_after_transition: { accept: [withers_as_functions_end], weight: 2 }
+      d1_civil_liberties: { accept: [restrict_during_emergency, ordinary_law_only], weight: 2 }
+      d1_decisive_agent: { accept: [industrial_workers, all_wage_workers], weight: 2 }
+      d1_ownership: { accept: [public_ownership_planned], weight: 2 }
+      d1_single_subject: { accept: [class_decisive], weight: 2 }
+      d1_imperialism_primary: { accept: [class_everywhere, both_intertwined], weight: 2 }
+      d1_violence: { accept: [rupture_necessary], weight: 2 }
+      d1_change_by_example: { accept: [support_wider_struggle], weight: 2 }
+      d1_planning_or_market: { accept: [central_plan_with_targets, negotiated_plan_between_units], weight: 1 }
+      d1_distribution: { accept: [by_labour], weight: 1 }
+      d1_faith_grounds: { accept: [material_interest], weight: 1 }
+      d1_guiding_leader: { accept: [collective_leadership, members_decide], weight: 1 }
+
+  - id: pabloism
+    name: Pabloism
+    aliases: [Pabloite entrism, entrism sui generis]
+    family: trotskyism
+    tendency: orthodox_trotskyism
+    lineage: true
+    roster_tier: niche
+    summary: >-
+      Holds that mass communist and nationalist movements may be pushed towards
+      socialism under the pressure of events, so revolutionaries should work
+      inside them for a whole historical period.
+    reading: []
+    stances:
+      d1_imperialism_primary: { accept: [both_intertwined, nations_primary], reject: [class_everywhere], weight: 2 }
+
+  - id: cliffism
+    name: Cliffism
+    aliases: [state-capitalist Trotskyism, the International Socialist tradition]
+    family: trotskyism
+    tendency: orthodox_trotskyism
+    roster_tier: core
+    summary: >-
+      Holds that a planned economy run by an unremovable administrative layer is
+      a form of capitalism with a single owner, driven to accumulate by
+      competition between states, and therefore owed no defence.
+    reading: []
+    stances: {}
+
+  - id: shachtmanism
+    name: Shachtmanism
+    aliases: [bureaucratic collectivism]
+    family: trotskyism
+    tendency: orthodox_trotskyism
+    roster_tier: core
+    summary: >-
+      Holds that such a society is neither capitalist nor socialist but a new
+      form of class rule, in which the bureaucracy owns the state and through it
+      exploits the workers directly.
+    reading: []
+    stances: {}
+
+  - id: grantism
+    name: Grantism
+    aliases: [the Militant tendency, deep entrism]
+    family: trotskyism
+    tendency: orthodox_trotskyism
+    lineage: true
+    roster_tier: niche
+    summary: >-
+      Holds that revolutionaries should work inside the mass parties of the
+      working class over the long term, since those parties are where workers
+      will turn in a crisis.
+    reading: []
+    stances:
+      d1_change_route: { accept: [win_elections_and_legislate, organised_insurrection], reject: [protracted_armed_struggle], weight: 2 }
+
+  - id: morenism
+    name: Morenism
+    aliases: [Morenoism]
+    family: trotskyism
+    tendency: orthodox_trotskyism
+    lineage: true
+    roster_tier: niche
+    summary: >-
+      Holds that revolutionary situations arise far more often than the movement
+      recognises, so the task is to build parties ready to intervene in each
+      insurrectionary opening rather than to wait.
+    reading: []
+    stances: {}
+
+  - id: lambertism
+    name: Lambertism
+    aliases: [Lambertist Trotskyism]
+    family: trotskyism
+    tendency: orthodox_trotskyism
+    lineage: true
+    roster_tier: niche
+    summary: >-
+      Holds that the independence of the workers' movement and its unions from
+      the state and from popular fronts is the first principle, to be defended
+      against every pressure to dissolve it.
+    reading: []
+    stances: {}
+
+  - id: posadism
+    name: Posadism
+    aliases: [Posadist Trotskyism]
+    family: trotskyism
+    tendency: orthodox_trotskyism
+    lineage: true
+    roster_tier: niche
+    summary: >-
+      Holds that the workers' states must be defended unconditionally, that
+      history is moving irreversibly towards socialism, and that a more advanced
+      civilisation would necessarily have arrived at it already.
+    reading: []
+    stances: {}
+
+  - id: spartacism
+    name: Spartacism
+    aliases: [International Communist League tradition]
+    family: trotskyism
+    tendency: orthodox_trotskyism
+    lineage: true
+    roster_tier: niche
+    summary: >-
+      Holds that programmatic clarity must never be softened for the sake of
+      unity, and that political opponents inside the movement are to be fought
+      openly rather than accommodated.
+    reading: []
+    stances:
+      d1_party_role: { accept: [keep_programme_intact, lead_and_direct], reject: [dissolve_into_movement], weight: 2 }
+
+  # ===========================================================================
+  # Left communism and autonomism
+  # ===========================================================================
+
+  - id: council_communism
+    name: Council communism
+    aliases: [the Dutch-German left, councilism]
+    family: left_communism
+    roster_tier: core
+    summary: >-
+      Holds that the councils workers elect directly are both the organ of
+      revolution and the administration afterwards, and that any party standing
+      above them substitutes itself for the class.
+    reading: []
+    stances:
+      d1_party_role:
+        accept: [refuse_to_direct]
+        reject: [lead_and_direct, keep_programme_intact]
+        weight: 3
+        note: >-
+          Defining: no organisation stands above the workers' own councils.
+          Reverse it and this is the party communism it broke from.
+      d1_workplace_control: { accept: [workers_self_manage], reject: [public_authority_manages], weight: 2 }
+      d1_state_role: { accept: [smash_and_replace], weight: 2 }
+      d1_state_after_transition: { accept: [never_existed_as_such], weight: 2 }
+      d1_ownership: { accept: [common_ownership_no_market], weight: 2 }
+      d1_distribution: { accept: [by_labour], weight: 2 }
+      d1_change_route: { accept: [build_counter_power_then_rupture], weight: 2 }
+      d1_decisive_agent: { accept: [industrial_workers], weight: 2 }
+      d1_pluralism_after: { accept: [no_state_to_contest, socialist_parties_only], weight: 1 }
+      d1_planning_or_market: { accept: [negotiated_plan_between_units, computed_plan], weight: 1 }
+      d1_violence: { accept: [rupture_necessary], weight: 1 }
+
+  - id: bordigism
+    name: Bordigism
+    aliases: [the Italian communist left]
+    family: left_communism
+    roster_tier: core
+    summary: >-
+      Holds that the programme, held invariant across defeats, is what the party
+      exists to carry, and that majority sentiment in the class is not a test of
+      whether it is correct.
+    reading: []
+    stances:
+      d1_party_role:
+        accept: [keep_programme_intact]
+        reject: [refuse_to_direct, fight_for_its_line_democratically]
+        weight: 3
+        note: >-
+          Defining: the party holds a programme it does not revise to suit what
+          an assembly wants today. Reverse it and this is council communism.
+      d1_pluralism_after: { accept: [one_party], reject: [competitive_elections], weight: 2 }
+      d1_state_role: { accept: [smash_and_replace], weight: 2 }
+      d1_state_after_transition: { accept: [withers_as_functions_end], weight: 2 }
+      d1_ownership: { accept: [common_ownership_no_market], weight: 2 }
+      d1_change_route: { accept: [organised_insurrection], weight: 2 }
+      d1_civil_liberties: { accept: [conditional_on_revolution], weight: 2 }
+      d1_world_revolution: { accept: [only_holding_operation, wrong_question], weight: 2 }
+      d1_decisive_agent: { accept: [industrial_workers], weight: 1 }
+      d1_guiding_leader: { accept: [collective_leadership], weight: 1 }
+      d1_individual_sovereignty: { accept: [collective_prior], weight: 1 }
+      d1_violence: { accept: [rupture_necessary], weight: 2 }
+
+  - id: luxemburgism
+    name: Luxemburgism
+    aliases: [Luxemburgist Marxism]
+    family: left_communism
+    roster_tier: core
+    summary: >-
+      Holds that the mass strike is the school of revolution and that socialist
+      democracy must be widened rather than narrowed after a seizure of power,
+      since freedom is always freedom for the one who thinks differently.
+    reading: []
+    stances:
+      d1_party_role:
+        accept: [fight_for_its_line_democratically]
+        reject: [lead_and_direct, keep_programme_intact]
+        weight: 3
+        note: >-
+          Defining: the organisation argues and is bound by what the class
+          decides; it does not act for it. Reverse it and this is the
+          substitution Luxemburgism was written against.
+      d1_civil_liberties: { accept: [liberties_are_the_point, ordinary_law_only], reject: [conditional_on_revolution], weight: 3, note: "Defining: freedom for those who think differently, kept after the revolution and not only before it. Reverse it and the critique of the Bolshevik road disappears." }
+      d1_pluralism_after: { accept: [socialist_parties_only, competitive_elections], weight: 2 }
+      d1_change_route: { accept: [build_counter_power_then_rupture], weight: 2 }
+      d1_state_role: { accept: [smash_and_replace], weight: 2 }
+      d1_world_revolution: { accept: [only_holding_operation, wrong_question], weight: 2 }
+      d1_decisive_agent: { accept: [industrial_workers, all_wage_workers], weight: 1 }
+      d1_ownership: { accept: [public_ownership_planned, common_ownership_no_market], weight: 1 }
+      d1_state_after_transition: { accept: [withers_as_functions_end], weight: 1 }
+      d1_guiding_leader: { accept: [members_decide], weight: 2 }
+      d1_violence: { accept: [rupture_necessary], weight: 1 }
+
+  - id: communization
+    name: Communization theory
+    aliases: [communisation, communising current]
+    family: left_communism
+    roster_tier: core
+    summary: >-
+      Holds that revolution is the immediate abolition of exchange, wage labour
+      and the enterprise form, not a transitional period of measured
+      distribution expected to lead there later.
+    reading: []
+    stances:
+      d1_state_after_transition:
+        accept: [never_existed_as_such]
+        reject: [withers_as_functions_end, retained_as_planner]
+        weight: 3
+        note: >-
+          Defining: there is no transitional period to manage; the revolution is
+          the immediate making of a different way of living. Reverse it and this
+          is councilism with a measured transition.
+      d1_distribution:
+        accept: [by_need]
+        reject: [by_labour, market_income_plus_floor]
+        weight: 3
+        note: >-
+          Defining: wages and exchange are abolished at once rather than
+          administered better. Reverse it and the whole objection to the
+          workers' movement falls away.
+      d1_state_role: { accept: [abolish_outright, smash_and_replace], weight: 2 }
+      d1_planning_or_market: { accept: [direct_allocation_by_need], weight: 2 }
+      d1_ownership: { accept: [common_ownership_no_market], weight: 2 }
+      d1_party_role: { accept: [refuse_to_direct, dissolve_into_movement], weight: 2 }
+      d1_pluralism_after: { accept: [no_state_to_contest], weight: 2 }
+      d1_violence: { accept: [rupture_necessary], weight: 1 }
+
+  - id: situationism
+    name: Situationism
+    aliases: [situationist theory, the Situationist International tradition]
+    family: left_communism
+    roster_tier: core
+    summary: >-
+      Holds that capitalism has colonised everyday life as spectacle, so
+      revolution means workers' councils reclaiming the power to construct their
+      own situations rather than consume representations of life.
+    reading: []
+    stances:
+      d1_workplace_control: { accept: [workers_self_manage], reject: [public_authority_manages], weight: 2 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 2 }
+      d1_party_role: { accept: [refuse_to_direct], weight: 2 }
+      d1_state_role: { accept: [smash_and_replace, abolish_outright], weight: 1 }
+      d1_state_after_transition: { accept: [never_existed_as_such], weight: 1 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 1 }
+      d1_distribution: { accept: [by_need], weight: 1 }
+      d1_pluralism_after: { accept: [no_state_to_contest], weight: 1 }
+      d1_change_route: { accept: [build_counter_power_then_rupture], weight: 1 }
+
+  - id: autonomism
+    name: Autonomism
+    aliases: [operaismo, workerism, autonomia]
+    family: left_communism
+    roster_tier: core
+    summary: >-
+      Holds that workers' own refusal and initiative drive capitalist
+      development rather than react to it, so struggle should be organised
+      autonomously from parties and unions alike.
+    reading: []
+    stances:
+      d1_state_role:
+        accept: [bypass_and_build]
+        reject: [smash_and_replace, use_and_expand]
+        weight: 3
+        note: >-
+          Defining: the struggle withdraws from the state and organises its own
+          terrain rather than contesting power at the centre. Reverse it and
+          this is the party communism it left behind.
+      d1_decisive_agent: { accept: [all_wage_workers, many_movements], weight: 2 }
+      d1_change_route: { accept: [build_counter_power_then_rupture], weight: 2 }
+      d1_party_role: { accept: [refuse_to_direct, dissolve_into_movement], weight: 2 }
+      d1_pluralism_after: { accept: [no_state_to_contest], weight: 1 }
+      d1_technology_scale: { accept: [run_it_and_socialise_gains], weight: 1 }
+      d1_distribution: { accept: [by_need], weight: 1 }
+
+  - id: de_leonism
+    name: De Leonism
+    aliases: [socialist industrial unionism]
+    family: left_communism
+    roster_tier: core
+    summary: >-
+      Holds that workers should organise into industrial unions covering whole
+      industries, win a political mandate at the ballot box, and then have those
+      unions take over production directly.
+    reading: []
+    stances:
+      d1_workplace_control:
+        accept: [union_runs_it]
+        reject: [public_authority_manages, owners_under_regulation]
+        weight: 3
+        note: >-
+          Defining: industrial unions organised across the whole economy become
+          its administration. Reverse it and there is nothing left of the
+          industrial union programme.
+      d1_state_role:
+        accept: [use_then_dissolve]
+        reject: [abolish_outright, use_and_expand]
+        weight: 3
+        note: >-
+          Defining: a political mandate is won at the ballot box for the purpose
+          of dismantling the political state. Reverse it and this is either
+          syndicalism or ordinary parliamentary socialism.
+      d1_change_route: { accept: [win_elections_and_legislate, build_counter_power_then_rupture], weight: 2 }
+      d1_state_after_transition: { accept: [never_existed_as_such, dissolved_deliberately], weight: 2 }
+      d1_party_role: { accept: [keep_programme_intact], weight: 2 }
+      d1_decisive_agent: { accept: [industrial_workers], weight: 2 }
+      d1_ownership: { accept: [common_ownership_no_market], weight: 1 }
+      d1_pluralism_after: { accept: [no_state_to_contest], weight: 1 }
+      d1_violence: { accept: [not_needed_legal, defensive_only], weight: 1 }
+      d1_distribution: { accept: [by_labour], weight: 1 }
+
+  - id: impossibilism
+    name: Impossibilism
+    aliases: [impossibilist socialism]
+    family: left_communism
+    roster_tier: niche
+    summary: >-
+      Holds that reforms cannot accumulate into socialism, so a socialist party
+      should stand only for the abolition of wage labour and win a conscious
+      majority for it rather than trade on immediate demands.
+    reading: []
+    stances:
+      d1_change_route:
+        accept: [win_elections_and_legislate]
+        reject: [organised_insurrection, protracted_armed_struggle]
+        weight: 3
+        note: >-
+          Defining: a socialist majority captures the machinery through the
+          ballot, standing for socialism and nothing short of it. Reverse it and
+          this is the insurrectionary communism it refuses.
+      d1_ownership: { accept: [common_ownership_no_market], reject: [private_with_strong_public], weight: 2 }
+      d1_distribution: { accept: [by_need], weight: 2 }
+      d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
+      d1_civil_liberties: { accept: [liberties_are_the_point], weight: 2 }
+      d1_violence: { accept: [not_needed_legal], weight: 2 }
+      d1_party_role: { accept: [keep_programme_intact], weight: 2 }
+      d1_state_role: { accept: [use_then_dissolve], weight: 2 }
+      d1_state_after_transition: { accept: [dissolved_deliberately], weight: 1 }
+      d1_planning_or_market: { accept: [direct_allocation_by_need], weight: 1 }
+      d1_decisive_agent: { accept: [all_wage_workers], weight: 1 }
+
+  # ===========================================================================
+  # Anarchism
+  # ===========================================================================
+
+  - id: mutualism
+    name: Mutualism
+    aliases: [Proudhonian mutualism]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that property should rest on occupancy and use, that credit should
+      be mutualised so people can acquire their own means of work, and that free
+      exchange between producers needs no state to police it.
+    reading: []
+    stances:
+      d1_ownership:
+        accept: [occupancy_and_use]
+        reject: [common_ownership_no_market, private_with_strong_public]
+        weight: 3
+        note: >-
+          Defining: title follows use, so a thing is yours while you are using
+          it and not otherwise. Reverse it and this is either capitalism or
+          communism, both of which it rejects.
+      d1_distribution:
+        accept: [free_exchange]
+        reject: [by_need]
+        weight: 3
+        note: >-
+          Defining: exchange at cost between producers, with no rent or interest
+          taken. Reverse it and the whole account of how exploitation happens
+          goes with it.
+      d1_planning_or_market: { accept: [market_between_worker_firms], reject: [central_plan_with_targets], weight: 2 }
+      d1_workplace_control: { accept: [workers_self_manage], weight: 2 }
+      d1_state_role: { accept: [bypass_and_build, abolish_outright], reject: [use_and_expand, smash_and_replace, win_own_state], weight: 2 }
+      d1_change_by_example: { accept: [network_of_alternatives], weight: 2 }
+      d1_change_route: { accept: [prefigure_and_replace], weight: 2 }
+      d1_individual_sovereignty: { accept: [freedom_through_association, individual_is_the_point], weight: 1 }
+
+  - id: collectivist_anarchism
+    name: Collectivist anarchism
+    aliases: [Bakuninism, anarchist collectivism]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that the means of production should be owned collectively by
+      federated workers' associations, with each person remunerated according to
+      the labour they contribute.
+    reading: []
+    stances:
+      d1_distribution:
+        accept: [by_labour]
+        reject: [by_need, market_income_plus_floor]
+        weight: 3
+        note: >-
+          Defining: the means of work are held in common but the product is
+          shared by work done. Reverse it and this is anarchist communism, which
+          is exactly the argument that split the two.
+      d1_ownership: { accept: [common_ownership_no_market], weight: 2 }
+      d1_workplace_control: { accept: [workers_self_manage], weight: 2 }
+      d1_change_route: { accept: [build_counter_power_then_rupture], weight: 2 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 2 }
+      d1_decisive_agent: { accept: [industrial_workers, peasants_rural_poor], weight: 1 }
+      d1_violence: { accept: [rupture_necessary], weight: 1 }
+      d1_planning_or_market: { accept: [negotiated_plan_between_units], weight: 1 }
+
+  - id: anarcho_communism
+    name: Anarcho-communism
+    aliases: [libertarian communism, communist anarchism]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that goods should be held in common and taken according to need,
+      organised through federated communes and workplace assemblies, with no
+      state at any stage.
+    reading: []
+    stances:
+      d1_distribution:
+        accept: [by_need]
+        reject: [by_labour, free_exchange]
+        weight: 3
+        note: >-
+          Defining: take what you need from the common store, with no accounting
+          of contribution. Reverse it and this is the collectivism it grew out
+          of and broke with.
+      d1_ownership: { accept: [common_ownership_no_market], reject: [occupancy_and_use], weight: 2 }
+      d1_planning_or_market: { accept: [direct_allocation_by_need, negotiated_plan_between_units], weight: 2 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 2 }
+      d1_change_by_example: { accept: [network_of_alternatives], weight: 1 }
+      d1_change_route: { accept: [build_counter_power_then_rupture, prefigure_and_replace], weight: 1 }
+      d1_workplace_control: { accept: [workers_self_manage], weight: 1 }
+      d1_violence: { accept: [rupture_necessary], weight: 1 }
+
+  - id: anarcho_syndicalism
+    name: Anarcho-syndicalism
+    aliases: [revolutionary unionism]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that revolutionary unions are both the weapon of the struggle and
+      the framework that runs production afterwards, with the general strike as
+      the decisive method.
+    reading: []
+    stances:
+      d1_workplace_control:
+        accept: [union_runs_it]
+        reject: [public_authority_manages, owners_under_regulation]
+        weight: 3
+        note: >-
+          Defining: the workers' own organisation is both the weapon now and the
+          body that runs production afterwards. Reverse it and this is anarchist
+          communism organised around the commune instead.
+      d1_change_route:
+        accept: [build_counter_power_then_rupture]
+        reject: [win_elections_and_legislate]
+        weight: 3
+        note: >-
+          Defining: the general strike out of the workplace, not the ballot and
+          not the armed column. Reverse it and the syndicalist method is gone.
+      d1_decisive_agent: { accept: [industrial_workers, all_wage_workers], weight: 2 }
+      d1_single_subject: { accept: [class_decisive], weight: 2 }
+      d1_state_role: { accept: [bypass_and_build, abolish_outright], reject: [use_and_expand, smash_and_replace, win_own_state], weight: 2 }
+      d1_ownership: { accept: [common_ownership_no_market], weight: 1 }
+      d1_planning_or_market: { accept: [negotiated_plan_between_units], weight: 1 }
+      d1_imperialism_primary: { accept: [class_everywhere], weight: 1 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 1 }
+      d1_violence: { accept: [defensive_only, rupture_necessary], weight: 1 }
+
+  - id: insurrectionary_anarchism
+    name: Insurrectionary anarchism
+    aliases: [insurrectionism]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that permanent organisations become ends in themselves, so revolt
+      should be carried by small groups acting now, on their own initiative,
+      rather than deferred to a mass movement that may never arrive.
+    reading: []
+    stances:
+      d1_violence:
+        accept: [offensive_action]
+        reject: [not_needed_legal, principled_nonviolence]
+        weight: 3
+        note: >-
+          Defining: attack now, without waiting for a mass movement, because the
+          attack is what shows the order can be broken. Reverse it and this is
+          the patient organisation-building it rejects.
+      d1_party_role: { accept: [refuse_to_direct], weight: 2 }
+      d1_change_route: { accept: [prefigure_and_replace, build_counter_power_then_rupture], weight: 1 }
+      d1_individual_sovereignty: { accept: [freedom_through_association, individual_is_the_point], weight: 1 }
+
+  - id: individualist_anarchism
+    name: Individualist anarchism
+    aliases: [anarchist individualism]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that the sovereignty of the individual is the point of the whole
+      project, and that association is legitimate only where it is voluntary and
+      revocable by each person in it.
+    reading: []
+    stances:
+      d1_individual_sovereignty:
+        accept: [individual_is_the_point]
+        reject: [collective_prior]
+        weight: 3
+        note: >-
+          Defining: the individual is sovereign and no association may dispose
+          of them. Reverse it and this is the social anarchism it stands apart
+          from.
+      d1_ownership: { accept: [occupancy_and_use, widely_held_small_property], weight: 2 }
+      d1_distribution: { accept: [free_exchange], reject: [by_need], weight: 2 }
+      d1_planning_or_market: { accept: [market_between_worker_firms], weight: 1 }
+      d1_violence: { accept: [defensive_only], weight: 1 }
+
+  - id: egoism
+    name: Egoism
+    aliases: [Stirnerism, egoist anarchism]
+    family: anarchism
+    tendency: individualist_anarchism
+    roster_tier: boundary
+    boundary: true
+    summary: >-
+      Holds that every cause above the individual — state, society, humanity,
+      morality — is a fixed idea to be dissolved, leaving only the unique person
+      and the unions they freely enter.
+    reading: []
+    stances:
+      d1_ownership: null
+      d1_distribution: null
+      d1_planning_or_market: null
+      d1_faith_grounds: { accept: [secular_reason], reject: [grounds_it, ethical_ideal], weight: 2 }
+
+  - id: anarcho_primitivism
+    name: Anarcho-primitivism
+    aliases: [primitivism, green anarchy]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that domination is built into large-scale technology and agriculture
+      themselves, so a free life requires unwinding civilisation rather than
+      taking it over.
+    reading: []
+    stances:
+      d1_technology_scale:
+        accept: [forgo_it]
+        reject: [run_it_and_socialise_gains, run_it_under_direct_control]
+        weight: 3
+        note: >-
+          Defining: the machinery itself is the domination, so it is not to be
+          taken over but given up. Reverse it and this is any other green
+          anarchism.
+      d1_growth: { accept: [strongly_disagree], reject: [strongly_agree], weight: 2 }
+      d1_ecology_priority: { accept: [strongly_agree], weight: 2 }
+
+  - id: social_ecology
+    name: Social ecology
+    aliases: [communalism, libertarian municipalism, Bookchinism]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that ecological crisis follows from hierarchy among people, and that
+      the remedy is directly democratic municipal assemblies confederated from
+      the bottom up.
+    reading: []
+    stances:
+      d1_change_by_example:
+        accept: [network_of_alternatives]
+        reject: [win_legislation]
+        weight: 3
+        note: >-
+          Defining: community assemblies, confederated with each other, grow
+          into the power that replaces the state. Reverse it and there is no
+          route from the assembly to a society.
+      d1_ecology_priority: { accept: [strongly_agree, agree], weight: 2 }
+      d1_technology_scale: { accept: [run_it_under_direct_control, break_it_up_for_local_control], weight: 2 }
+      d1_state_role: { accept: [bypass_and_build], reject: [use_and_expand, smash_and_replace, win_own_state], weight: 2 }
+      d1_change_route: { accept: [prefigure_and_replace], weight: 2 }
+      d1_ownership: { accept: [common_ownership_no_market], weight: 2 }
+      d1_planning_or_market: { accept: [negotiated_plan_between_units], weight: 2 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 2 }
+      d1_growth: { accept: [disagree, strongly_disagree], weight: 1 }
+      d1_violence: { accept: [defensive_only], weight: 1 }
+      d1_decisive_agent: { accept: [citizens_majority], weight: 1 }
+
+  - id: post_left_anarchy
+    name: Post-left anarchy
+    aliases: [post-leftism]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that the organised left reproduces the ideology, morality and work
+      discipline it claims to oppose, so anarchism should break with it and
+      begin from lived refusal instead.
+    reading: []
+    stances:
+      d1_party_role:
+        accept: [refuse_to_direct]
+        reject: [lead_and_direct, fight_for_its_line_democratically]
+        weight: 3
+        note: >-
+          Defining: organisation as such, including the movement's own, is what
+          reproduces what it opposes. Reverse it and this is the organised
+          anarchism it defines itself against.
+      d1_individual_sovereignty: { accept: [individual_is_the_point, freedom_through_association], weight: 2 }
+      d1_single_subject: { accept: [each_its_own], weight: 1 }
+      d1_change_by_example: { accept: [spread_by_example], weight: 1 }
+
+  - id: christian_anarchism
+    name: Christian anarchism
+    aliases: [Tolstoyanism, Christian nonresistance]
+    family: anarchism
+    roster_tier: niche
+    summary: >-
+      Holds that the gospel forbids both violence and rule over others, so no
+      state can be obeyed where it commands either, and that people should live
+      in voluntary community and simple labour.
+    reading: []
+    stances:
+      d1_religion_and_liberation: { accept: [ally_of_liberation], reject: [obstacle_to_liberation], weight: 2 }
+      d1_faith_grounds:
+        accept: [grounds_it]
+        reject: [secular_reason, material_interest]
+        weight: 3
+        note: >-
+          Defining: the refusal of the state is a religious commitment, not a
+          political conclusion. Reverse it and this is ordinary anarchism.
+      d1_violence:
+        accept: [principled_nonviolence]
+        reject: [offensive_action, armed_struggle_now]
+        weight: 3
+        note: >-
+          Defining: non-resistance, held even under attack. Reverse it and the
+          tradition loses the commitment that separates it from the rest of the
+          family.
+      d1_state_role: { accept: [bypass_and_build, abolish_outright], reject: [use_and_expand, smash_and_replace, win_own_state], weight: 2 }
+      d1_change_by_example: { accept: [spread_by_example], weight: 2 }
+      d1_individual_sovereignty: { accept: [freedom_through_association], weight: 1 }
+      d1_distribution: { accept: [by_need], weight: 1 }
+
+  - id: zapatismo
+    name: Zapatismo
+    aliases: [neozapatismo, Zapatista autonomy]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that communities should govern themselves through assemblies whose
+      delegates lead by obeying, building autonomy in practice rather than
+      seizing state power, and making room for many worlds rather than one.
+    reading: []
+    inseparable_from:
+      - ideology: democratic_confederalism
+        note: >-
+          Zapatismo and democratic confederalism share one structure: territory
+          governed by confederated community assemblies that refuse to seek a
+          state of their own. They arose among different peoples and differ
+          mainly in emphasis, which position questions can only partly reach.
+    stances:
+      d1_wealth_from_periphery: { accept: [strongly_agree, agree], weight: 1 }
+      d1_nation_self_gov:
+        accept: [confederation_no_state, autonomy_where_we_live]
+        reject: [own_state_socialist]
+        weight: 3
+        note: >-
+          Defining: govern the territory through the communities' own
+          assemblies, and do not seek the state. Reverse it and this is an
+          ordinary movement of national liberation.
+      d1_state_role: { accept: [bypass_and_build], reject: [use_and_expand, smash_and_replace, win_own_state], weight: 2 }
+      d1_change_by_example: { accept: [network_of_alternatives], weight: 2 }
+      d1_change_route: { accept: [prefigure_and_replace], weight: 2 }
+      d1_violence: { accept: [defensive_only], weight: 2 }
+      d1_faith_grounds: null
+      d1_decisive_agent: { accept: [colonised_peoples, peasants_rural_poor], weight: 1 }
+      d1_imperialism_primary: { accept: [both_intertwined, nations_primary], weight: 1 }
+      d1_ownership: { accept: [common_ownership_no_market], weight: 1 }
+      d1_single_subject: { accept: [each_its_own], weight: 1 }
+
+  - id: democratic_confederalism
+    name: Democratic confederalism
+    aliases: [Öcalanism, Apoism, the Rojava model]
+    family: anarchism
+    tendency: social_ecology
+    roster_tier: core
+    summary: >-
+      Holds that a stateless democracy of confederated councils, founded on
+      women's liberation and ecological society, answers the national question
+      better than any state of one's own would.
+    reading: []
+    inseparable_from:
+      - ideology: zapatismo
+        note: >-
+          Democratic confederalism and Zapatismo share one structure: territory
+          governed by confederated community assemblies that refuse to seek a
+          state of their own. They arose among different peoples and differ
+          mainly in emphasis, which position questions can only partly reach.
+    stances:
+      d1_nation_self_gov:
+        accept: [confederation_no_state]
+        reject: [own_state_socialist, independence_first]
+        weight: 3
+        note: >-
+          Defining: a people governs itself through confederated assemblies and
+          refuses a state of its own. Reverse it and this is the national
+          liberation movement it broke with.
+      d1_violence: { accept: [defensive_only], reject: [principled_nonviolence], weight: 2 }
+      d1_gender_division: { accept: [strongly_agree], weight: 2 }
+      d1_decisive_agent: { accept: [many_movements], weight: 1 }
+      d1_single_subject: { accept: [class_plus_autonomous], weight: 2 }
+
+  - id: revolutionary_syndicalism
+    name: Revolutionary syndicalism
+    aliases: [syndicalism]
+    family: anarchism
+    roster_tier: core
+    summary: >-
+      Holds that the union is the whole of the movement — its school, its weapon
+      and its future administration — and that political parties are a detour
+      from direct economic struggle.
+    reading: []
+    stances:
+      d1_workplace_control:
+        accept: [union_runs_it]
+        reject: [public_authority_manages, owners_under_regulation]
+        weight: 3
+        note: >-
+          Defining: the union is the whole of the movement — its school, its
+          weapon and its future administration. Reverse it and political parties
+          have a job again, which is what this tradition denies.
+      d1_change_route: { accept: [build_counter_power_then_rupture], reject: [win_elections_and_legislate], weight: 2 }
+      d1_decisive_agent: { accept: [industrial_workers], weight: 2 }
+      d1_single_subject: { accept: [class_decisive], weight: 2 }
+      d1_state_role: { accept: [bypass_and_build], reject: [use_and_expand, smash_and_replace, win_own_state], weight: 2 }
+      d1_imperialism_primary: { accept: [class_everywhere], weight: 1 }
+      d1_planning_or_market: { accept: [negotiated_plan_between_units], weight: 1 }
