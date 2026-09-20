@@ -343,3 +343,97 @@ rules. Every entry must have passed `npm run validate`.
             carry the default's reject list. Defaults over the 30% threshold fell
             from six to three, and members over 40% from eleven to six.
 ```
+
+```
+2026-09-20  docs/depth1-batches.md      +the split of the 18 remaining depth-1 rows
+            The inventory has 47 depth-1 rows and 28 were authored, leaving 19,
+            not 21: d1_religion_and_liberation and d1_wealth_from_periphery were
+            already rows 30 and 21 and were pulled forward, not added. Nothing
+            needed adding to the inventory. Batch 1 is blueprint §2 dimensions
+            D1-D6, batch 2 is D7-D23, which is also the split between the
+            economic core and the questions that feed the modifier tags.
+
+2026-09-20  docs/question-inventory.md  d1_hostile_press absorbed into d1_civil_liberties
+            Row 16 asks about a press funded by the old owners campaigning
+            against a new government, free or restricted or closed. Row 45,
+            written in the prototype pass, already asks that scenario in those
+            words with those options. Writing row 16 would be asking the same
+            question twice, which is what exclusive_with exists to prevent, so
+            it is recorded as absorbed the way rows 13-15 record what they
+            absorbed. Depth 1 is 46 written of 47 planned, inside SPEC §9's
+            42-52. A media-ownership question is still possible but is a new row
+            with a different position line, not this one.
+
+2026-09-20  content/questions.yaml      +9 depth-1 questions (batch 1)
+            d1_expropriation, d1_land, d1_owners_resist, d1_reforms_accumulate,
+            d1_price_signals, d1_state_neutrality, d1_police_and_army,
+            d1_party_needed, d1_organisation_form. d1_state_neutrality is the
+            heaviest lifter: why the permanent institutions pull a left
+            government back separates the liberal left, social democracy, the
+            Leninist tradition, anarchism and Eurocommunism with one answer
+            each. d1_party_needed separates council communism from Bordigism at
+            depth 1, which SPEC §1 names as a criterion pair and which no
+            depth-1 question reached before. 14 follow-ups: 3 force, 7 boost, 4
+            unlock; the longest forced chain is 3 (expropriation → owners
+            resist → reforms accumulate), at the cap. Two stems quote an
+            earlier answer.
+
+2026-09-20  content/questions.yaml      +4 unlocks into existing depth-2/3 blocks
+            The depth-3 blocks written in the vertical-slice session were
+            reachable only through family mass. New depth-1 answers now unlock
+            them directly: d1_state_neutrality's "built to protect property" and
+            "any apparatus defends itself" unlock
+            d3_class_struggle_under_socialism; d1_party_needed unlocks
+            d3_party_vs_class and d3_council_or_programme from opposite answers;
+            d1_organisation_form unlocks d3_specific_organisation; the same
+            d1_state_neutrality answers also unlock
+            d3_bureaucratic_planned_economy, which had no depth-1 route into
+            it at all. Boosts also
+            wire d1_price_signals → d1_planning_or_market, d1_land →
+            d1_peasantry, d1_party_needed → d1_party_role and
+            d1_organisation_form → d2_union_role. All added to the new
+            questions; nothing in the existing blocks was edited.
+
+2026-09-20  content/families.yaml       family defaults for the batch-1 nine
+            Seven families gained defaults, each inside the 75% rule and each
+            under the 30% override warning. Four families were deliberately left
+            without one: social_democracy has no default on d1_owners_resist or
+            d1_state_neutrality because its members split four to three on both
+            (permeation against the balance of forces), anti_colonial none on
+            d1_expropriation because three of eleven compensate, anarchism none
+            on d1_land or d1_price_signals because mutualism and anarchist
+            communism are opposed on both, and left_communism none on
+            d1_party_needed because Bordigism and De Leonism hold the opposite
+            of the other six.
+
+2026-09-20  content/ideologies.yaml     batch-1 stances, 72 ideologies
+            Authored where the tradition takes a position and left silent where
+            it does not. Six weight-3 stances added, each a position without
+            which the ideology would be a different one: Fabian permeation on
+            d1_state_neutrality, the Eurocommunist terrain-of-struggle on the
+            same question, Leninist consciousness-from-outside and the class
+            state, the council-communist and Bordigist answers to
+            d1_party_needed, mutualist title and mutualist prices, the guild and
+            anarcho-syndicalist answers on d1_organisation_form, the communal
+            land of Narodnism, Ujamaa, Mariateguism and Zapatismo, Gandhian and
+            Christian-anarchist refusal of any armed body, Deng on prices, and
+            Luxemburgist and impossibilist restatements of the family's
+            reform-accumulation position at weight 3.
+
+2026-09-20  content/ideologies.yaml     14 batch-1 stances removed as guesses
+            The first `npm run check` run after authoring fell to 81 of 93 from
+            a baseline of 82. Every new failure had the same cause: a weight-1
+            stance written from what a tradition plausibly would have said
+            rather than from what it did say, which then matched another
+            family's default and pulled the ideology there. Removed:
+            d1_organisation_form from owenism and fourierism (no option
+            expresses founding the model community, which is what they answer),
+            d1_police_and_army from saint_simonianism, d1_state_neutrality from
+            christian_communism, three from islamic_socialism, three from
+            lohiaite_socialism, d1_party_needed from abertzale_left, two from
+            peronism, and d1_expropriation from christian_communism (the
+            community of goods is not workers taking over a workplace; that is
+            d2_community_in_common's question). peronism's organisational form
+            became the movement-plus-unions front it actually was rather than
+            the social-democratic mass party. Check then read 86 of 93.
+```

@@ -852,6 +852,367 @@ questions:
           It depends on the right at stake. Written rights, protected by courts,
           mark where the community cannot go; elsewhere the majority decides.
 
+  # --- batch 1 of the deferred depth-1 rows (docs/depth1-batches.md) ---------
+  # Blueprint §2 dimensions D1-D6: ownership, reform or rupture, markets, the
+  # existing state, and organisation. d1_hostile_press is absorbed into
+  # d1_civil_liberties rather than written; see docs/depth1-batches.md.
+
+  - id: d1_expropriation
+    depth: 1
+    kind: single_choice
+    tags: [ownership, transition]
+    text: >-
+      A government decides the country's largest firms should belong to the
+      public. The people who own them now hold shares worth a great deal. On
+      what terms should the change be made?
+    options:
+      - id: full_market_compensation
+        label: >-
+          Pay the full market value. Taking property without paying for it is
+          confiscation whatever it is called, and a government that does it once
+          will not be trusted again.
+      - id: compensation_where_hardship
+        label: >-
+          Pay where the loss would really hurt — small savers, pension funds —
+          and not where it would only reduce a large fortune.
+      - id: buy_out_gradually
+        label: >-
+          Buy them out over years, through public funds that take a growing share
+          of the profits, so ownership shifts without any single moment of
+          seizure.
+      - id: no_compensation
+        label: >-
+          Pay nothing. The wealth was made by the people who worked there, and
+          buying it back from those who took it means paying for it twice.
+      - id: workers_take_directly
+        label: >-
+          No government needs to arrange it. The people who work there take the
+          places over and run them, and the question of payment never comes up.
+      - id: no_transfer_at_all
+        label: >-
+          Nothing should pass into public hands. Tax, competition law and support
+          for smaller firms can break up great concentrations of wealth without
+          the state taking anything over.
+    follow_ups:
+      - when:
+          answer_in: [no_compensation, workers_take_directly]
+        ask: [d1_owners_resist]
+        mode: force
+      - when:
+          answer_in: [full_market_compensation, compensation_where_hardship, buy_out_gradually]
+        ask: [d1_owners_resist]
+        mode: boost
+        boost: 1.5
+
+  - id: d1_land
+    depth: 1
+    kind: single_choice
+    tags: [ownership, land]
+    text: >-
+      Most of the farmland in a country is held by a few hundred families and
+      worked by people who own none of it. What should happen to the land itself?
+    options:
+      - id: to_those_who_work_it
+        label: >-
+          Divide it among the households who actually farm it, as their own. A
+          family that owns the field it works has something no landlord can take
+          back from it.
+      - id: state_or_collective_farms
+        label: >-
+          Bring it into public ownership and work it as large farms planned
+          alongside the rest of the economy, where machinery and scale can do
+          what small plots cannot.
+      - id: village_holds_in_common
+        label: >-
+          The village should hold it together and share out its use, as
+          communities did before landlords appeared. It belongs to all of them
+          and to none of them separately.
+      - id: public_with_secure_tenure
+        label: >-
+          Public ownership, leased on secure terms to the households and
+          co-operatives that farm it, so nobody can be evicted and nobody can
+          build up estates again.
+      - id: ceiling_on_holdings
+        label: >-
+          Leave it in private hands, with a firm limit on how much any one family
+          may hold and real support for those working small plots.
+      - id: title_follows_use
+        label: >-
+          Title should follow the working of it. Land is held while it is being
+          used and lapses when it is not, and no rent is owed to anybody for it.
+    follow_ups:
+      - when:
+          answer_in: [to_those_who_work_it, village_holds_in_common, state_or_collective_farms]
+        ask: [d1_peasantry]
+        mode: boost
+        boost: 1.5
+
+  - id: d1_owners_resist
+    depth: 1
+    kind: single_choice
+    tags: [strategy, rupture, class]
+    text: >-
+      A government elected on a clear majority begins transferring the largest
+      firms into public ownership, by law and through the courts. What will the
+      people who own those firms actually do?
+    options:
+      - id: accept_the_law
+        short: accept it in the end
+        label: >-
+          Accept it, under protest. Where courts and elections are settled,
+          owners have in the end complied with a law they could not overturn.
+      - id: fight_within_rules
+        short: fight hard, but within the rules
+        label: >-
+          Fight it with everything the rules allow — courts, newspapers,
+          lobbying — and a government that holds its nerve can see that down.
+      - id: capital_strike
+        short: strangle the economy until it retreats
+        label: >-
+          Stop investing and move their money out, and let shortages and a
+          falling currency do the rest. The government retreats without a shot
+          being fired.
+      - id: resist_by_any_means
+        short: resist by any means, force included
+        label: >-
+          Resist by any means, force included, and find friends among the
+          officers or abroad. A movement that has not prepared for that will be
+          broken by it.
+      - id: never_gets_that_far
+        short: it never gets that far
+        label: >-
+          It never reaches that point. Long before such a majority exists, the
+          movement that built it has been drawn into managing things as they
+          are.
+    follow_ups:
+      - when:
+          answer_in:
+            [accept_the_law, fight_within_rules, capital_strike, resist_by_any_means, never_gets_that_far]
+        ask: [d1_reforms_accumulate]
+        mode: force
+      - when:
+          answer_in: [capital_strike, resist_by_any_means]
+        ask: [d1_state_neutrality]
+        mode: boost
+        boost: 2.0
+
+  - id: d1_reforms_accumulate
+    depth: 1
+    kind: likert5
+    tags: [strategy, reform]
+    requires:
+      answered:
+        d1_owners_resist:
+          [accept_the_law, fight_within_rules, capital_strike, resist_by_any_means, never_gets_that_far]
+    text: >-
+      You said the owners would {{answers.d1_owners_resist.short}}. Reforms won
+      one at a time — a service taken into public hands here, stronger rights at
+      work there — add up, and can turn one kind of society into another without
+      any decisive break.
+
+  - id: d1_price_signals
+    depth: 1
+    kind: likert5
+    tags: [economy, coordination]
+    text: >-
+      Prices that come out of people buying and selling carry information about
+      what is wanted and what it costs to make — information that no planning
+      body could gather any other way.
+    follow_ups:
+      - when:
+          answer_in: [strongly_agree, agree]
+        ask: [d1_planning_or_market]
+        mode: boost
+        boost: 1.5
+
+  - id: d1_state_neutrality
+    depth: 1
+    kind: single_choice
+    tags: [state, class]
+    text: >-
+      A government committed to working people takes office. It finds that the
+      civil service, the courts and the central bank keep steering its decisions
+      back towards what business will accept. Why does that happen?
+    options:
+      - id: staffed_by_one_layer
+        short: they are staffed from one narrow layer
+        label: >-
+          Because those institutions are staffed almost entirely from one narrow
+          layer of society. Change who works in them and they will serve a
+          different government perfectly well.
+      - id: built_to_protect_property
+        short: they were built to protect property
+        label: >-
+          Because they were built to protect property and will work that way
+          whoever staffs them. They cannot be inherited and used; they have to be
+          replaced.
+      - id: any_apparatus_defends_itself
+        short: any apparatus that size defends itself
+        label: >-
+          Because any apparatus of that size grows interests of its own and
+          defends them. It would do the same to a socialist government, and where
+          there has been one, it has.
+      - id: balance_of_forces
+        short: not enough pressure has been built outside it
+        label: >-
+          Because the government is pushing on its own. Those institutions bend
+          when there is organised pressure on them from outside, and not enough
+          of it has been built.
+      - id: it_is_a_proper_check
+        short: that is the check working as it should
+        label: >-
+          Because they exist to stop any single government doing whatever it
+          likes, which is worth keeping even when it frustrates a government you
+          voted for.
+    follow_ups:
+      - when:
+          answer_in:
+            [staffed_by_one_layer, built_to_protect_property, any_apparatus_defends_itself, balance_of_forces, it_is_a_proper_check]
+        ask: [d1_police_and_army]
+        mode: force
+      - when:
+          answer_in: [built_to_protect_property, any_apparatus_defends_itself]
+        ask: [d3_class_struggle_under_socialism, d3_bureaucratic_planned_economy]
+        mode: unlock
+
+  - id: d1_police_and_army
+    depth: 1
+    kind: single_choice
+    tags: [state, force]
+    requires:
+      answered:
+        d1_state_neutrality:
+          [staffed_by_one_layer, built_to_protect_property, any_apparatus_defends_itself, balance_of_forces, it_is_a_proper_check]
+    text: >-
+      You said that happens because {{answers.d1_state_neutrality.short}}.
+      Whatever else changes, some body still has to deal with armed robbery, and
+      with an invasion. In the society you want, what does that body look like?
+    options:
+      - id: accountable_professional_force
+        label: >-
+          Much as now — trained professionals, a police service and an army — but
+          under real democratic control, properly inspected and answerable to an
+          elected government.
+      - id: rebuilt_under_new_authority
+        label: >-
+          The existing forces broken up and built again from the bottom under the
+          new order's command. The officers of the old one cannot be kept on and
+          cannot be trusted.
+      - id: popular_militia
+        label: >-
+          The people themselves, armed and organised where they live and work,
+          with officers elected for short terms and no standing force existing
+          apart from them.
+      - id: community_bodies_no_force
+        label: >-
+          Bodies the community picks and can dissolve, dealing with harm by
+          agreement and repair, with nothing resembling a police force or a
+          standing army anywhere.
+      - id: no_armed_body
+        label: >-
+          No armed body at all. Meeting force with force is what keeps force
+          alive; a people defends itself by refusing, in numbers, to cooperate
+          with anyone trying to rule it.
+
+  - id: d1_party_needed
+    depth: 1
+    kind: single_choice
+    tags: [organisation, class, party]
+    text: >-
+      Left to their own experience — the job, the strike, the election — where do
+      working people's political ideas end up?
+    options:
+      - id: union_ideas_only
+        label: >-
+          At better terms inside the present order, and no further. A wider
+          understanding has to be brought to them by an organisation that has
+          worked it out and argues for it.
+      - id: revolutionary_through_struggle
+        label: >-
+          At revolutionary conclusions, reached through the struggle itself. What
+          an organisation can do is help people see what they are already doing,
+          not instruct them in it.
+      - id: party_of_their_own
+        label: >-
+          At building a party of their own to carry their interests into
+          government — one they join, pay for, and can vote the leadership out
+          of.
+      - id: argued_out_between_people
+        label: >-
+          Nowhere on their own, and nowhere handed down from outside either. They
+          are fought out between people in the movement and everyone around it,
+          over a long time.
+      - id: no_ready_made_politics
+        label: >-
+          Nowhere in particular. There is no politics waiting inside a class to
+          be woken up, and expecting one is how movements end up being spoken
+          for.
+    follow_ups:
+      - when:
+          answer_in: [union_ideas_only]
+        ask: [d1_party_role]
+        mode: boost
+        boost: 2.0
+      - when:
+          answer_in: [union_ideas_only]
+        ask: [d3_party_vs_class]
+        mode: unlock
+      - when:
+          answer_in: [revolutionary_through_struggle]
+        ask: [d3_council_or_programme]
+        mode: unlock
+
+  - id: d1_organisation_form
+    depth: 1
+    kind: single_choice
+    tags: [organisation, party]
+    text: >-
+      People who want a different economic order have to organise somehow. What
+      is actually worth building?
+    options:
+      - id: mass_membership_party
+        label: >-
+          A mass party anyone who supports its programme can join, standing
+          candidates at elections, with its leaders held to what its own
+          conference decides.
+      - id: disciplined_cadre_body
+        label: >-
+          A smaller organisation of tested and committed people, trained to act
+          as one and able to keep going if it is driven underground.
+      - id: broad_front_of_movements
+        label: >-
+          A broad front joining parties, unions, campaigns and community groups,
+          held together by what they agree on rather than by one programme.
+      - id: federation_of_local_groups
+        label: >-
+          A federation of local groups that keeps every decision as near the
+          ground as it can be, sending delegates upward who can be recalled at
+          any time.
+      - id: workplace_bodies
+        label: >-
+          Organisation where people work — a union, or a body elected by everyone
+          in the workplace — because that is where their strength actually is.
+      - id: as_little_as_possible
+        label: >-
+          As little permanent structure as possible. People come together for
+          what has to be done and disperse afterwards; anything lasting grows
+          interests of its own.
+    follow_ups:
+      - when:
+          answer_in: [workplace_bodies]
+        ask: [d2_union_role]
+        mode: boost
+        boost: 2.0
+      - when:
+          answer_in: [federation_of_local_groups, as_little_as_possible]
+        ask: [d3_specific_organisation]
+        mode: unlock
+      - when:
+          answer_in: [disciplined_cadre_body]
+        ask: [d1_party_needed]
+        mode: boost
+        boost: 1.5
+
   # ---------------------------------------------------------------------------
   # Depth 2 — place within a family
   # ---------------------------------------------------------------------------

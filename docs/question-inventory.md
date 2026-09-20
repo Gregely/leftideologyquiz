@@ -19,11 +19,12 @@ renamed if its depth changes — a breaking id change, to be logged when made);
 a history-class question (principle 3); **L** a likert; tags are modifier tags
 the question feeds.
 
-Totals: **47 depth-1, 55 depth-2, 28 depth-3 — 130 questions.**
+Totals: **46 depth-1, 55 depth-2, 28 depth-3 — 129 questions.** Row 16 below is
+absorbed rather than written, which is why depth 1 is 46 and not 47.
 
 ---
 
-## Depth 1 — 47
+## Depth 1 — 47 rows, 46 written
 
 | # | id | dim | position | reuses | notes |
 |---:|---|---|---|---|---|
@@ -42,7 +43,7 @@ Totals: **47 depth-1, 55 depth-2, 28 depth-3 — 130 questions.**
 | 13 | d1_party_needed | D5 | Does the working class need a party to become revolutionary | — | absorbs Maoism M9 |
 | 14 | d1_organisation_form | D5 | Mass party, cadre organisation, front of movements, federation, or none | — | absorbs left-communism L4, post-Marxist P2 |
 | 15 | d1_pluralism_after | D6 | After taking power: competitive elections, socialist parties only, one party, or no state to hold them | — | absorbs M7, R2, Q3 |
-| 16 | d1_hostile_press | D6 | A press funded by the old owners campaigning against a new government: free, restricted, closed | — | |
+| 16 | ~~d1_hostile_press~~ | D6 | A press funded by the old owners campaigning against a new government: free, restricted, closed | — | **absorbed into #45 d1_civil_liberties**, which asks this scenario in these words. Not written; see docs/depth1-batches.md |
 | 17 | d1_nation_self_gov | D7 | A people governed from outside: independence, autonomy where they live, unification, sovereignty against foreign capital, confederation instead of a state, or class matters more | — | absorbs Q1, S9; tag nation |
 | 18 | d1_autonomy_without_state | D7 | A people can govern its own affairs inside someone else's state | — | L; absorbs SD cluster D4; tag nation |
 | 19 | d1_nation_unity | D7 | A people divided across several states should unify | — | L; tag nation |
@@ -77,7 +78,8 @@ Totals: **47 depth-1, 55 depth-2, 28 depth-3 — 130 questions.**
 
 Depth-1 count by dimension: D1 3, D2 3, D3 2, D4 3, D5 3, D6 2, D7 3, D8 2, D9 2,
 D10 2, D11 1, D12 2, D13 2, **D14 2**, D15 1, **D16 2**, D17 1, D18 2, D19 1, D20 1,
-D21 1, D22 1, **D23 2**, D24 1, D25 1, D26 1 = **47**.
+D21 1, D22 1, **D23 2**, D24 1, D25 1, D26 1 = 47 planned, **46 written** (D6 is 1,
+not 2: d1_hostile_press is absorbed into d1_civil_liberties).
 
 ---
 
@@ -256,11 +258,12 @@ The blueprint's totals were **44 + 135 + ~94 = ~273**. They double-counted.
 
 Depth 1 in the blueprint's §2 table summed to **45**, not 44: D14 was written
 "1 (+1 existing)" and counted as one. With D14 counted as two, and the two
-additions in D16 and D23, depth 1 is **47**.
+additions in D16 and D23, depth 1 is 47 planned. One of those 47, d1_hostile_press,
+turned out to be d1_civil_liberties asked twice, so **46** rows are written.
 
 | depth | blueprint | unique | SPEC §9 range (≈ ±10%) |
 |---|---:|---:|---|
-| 1 | 44 | **47** | 42–52 |
+| 1 | 44 | **46** | 42–52 |
 | 2 | 135 | **55** | 50–60 |
 | 3 | ~94 | **28** | 25–31 |
-| total | ~273 | **130** | 117–143 |
+| total | ~273 | **129** | 117–143 |

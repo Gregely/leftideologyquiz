@@ -43,6 +43,10 @@ families:
     # the other two on ownership, markets and the state, so everything else is
     # authored per member.
     stances:
+      d1_reforms_accumulate: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
+      d1_price_signals: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
+      d1_state_neutrality: { accept: [it_is_a_proper_check, staffed_by_one_layer], reject: [built_to_protect_property], weight: 2 }
+      d1_police_and_army: { accept: [accountable_professional_force], reject: [no_armed_body, community_bodies_no_force], weight: 2 }
       d1_violence: { accept: [not_needed_legal], weight: 2 }
       d1_pluralism_after: { accept: [competitive_elections], reject: [one_party], weight: 2 }
 
@@ -57,6 +61,12 @@ families:
     # "defensive violence" of its party programme); nothing else is overridden.
     # Ownership, markets, agent and grounds split the family and are per member.
     stances:
+      d1_expropriation: { accept: [full_market_compensation, compensation_where_hardship, buy_out_gradually], reject: [no_compensation, workers_take_directly], weight: 2 }
+      d1_reforms_accumulate: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
+      d1_price_signals: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 1 }
+      d1_police_and_army: { accept: [accountable_professional_force], reject: [no_armed_body, community_bodies_no_force], weight: 2 }
+      d1_party_needed: { accept: [party_of_their_own], reject: [union_ideas_only], weight: 2 }
+      d1_organisation_form: { accept: [mass_membership_party], reject: [disciplined_cadre_body], weight: 2 }
       d1_religion_and_liberation: { accept: [private_matter], weight: 1 }
       d1_state_role: { accept: [use_and_expand], reject: [smash_and_replace, abolish_outright], weight: 2 }
       d1_change_route: { accept: [win_elections_and_legislate], reject: [organised_insurrection, protracted_armed_struggle], weight: 2 }
@@ -75,6 +85,8 @@ families:
       negotiated association rather than a single plan.
     # A family of two: a default needs both members.
     stances:
+      d1_expropriation: { accept: [buy_out_gradually, compensation_where_hardship], reject: [no_transfer_at_all], weight: 1 }
+      d1_reforms_accumulate: { accept: [strongly_agree, agree], weight: 1 }
       d1_workplace_control: { accept: [workers_self_manage], reject: [owners_under_regulation], weight: 2 }
       d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
 
@@ -90,6 +102,7 @@ families:
     # pluralism and liberties and on little else, which is the family's known
     # weakness (docs/question-blueprint.md §10.9).
     stances:
+      d1_organisation_form: { accept: [broad_front_of_movements], reject: [disciplined_cadre_body], weight: 2 }
       d1_pluralism_after: { accept: [competitive_elections], reject: [one_party], weight: 2 }
       d1_civil_liberties: { accept: [liberties_are_the_point], reject: [conditional_on_revolution], weight: 2 }
 
@@ -154,6 +167,14 @@ families:
     # sandinismo, the one flat member, also holds. sandinismo overrides
     # pluralism and liberties, and clears the grounds default.
     stances:
+      d1_expropriation: { accept: [no_compensation], reject: [full_market_compensation, no_transfer_at_all], weight: 2 }
+      d1_owners_resist: { accept: [resist_by_any_means], reject: [accept_the_law, fight_within_rules], weight: 2 }
+      d1_reforms_accumulate: { accept: [strongly_disagree, disagree], reject: [strongly_agree, agree], weight: 2 }
+      d1_price_signals: { accept: [strongly_disagree, disagree], reject: [strongly_agree], weight: 2 }
+      d1_state_neutrality: { accept: [built_to_protect_property], reject: [staffed_by_one_layer, it_is_a_proper_check], weight: 2 }
+      d1_police_and_army: { accept: [rebuilt_under_new_authority, popular_militia], reject: [accountable_professional_force, community_bodies_no_force, no_armed_body], weight: 2 }
+      d1_party_needed: { accept: [union_ideas_only], reject: [revolutionary_through_struggle, no_ready_made_politics], weight: 2 }
+      d1_organisation_form: { accept: [disciplined_cadre_body], reject: [as_little_as_possible, federation_of_local_groups], weight: 2 }
       d1_state_role: { accept: [smash_and_replace], reject: [use_and_expand, abolish_outright], weight: 2 }
       d1_party_role: { accept: [lead_and_direct], reject: [refuse_to_direct, dissolve_into_movement], weight: 2 }
       d1_violence: { accept: [rupture_necessary, armed_struggle_now], reject: [principled_nonviolence], weight: 2 }
@@ -200,6 +221,12 @@ families:
     # Defaults are the family's internationalism and class analysis, which all
     # eight share. The state, the party and elections are per member.
     stances:
+      d1_expropriation: { accept: [no_compensation, workers_take_directly], reject: [full_market_compensation, buy_out_gradually, no_transfer_at_all], weight: 2 }
+      d1_owners_resist: { accept: [never_gets_that_far, resist_by_any_means], reject: [accept_the_law], weight: 2 }
+      d1_reforms_accumulate: { accept: [strongly_disagree, disagree], reject: [strongly_agree, agree], weight: 2 }
+      d1_price_signals: { accept: [strongly_disagree, disagree], reject: [strongly_agree], weight: 2 }
+      d1_state_neutrality: { accept: [built_to_protect_property], reject: [staffed_by_one_layer, it_is_a_proper_check], weight: 2 }
+      d1_police_and_army: { accept: [popular_militia], reject: [accountable_professional_force, rebuilt_under_new_authority], weight: 2 }
       d1_religion_and_liberation: { accept: [obstacle_to_liberation], weight: 1 }
       d1_world_revolution: { accept: [wrong_question, only_holding_operation], reject: [yes_one_country, self_reliance], weight: 2 }
       d1_imperialism_primary: { accept: [class_everywhere], reject: [nations_primary, development_gap], weight: 2 }
@@ -218,6 +245,13 @@ families:
     # distribution or strategy: those are the family's internal divisions.
     # christian_anarchism overrides the grounds default and zapatismo clears it.
     stances:
+      d1_expropriation: { accept: [workers_take_directly], reject: [full_market_compensation, buy_out_gradually], weight: 2 }
+      d1_owners_resist: { accept: [resist_by_any_means, never_gets_that_far], reject: [accept_the_law], weight: 2 }
+      d1_reforms_accumulate: { accept: [strongly_disagree, disagree], reject: [strongly_agree], weight: 2 }
+      d1_state_neutrality: { accept: [any_apparatus_defends_itself], reject: [staffed_by_one_layer, it_is_a_proper_check], weight: 2 }
+      d1_police_and_army: { accept: [community_bodies_no_force, popular_militia], reject: [accountable_professional_force, rebuilt_under_new_authority], weight: 2 }
+      d1_party_needed: { accept: [revolutionary_through_struggle], reject: [union_ideas_only], weight: 2 }
+      d1_organisation_form: { accept: [federation_of_local_groups], reject: [mass_membership_party, disciplined_cadre_body], weight: 2 }
       d1_religion_and_liberation: { accept: [obstacle_to_liberation], weight: 1 }
       d1_state_role: { accept: [abolish_outright, bypass_and_build], reject: [use_and_expand, smash_and_replace, win_own_state], weight: 2 }
       d1_pluralism_after: { accept: [no_state_to_contest], reject: [one_party, one_movement_with_allies], weight: 2 }

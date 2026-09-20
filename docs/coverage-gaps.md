@@ -98,3 +98,71 @@ Two further findings from the same run, recorded because they are about the
   are inside the true family, so they count as Quick passes and as §10.3
   failures at the same time — worth keeping separate in the eventual
   `npm run simulate`.
+
+---
+
+## After depth-1 batch 1 — the Quick failures that remain
+
+**Re-measured:** 2026-09-20, `npm run check -- --mode quick`, after the nine
+questions of `docs/depth1-batches.md` batch 1. **86 of 93 pass**, against 82
+before.
+
+Seven of the eleven failures above are closed: **saint_simonianism**,
+**social_liberalism**, **liberal_socialism**, **guild_socialism**,
+**eurocommunism**, **christian_socialism** and **connollyism**. In every case
+the question that closed it is the one this file named or its near neighbour —
+`d1_state_neutrality` for the three that were being read as social democrats,
+`d1_expropriation` and `d1_owners_resist` for the two liberal-left entries,
+`d1_police_and_army` and `d1_organisation_form` for connollyism.
+
+Four remain from the original list, and three are new.
+
+### Still failing from the original eleven
+
+| ideology | returned instead | what would separate it |
+|---|---|---|
+| narodnism | undecided at root | Unchanged: the early-socialism depth-2 block (d2_how_change_spreads, d2_who_directs, d2_bearable_work). The new `d1_land` weight-3 on the village commune is shared with ujamaa, mariateguism and zapatismo, so it places narodnism against Maoism but not against them. |
+| fanonism | `mlm_third_worldism` (resolved — confidently wrong) | Unchanged: d2_violence_remakes, d2_cultural_recovery, d2_educated_class. `d1_party_needed` now separates the two (Fanon: the struggle itself; MLM–Third Worldism: brought from outside), but the rest of the depth-1 profile is identical. |
+| cabralism | `mao_zedong_thought` (undecided) | Unchanged: d2_cultural_recovery, d2_educated_class, d2_unit_of_development. |
+| sankarism | undecided at root (anti_colonial, maoism) | Unchanged: d2_aid_and_debt, d2_unit_of_development. |
+
+### New, and why each is a dilution rather than a wrong stance
+
+These three passed before and do not now. None is caused by a stance that
+misrepresents them: each is an ideology with few positions on the batch-1
+dimensions, which lost relative mass as every other family gained them. The
+fix in each case is content already commissioned.
+
+| ideology | returned instead | why | what would separate it |
+|---|---|---|---|
+| fourierism | undecided at root, with early_socialism the top candidate at 0.349 | It holds no position on any of the nine: the phalanx is founded, not legislated, bought or seized. What it does hold — prefigure, bypass the state, free association, non-violence — is the anarchist and religious-left profile, and only `d1_change_by_example` pulls it home. It was at the resolver's edge before and is now just under it. | The early-socialism depth-2 block, as for narodnism and saint_simonianism. `d1_organisation_form` has no option for "found the community itself", which is the honest reason it is silent there rather than an oversight. |
+| islamic_socialism | undecided at root (religious_left top at 0.291, national_question second) | Its land reform and compensation answers are also the answers of the anti-colonial and national-question families it grew up beside, which is historically true rather than a defect. | d2_faith_economy and d2_leave_or_reform_religion. |
+| lohiaite_socialism | undecided at root (anti_colonial, social_democracy) | Small-unit ownership plus an electoral mass party is the distributist and social-democratic profile at depth 1. | **d1_internal_hierarchy and d1_reserved_places, both in batch 2.** Caste is what the tradition is actually about, and the bank cannot ask about it yet. This one should close without any depth-2 work. |
+
+Nothing above was closed by changing a weight. Fourteen batch-1 stances were
+*removed* during this pass because `npm run check` showed them doing the work
+and they turned out to rest on inference rather than on the tradition's own
+position; that correction is logged in `docs/content-log.md` and is the reason
+the run reads 86 rather than 81.
+
+### Confidently-wrong Quick runs after batch 1 — still 4 of 93
+
+Two of the prototype's four are closed (`social_liberalism` → `third_way` and
+`classical_social_democracy` → `bernsteinian_revisionism`, both by
+`d1_state_neutrality`, on which the pairs genuinely differ). Two new ones
+replace them, and both are the mechanism this file already named — *a near
+neighbour that states a shared position more strongly takes the respondent*.
+
+| true | returned | cause |
+|---|---|---|
+| fanonism | `mlm_third_worldism` | carried over; see the table above |
+| castroism | `ho_chi_minh_thought` | carried over |
+| individualist_anarchism | `mutualism` | **new.** Both now hold title-follows-use on land and agree about prices, and mutualism carries occupancy-and-use at weight 3 on `d1_ownership`, so its distribution is the narrower one. Neither stance is wrong: they really do hold the same positions at depth 1. The separator is `d3_what_makes_property_yours`, inventory row 17, written for exactly this trio. |
+| social_ecology | `democratic_confederalism` | **new.** The child restates the parent's weight-1 `d1_violence` at weight 2 — a stance from the prototype pass, untouched here — and inherits everything else, so it is strictly the narrower distribution. The remedy is the one already recorded: where a child differs only deeper down, it should not restate a parent's depth-1 position at a higher weight. |
+
+One correction was made while tracing these: `mutualism`'s new `d1_land` stance
+was authored at weight 3, restating on a second question the occupancy-and-use
+doctrine it already carries at weight 3 on `d1_ownership`, which counts one
+doctrine twice in the likelihood. It is now weight 2. That change did **not**
+move the check — which is the evidence that it was made on the merits rather
+than to shift a number.
