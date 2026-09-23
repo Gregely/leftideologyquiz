@@ -21,7 +21,7 @@ import {
   type Condition,
   type ModifierTag,
 } from '../content/schema.js';
-import type { EngineModel } from './model.js';
+import type { EngineModel, ReportLevel } from './model.js';
 import { computePosterior, familyMasses, type Answer, type Posterior } from './posterior.js';
 import { resolve } from './resolve.js';
 
@@ -45,6 +45,15 @@ export interface ModeSettings {
   modifierQuota: number;
   /** Questions one level deeper that the mode may ask when they clearly win. */
   deeperAllowance: number;
+  /**
+   * The deepest level this mode may name (SPEC.md §8.1).
+   *
+   * Quick asks tier-1 questions, and tier-1 questions cannot tell four of the
+   * thirteen families apart — they agree on every everyday value a respondent
+   * holds. Capping the report at `group` is what stops Quick naming a family,
+   * or a sect, on evidence that never supported one.
+   */
+  maxReportLevel: ReportLevel;
 }
 
 export interface FlowConfig {
@@ -63,9 +72,9 @@ export interface FlowConfig {
 
 export const DEFAULT_FLOW_CONFIG: FlowConfig = {
   modes: {
-    quick: { maxDepth: 1, budget: 15, modifierQuota: 3, deeperAllowance: 3 },
-    standard: { maxDepth: 2, budget: 35, modifierQuota: 6, deeperAllowance: 0 },
-    deep: { maxDepth: 3, budget: 60, modifierQuota: 8, deeperAllowance: 0 },
+    quick: { maxDepth: 1, budget: 15, modifierQuota: 3, deeperAllowance: 3, maxReportLevel: 'group' },
+    standard: { maxDepth: 2, budget: 35, modifierQuota: 6, deeperAllowance: 0, maxReportLevel: 'tendency' },
+    deep: { maxDepth: 3, budget: 60, modifierQuota: 8, deeperAllowance: 0, maxReportLevel: 'sect' },
   },
   modifierInterleaveAfter: 4,
   deeperGainFactor: 1.5,
@@ -443,8 +452,14 @@ export function nextQuestion(
   if (best.eig < config.minInformationGain) return tryStop('no_information');
 
   if (answerCount >= config.minAnswersBeforeConfidentStop) {
-    const result = resolve(posterior);
-    if (result.kind === 'resolved') return tryStop('confident');
+    const result = resolve(posterior, settings.maxReportLevel);
+    // SPEC.md §7.4: `confident` means the resolver reached a *sect-level*
+    // answer — one it could not have made more specific. A result that stopped
+    // because the mode may not report anything narrower is not that: more
+    // questions could still change which group or tendency comes back, so
+    // stopping on it would end Quick at eight or nine questions and call a
+    // group on evidence the mode had budget left to improve.
+    if (result.kind === 'resolved' && result.backOffReason === null) return tryStop('confident');
   }
 
   return {

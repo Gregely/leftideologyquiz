@@ -22,6 +22,7 @@ function load(mutate?: (docs: RosterDocs) => void): LoadResult {
   const docs = rosterDocs();
   mutate?.(docs);
   return parseContent({
+    groups: stringify(docs.groups),
     families: stringify(docs.families),
     ideologies: stringify(docs.ideologies),
     questions: stringify(docs.questions),
@@ -152,7 +153,7 @@ describe('the coverage matrix', () => {
   });
 
   it('returns an empty matrix rather than throwing on unloadable content', () => {
-    const broken = parseContent({ families: 'not: valid', ideologies: '', questions: '' });
+    const broken = parseContent({ groups: '', families: 'not: valid', ideologies: '', questions: '' });
     expect(buildMatrix(broken).rows).toEqual([]);
   });
 });

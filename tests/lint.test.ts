@@ -21,12 +21,17 @@ const REAL_LISTS: LintLists = {
   namedEntities: parseWordList(read('content/lint/named-entities.txt')),
   loadedWords: parseWordList(read('content/lint/loaded-words.txt')),
   jargon: parseWordList(read('content/lint/jargon.txt')),
+  tier1Banned: parseWordList(read('content/lint/tier1-banned.txt')),
+  filler: parseWordList(read('content/lint/filler.txt')),
+  stopwords: parseWordList(read('content/lint/stopwords.txt')),
+  syllables: parseWordList(read('content/lint/syllables.txt')),
 };
 
 function load(mutate?: (docs: RosterDocs) => void): LoadResult {
   const docs = rosterDocs();
   mutate?.(docs);
   return parseContent({
+    groups: stringify(docs.groups),
     families: stringify(docs.families),
     ideologies: stringify(docs.ideologies),
     questions: stringify(docs.questions),
@@ -288,22 +293,115 @@ describe('length', () => {
 });
 
 describe('principle 7 — option count', () => {
-  it('errors below three options', () => {
+  it('allows two options at tier 1, where a real binary is legitimate', () => {
     const result = lint((d) => {
       const q = question(d, 'q_family');
       q['options'] = (q['options'] as unknown[]).slice(0, 2);
     });
-    // The schema rejects this first, so the question never reaches the lint.
-    // What matters is that it does not pass silently.
-    expect(load((d) => {
-      const q = question(d, 'q_family');
-      q['options'] = (q['options'] as unknown[]).slice(0, 2);
-    }).issues.some((i) => i.code === 'schema/invalid')).toBe(true);
     expect(result.of('lint/option-count')).toEqual([]);
+  });
+
+  it('rejects two options at tier 2 in the schema, before the lint sees it', () => {
+    // The structural minimum is 3 below tier 1, so the record never loads and
+    // the lint never runs on it. What matters is that it does not pass.
+    const issues = load((d) => {
+      const q = question(d, 'q_red_split');
+      q['options'] = (q['options'] as unknown[]).slice(0, 2);
+    }).issues;
+    expect(issues.some((i) => i.code === 'schema/invalid')).toBe(true);
+  });
+
+  it('errors above five options at tier 1', () => {
+    const result = lint((d) => {
+      const q = question(d, 'q_family');
+      const options = q['options'] as Record<string, unknown>[];
+      for (let i = 0; i < 3; i++) options.push({ id: `extra_${i}`, label: 'Another answer.' });
+    });
+    expect(result.of('lint/option-count')[0]?.message).toMatch(/tier 1 allows 2-5/);
   });
 
   it('exempts likert questions, which always have five', () => {
     expect(lint().of('lint/option-count')).toEqual([]);
+  });
+});
+
+describe('tier language rules', () => {
+  it('caps a tier-1 stem at eighteen words', () => {
+    const result = lint((d) => {
+      question(d, 'q_family')['text'] =
+        'This stem runs on and on and on and on and on and on past the cap that tier one sets for it.';
+    });
+    expect(result.of('lint/stem-too-long')[0]?.message).toMatch(/tier-1 cap of 18/);
+  });
+
+  it('caps a tier-1 option at eight words', () => {
+    const result = lint((d) => {
+      const options = question(d, 'q_family')['options'] as Record<string, unknown>[];
+      options[0]!['label'] = 'One two three four five six seven eight nine ten.';
+    });
+    expect(result.of('lint/option-too-long')[0]?.message).toMatch(/tier-1 cap of 8/);
+  });
+
+  it('errors on tier-1 political vocabulary', () => {
+    const result = lint((d) => {
+      question(d, 'q_family')['text'] = 'Should the vanguard lead?';
+    });
+    expect(result.of('lint/tier1-vocabulary')[0]?.message).toMatch(/"vanguard"/);
+  });
+
+  it('leaves tier-3 vocabulary alone', () => {
+    const result = lint((d) => {
+      question(d, 'q_shibboleth')['text'] = 'Does the vanguard lead, or does the class?';
+    });
+    expect(result.of('lint/tier1-vocabulary')).toEqual([]);
+  });
+
+  it('errors on filler at tier 1 and warns deeper', () => {
+    const atOne = lint((d) => {
+      const options = question(d, 'q_family')['options'] as Record<string, unknown>[];
+      options[0]!['label'] = 'Essentially yes.';
+    });
+    expect(atOne.of('lint/filler')[0]?.severity).toBe('error');
+
+    const atThree = lint((d) => {
+      const options = question(d, 'q_shibboleth')['options'] as Record<string, unknown>[];
+      options[0]!['label'] = 'Essentially yes, as that tradition puts it.';
+    });
+    expect(atThree.of('lint/filler')[0]?.severity).toBe('warning');
+  });
+
+  it('errors on a tier-1 reading grade over seven', () => {
+    const result = lint((d) => {
+      question(d, 'q_family')['text'] =
+        'Which constitutional arrangement facilitates optimal redistributive interventions?';
+    });
+    expect(result.of('lint/reading-grade')[0]?.severity).toBe('error');
+  });
+
+  it('bans a tooltip at tier 1', () => {
+    const result = lint((d) => {
+      question(d, 'q_family')['tooltip'] = 'An explanation the respondent should not need.';
+    });
+    expect(result.of('lint/tier1-tooltip')).toHaveLength(1);
+  });
+
+  it('allows a tooltip at tier 3', () => {
+    const result = lint((d) => {
+      question(d, 'q_shibboleth')['tooltip'] = 'Context for a term only this camp uses.';
+    });
+    expect(result.of('lint/tier1-tooltip')).toEqual([]);
+  });
+
+  it('flags an option that only restates the stem', () => {
+    const result = lint((d) => {
+      const options = question(d, 'q_family')['options'] as Record<string, unknown>[];
+      options[0]!['label'] = 'The first question side taken.';
+    });
+    expect(result.of('lint/option-restates-stem')).toHaveLength(1);
+  });
+
+  it('does not flag a short option that shares one word', () => {
+    expect(lint().of('lint/option-restates-stem')).toEqual([]);
   });
 });
 

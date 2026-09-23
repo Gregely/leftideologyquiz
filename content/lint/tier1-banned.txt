@@ -1,0 +1,131 @@
+# Words and phrases banned from tier-1 questions (docs/redesign.md §2.2).
+#
+# A match anywhere in a tier-1 stem or option is a lint ERROR. Tiers 2 and 3
+# are not checked against this list at all.
+#
+# This is not a ban on the ideas. "Should the big companies be owned by the
+# government?" asks the same question as one using "nationalisation" and is in
+# bounds. Where no plain phrasing exists, the question belongs at tier 2 — that
+# is the list doing its job, not failing.
+#
+# Maintenance rule: a term goes on this list when a novice reviewer says they
+# would have to look it up (docs/redesign.md §9). The list is expected to grow.
+#
+# Matching is whole-word and case-insensitive, so multi-word phrases work and
+# "capitalist" does not match inside another word.
+
+# --- left and political-theory vocabulary ------------------------------------
+proletariat
+proletarian
+bourgeois
+bourgeoisie
+vanguard
+cadre
+means of production
+mode of production
+class struggle
+class consciousness
+imperialism
+imperialist
+hegemony
+hegemonic
+dialectic
+dialectical
+materialist
+historical materialism
+praxis
+capitalism
+capitalist
+socialism
+socialist
+communism
+communist
+anarchism
+anarchist
+syndicalism
+syndicalist
+reformism
+reformist
+revisionism
+revisionist
+insurrection
+insurrectionary
+expropriation
+expropriate
+nationalisation
+nationalization
+collectivisation
+collectivization
+dictatorship of the proletariat
+surplus value
+accumulation
+commodity
+commodities
+wage labour
+wage labor
+the masses
+counter-revolution
+counterrevolution
+comrade
+comrades
+
+# --- governing and institutional vocabulary ----------------------------------
+apparatus
+machinery of government
+transitional
+pluralism
+pluralist
+mandate
+sovereignty
+sovereign
+self-determination
+autonomy
+autonomous
+confederation
+confederated
+federation
+federated
+constitutional
+legitimacy
+civil liberties
+civil society
+polity
+central plan
+planned economy
+market forces
+price signals
+allocation
+decommodify
+self-management
+self-managed
+co-determination
+codetermination
+collective bargaining
+social ownership
+common ownership
+public sector
+primary stage
+nationhood
+
+# --- abstract nouns a newcomer would have to look up -------------------------
+emancipation
+emancipatory
+exploitation
+oppression
+oppressed
+domination
+subordination
+structural
+systemic
+material conditions
+productive forces
+superstructure
+programmatic
+prefigurative
+decolonial
+decolonisation
+decolonization
+intersectional
+neoliberal
+neoliberalism
+technocratic

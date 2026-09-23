@@ -6,8 +6,9 @@
  */
 
 import type { RawContent } from '../content/load.js';
+import groups from '../../content/groups.yaml?raw';
 import families from '../../content/families.yaml?raw';
 import ideologies from '../../content/ideologies.yaml?raw';
 import questions from '../../content/questions.yaml?raw';
 
-export const rawContent: RawContent = { families, ideologies, questions };
+export const rawContent: RawContent = { groups, families, ideologies, questions };

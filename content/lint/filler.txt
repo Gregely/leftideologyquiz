@@ -1,0 +1,42 @@
+# Filler phrases (docs/redesign.md §2.3).
+#
+# ERROR at tier 1, WARNING at tiers 2 and 3, waivable below tier 1.
+#
+# Filler is what pushes an option past the word cap without adding a position.
+# Every entry here can be deleted from a sentence without changing what the
+# sentence claims — which is the test for adding one.
+
+in general
+generally speaking
+essentially
+in principle
+in practice
+fundamentally
+ultimately
+at bottom
+it is the case that
+it should be noted
+the fact is
+of course
+naturally
+arguably
+to some extent
+in a sense
+in many ways
+broadly speaking
+when all is said and done
+at the end of the day
+needless to say
+as such
+in terms of
+the question of
+the issue of
+with respect to
+in order to
+due to the fact that
+for the purpose of
+has the effect of
+serves to
+whatever it is called
+whatever else changes
+in the first place

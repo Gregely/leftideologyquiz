@@ -8,8 +8,8 @@
  * arbitrary one is a failure.
  */
 
-import type { NodeKind, NodeLevel } from './model.js';
-import { lineageShibboleths, nodeKeyFor, ROOT_ID } from './model.js';
+import type { NodeKind, NodeLevel, ReportLevel } from './model.js';
+import { lineageShibboleths, nodeKeyFor, REPORT_LEVEL_RANK, ROOT_ID } from './model.js';
 import {
   childMasses,
   massOfIdeology,
@@ -44,7 +44,9 @@ export type BackOffReason =
   | 'top-two-too-close'
   | 'below-absolute-floor'
   | 'too-few-answers'
-  | 'lineage-not-established';
+  | 'lineage-not-established'
+  /** The evidence supported going deeper; the mode is not allowed to. */
+  | 'mode-reports-no-deeper';
 
 export interface Result {
   kind: 'resolved' | 'undecided';
@@ -188,8 +190,18 @@ function candidatesFrom(entries: NodeMass[], parentMass: number, floor: number):
 // Resolve
 // -----------------------------------------------------------------------------
 
-export function resolve(posterior: Posterior): Result {
+/**
+ * Walk the tree to the deepest node the evidence — and the mode — support.
+ *
+ * `maxReportLevel` caps how specific an answer may be. Quick mode passes
+ * `'group'` because tier-1 questions cannot tell four of the thirteen families
+ * apart, and naming one anyway is the false precision SPEC.md §1.1 forbids.
+ * The default is `'sect'`, so a caller that does not care about modes behaves
+ * exactly as before.
+ */
+export function resolve(posterior: Posterior, maxReportLevel: ReportLevel = 'sect'): Result {
   const { config } = posterior.model;
+  const maxRank = REPORT_LEVEL_RANK[maxReportLevel];
 
   let nodeKey = ROOT_ID;
   let backOffReason: BackOffReason | null = null;
@@ -205,11 +217,20 @@ export function resolve(posterior: Posterior): Result {
 
     const entries = entriesAt(posterior, nodeKey);
 
-    // A leaf ideology: nothing left to choose between.
+    // A leaf ideology: nothing left to choose between. Checked before the
+    // report cap, so a flat family's member still goes through the sect gate
+    // rather than being waved through by its rank.
     if (entries.length === 0) {
       const blocked = sectBlockedReason(posterior, node.id);
       if (!blocked) return resolved(posterior, nodeKey);
       return undecided(posterior, node.parent ?? ROOT_ID, blocked);
+    }
+
+    // As deep as this mode may report, with somewhere deeper it could have
+    // gone. The answer is this node: resolved, because the walk only got here
+    // by passing every threshold on the way down.
+    if (node.rank >= maxRank) {
+      return resolvedAt(posterior, nodeKey, 'mode-reports-no-deeper');
     }
 
     // A single child is not a choice; collapse the chain (SPEC.md §8.1).
@@ -280,6 +301,49 @@ function resolved(posterior: Posterior, nodeKey: string): Result {
   };
 }
 
+/**
+ * A resolved answer at a node that is not a leaf: the mode's report cap stopped
+ * the walk. Candidates are still listed, because "you are in this group, and
+ * these are the families inside it that fit" is the whole point of stopping —
+ * the result page needs somewhere to point the respondent next.
+ */
+function resolvedAt(
+  posterior: Posterior,
+  nodeKey: string,
+  reason: BackOffReason | null = null,
+): Result {
+  const node = posterior.model.tree.nodes.get(nodeKey);
+  if (!node || (node.kind === 'ideology' && node.children.length === 0)) {
+    return resolved(posterior, nodeKey);
+  }
+
+  const { config } = posterior.model;
+  const entries = entriesAt(posterior, nodeKey);
+  const parentMass = nodeKey === ROOT_ID ? 1 : subtreeMass(posterior, nodeKey);
+  const candidates = candidatesFrom(entries, parentMass, config.candidateFloor);
+  const anchor = bestLeafUnder(posterior, nodeKey);
+
+  return {
+    kind: 'resolved',
+    level: node.level,
+    node: { id: node.id, name: node.name, kind: node.kind },
+    candidates,
+    confidence: parentMass,
+    anchorIdeologyId: anchor,
+    contributions: anchor ? contributionsFor(posterior, anchor) : [],
+    backOffReason: reason,
+    scoringAnswerCount: posterior.scoringAnswerCount,
+    // Stopping at a node the mode may not descend past does not make an
+    // inseparable pair beneath it any less worth naming: a respondent told
+    // "you are here" still needs to know that two of the candidates inside are
+    // the same position under two names.
+    inseparable: inseparablePairs(
+      posterior,
+      candidates.filter((c) => posterior.model.content.ideologyById.has(c.id)).map((c) => c.id),
+    ),
+  };
+}
+
 function undecided(posterior: Posterior, nodeKey: string, reason: BackOffReason): Result {
   const node = posterior.model.tree.nodes.get(nodeKey);
   const { config } = posterior.model;
@@ -294,7 +358,7 @@ function undecided(posterior: Posterior, nodeKey: string, reason: BackOffReason)
     kind: 'undecided',
     // Reporting an ideology we could not resolve past means reporting it as the
     // tendency its candidates sit inside.
-    level: node?.kind === 'ideology' ? 'tendency' : 'family',
+    level: node?.kind === 'ideology' ? 'tendency' : (node?.level ?? 'group'),
     node: {
       id: node?.id ?? nodeKey,
       name: node?.name ?? nodeKey,

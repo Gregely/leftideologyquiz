@@ -27,11 +27,27 @@ import { parseContent, type Content } from '../../src/content/load.js';
 import { buildModel, type EngineModel } from '../../src/engine/model.js';
 import { withConfig, type EngineConfig } from '../../src/engine/config.js';
 
+const GROUPS = {
+  groups: [
+    {
+      id: 'warm',
+      name: 'The warm group',
+      description: 'Holds the red family, so the tree has a level above the families.',
+    },
+    {
+      id: 'cool',
+      name: 'The cool group',
+      description: 'Holds the blue family, and is the other answer a quick run can give.',
+    },
+  ],
+};
+
 const FAMILIES = {
   families: [
     {
       id: 'red',
       name: 'The red family',
+      group: 'warm',
       summary: 'Holds that the first option on the family question is the right one.',
       stances: {
         q_family: {
@@ -45,6 +61,7 @@ const FAMILIES = {
     {
       id: 'blue',
       name: 'The blue family',
+      group: 'cool',
       summary: 'The mirror of the red family on the same question.',
       stances: {
         q_family: {
@@ -153,9 +170,9 @@ const QUESTIONS = {
       tags: ['root'],
       text: 'Which side of the first question do you take?',
       options: [
-        { id: 'pick_red', label: 'The red answer, as a red would put it.', short: 'red' },
-        { id: 'pick_blue', label: 'The blue answer, as a blue would put it.', short: 'blue' },
-        { id: 'pick_neither', label: 'Neither of those, as someone outside both would put it.' },
+        { id: 'pick_red', label: 'The red answer.', short: 'red' },
+        { id: 'pick_blue', label: 'The blue answer.', short: 'blue' },
+        { id: 'pick_neither', label: 'Neither of those two.' },
       ],
     },
     {
@@ -177,9 +194,9 @@ const QUESTIONS = {
       tags: ['red'],
       text: 'A question both sides of the red family answer the same way.',
       options: [
-        { id: 'shared_yes', label: 'The answer both red tendencies give.' },
-        { id: 'shared_no', label: 'The answer neither gives.' },
-        { id: 'shared_maybe', label: 'It depends.' },
+        { id: 'shared_yes', label: 'Yes, and firmly so.' },
+        { id: 'shared_no', label: 'No, and firmly so.' },
+        { id: 'shared_maybe', label: 'Hard to say either way.' },
       ],
     },
     {
@@ -211,7 +228,7 @@ const QUESTIONS = {
       depth: 1,
       kind: 'likert5',
       tags: ['ecology'],
-      text: 'A proposition about ecological limits.',
+      text: 'We should use less stuff, even if we grow less.',
       modifier_tags: {
         strongly_agree: 'ecology',
         agree: 'ecology',
@@ -224,9 +241,9 @@ const QUESTIONS = {
       tags: ['technology'],
       text: 'A question no ideology in this roster takes a position on.',
       options: [
-        { id: 'tech_yes', label: 'Run it.' },
-        { id: 'tech_no', label: 'Do without it.' },
-        { id: 'tech_maybe', label: 'It depends what it is for.' },
+        { id: 'tech_yes', label: 'Build it and use it.' },
+        { id: 'tech_no', label: 'Do without it entirely.' },
+        { id: 'tech_maybe', label: 'Depends what it is for.' },
       ],
       modifier_tags: {
         tech_yes: 'technology',
@@ -236,19 +253,26 @@ const QUESTIONS = {
 };
 
 export type RosterDocs = {
+  groups: typeof GROUPS;
   families: typeof FAMILIES;
   ideologies: typeof IDEOLOGIES;
   questions: typeof QUESTIONS;
 };
 
 export function rosterDocs(): RosterDocs {
-  return structuredClone({ families: FAMILIES, ideologies: IDEOLOGIES, questions: QUESTIONS });
+  return structuredClone({
+    groups: GROUPS,
+    families: FAMILIES,
+    ideologies: IDEOLOGIES,
+    questions: QUESTIONS,
+  });
 }
 
 export function rosterContent(mutate?: (docs: RosterDocs) => void): Content {
   const docs = rosterDocs();
   mutate?.(docs);
   const loaded = parseContent({
+    groups: stringify(docs.groups),
     families: stringify(docs.families),
     ideologies: stringify(docs.ideologies),
     questions: stringify(docs.questions),

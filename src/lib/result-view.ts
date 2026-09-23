@@ -10,6 +10,7 @@
 import type { Content } from '../content/load.js';
 import {
   computePosterior,
+  DEFAULT_FLOW_CONFIG,
   explainMatch,
   modifierTags,
   rankIdeologies,
@@ -45,7 +46,7 @@ export interface EvidenceRow {
 export interface ResultView {
   kind: 'resolved' | 'undecided';
   /** What the result names: a sect, a tendency, a family, or the whole field. */
-  level: 'sect' | 'tendency' | 'family' | 'field';
+  level: 'sect' | 'tendency' | 'family' | 'group' | 'field';
   node: NamedRef;
   summary: string | null;
   /** Share of the evidence on the reported node. */
@@ -84,7 +85,12 @@ export function confidenceText(
   level: ResultView['level'] = 'sect',
 ): string {
   // The whole field always holds all the mass; that is not confidence in anything.
-  if (level === 'field') return 'Your answers so far do not favour one family of the left over the others.';
+  if (level === 'field') return 'Your answers so far do not favour one part of the left over the others.';
+  if (level === 'group' && kind === 'resolved') {
+    if (confidence >= 0.6) return 'Your answers point clearly to this part of the left.';
+    if (confidence >= 0.4) return 'This is the part of the left your answers fit best.';
+    return 'This is where your answers lean, though not by much.';
+  }
   if (kind === 'undecided') {
     if (confidence >= 0.75) return 'Your answers sit firmly here.';
     if (confidence >= 0.5) return 'Most of the weight of your answers sits here.';
@@ -121,13 +127,38 @@ function backOffText(reason: BackOffReason | null, result: Result, model: Engine
       return `Naming a specific tradition takes at least ${model.config.minAnswersForSect} answers that count, and this run has ${result.scoringAnswerCount}.`;
     case 'lineage-not-established':
       return 'The closest tradition is defined by who it descends from as much as by what it holds, and nothing you answered yet speaks to that.';
+    case 'mode-reports-no-deeper':
+      // Only reachable on a resolved result, which returns above. Kept so the
+      // switch stays exhaustive if that ever changes.
+      return null;
   }
+}
+
+/**
+ * What a respondent is told about where the answer stops.
+ *
+ * A group result is not a back-off — the evidence supported it — but it is not
+ * the whole story either, and saying so is the point of stopping there.
+ */
+function nextStepText(result: Result, model: EngineModel): string | null {
+  if (result.backOffReason !== 'mode-reports-no-deeper') return null;
+  const names = result.candidates.slice(0, 3).map((c) => c.name);
+  if (names.length === 0) return null;
+  const list =
+    names.length === 1
+      ? names[0]
+      : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
+  const deeper = model.content.groupById.has(result.node.id)
+    ? 'These traditions agree on most of what this mode asked about.'
+    : 'The traditions inside it are close on what this mode asked about.';
+  return `Closest within it: ${list}. ${deeper} Going further takes more questions.`;
 }
 
 function levelOf(result: Result): ResultView['level'] {
   if (result.node.kind === 'root') return 'field';
+  if (result.node.kind === 'group') return 'group';
   if (result.node.kind === 'family') return 'family';
-  return result.kind === 'resolved' ? 'sect' : 'tendency';
+  return result.kind === 'resolved' && result.candidates.length === 0 ? 'sect' : 'tendency';
 }
 
 // -----------------------------------------------------------------------------
@@ -154,14 +185,16 @@ export function buildResultView(
 ): ResultView {
   const { content } = model;
   const posterior = computePosterior(model, answers);
-  const result = resolve(posterior);
+  const result = resolve(posterior, DEFAULT_FLOW_CONFIG.modes[mode].maxReportLevel);
 
   const summary =
     result.node.kind === 'ideology'
       ? (content.ideologyById.get(result.node.id)?.summary ?? null)
       : result.node.kind === 'family'
         ? (content.familyById.get(result.node.id)?.summary ?? null)
-        : null;
+        : result.node.kind === 'group'
+          ? (content.groupById.get(result.node.id)?.description ?? null)
+          : null;
 
   const candidates = result.candidates.map((c) => ({
     id: c.id,
@@ -205,12 +238,12 @@ export function buildResultView(
     level: levelOf(result),
     node: {
       id: result.node.id,
-      name: result.node.kind === 'root' ? 'Several families' : result.node.name,
+      name: result.node.kind === 'root' ? 'Several parts of the left' : result.node.name,
     },
     summary,
     confidence: result.confidence,
     confidenceText: confidenceText(result.confidence, result.kind, levelOf(result)),
-    backOffText: backOffText(result.backOffReason, result, model),
+    backOffText: backOffText(result.backOffReason, result, model) ?? nextStepText(result, model),
     candidates,
     modifiers: modifierTags(posterior).map((t) => ({ tag: t.tag, label: t.label })),
     matches,

@@ -9,7 +9,7 @@ describe('quoteAnswer', () => {
   it('prefers the short form and falls back to the label', () => {
     const answers = [{ questionId: 'q_family', optionIds: ['pick_red'] }];
     expect(quoteAnswer(content, answers, 'q_family')).toBe('red');
-    expect(quoteAnswer(content, answers, 'q_family', 'label')).toBe('The red answer, as a red would put it.');
+    expect(quoteAnswer(content, answers, 'q_family', 'label')).toBe('The red answer.');
     const noShort = [{ questionId: 'q_family', optionIds: ['pick_neither'] }];
     expect(quoteAnswer(content, noShort, 'q_family')).toMatch(/^Neither of those/);
   });
@@ -24,7 +24,7 @@ describe('interpolate', () => {
   it('fills both forms, and falls back when the answer is missing', () => {
     const answers = [{ questionId: 'q_family', optionIds: ['pick_blue'] }];
     expect(interpolate(content, answers, 'A {{answers.q_family.short}} / {{ answers.q_family.label }}')).toBe(
-      'A blue / The blue answer, as a blue would put it.',
+      'A blue / The blue answer.',
     );
     expect(interpolate(content, [], 'You said {{answers.q_family.short}}.')).toBe(
       `You said ${UNQUOTABLE_ANSWER}.`,

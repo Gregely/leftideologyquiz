@@ -28,6 +28,7 @@ const ROOT = resolvePath(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p: string) => readFileSync(join(ROOT, p), 'utf8');
 
 const loaded = parseContent({
+  groups: read('content/groups.yaml'),
   families: read('content/families.yaml'),
   ideologies: read('content/ideologies.yaml'),
   questions: read('content/questions.yaml'),

@@ -22,6 +22,7 @@ families:
   - id: early_socialism
     name: Pre-Marxist and early socialism
     order: 1
+    group: communitarian
     summary: >-
       The socialisms worked out before Marx's account settled the field:
       cooperative communities founded by example, association arranged to suit
@@ -35,6 +36,7 @@ families:
   - id: liberal_left
     name: Liberal left
     order: 2
+    group: reforming_left
     summary: >-
       Holds that a society of free and equal citizens requires the state to
       guarantee the material conditions of freedom, and pursues that through
@@ -42,17 +44,12 @@ families:
     # Defaults only where all three members agree: distributism dissents from
     # the other two on ownership, markets and the state, so everything else is
     # authored per member.
-    stances:
-      d1_reforms_accumulate: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
-      d1_price_signals: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
-      d1_state_neutrality: { accept: [it_is_a_proper_check, staffed_by_one_layer], reject: [built_to_protect_property], weight: 2 }
-      d1_police_and_army: { accept: [accountable_professional_force], reject: [no_armed_body, community_bodies_no_force], weight: 2 }
-      d1_violence: { accept: [not_needed_legal], weight: 2 }
-      d1_pluralism_after: { accept: [competitive_elections], reject: [one_party], weight: 2 }
+    stances: {}
 
   - id: social_democracy
     name: Social democracy
     order: 3
+    group: reforming_left
     summary: >-
       Seeks to win office through elections and use public power to
       decommodify what people need, extend democratic control over the economy,
@@ -60,41 +57,24 @@ families:
     # 6-7 of 7 on each default. Austromarxism overrides d1_violence (the
     # "defensive violence" of its party programme); nothing else is overridden.
     # Ownership, markets, agent and grounds split the family and are per member.
-    stances:
-      d1_alignment: { accept: [ordinary_relations_all], weight: 1 }
-      d1_small_property: { accept: [protected_alongside_social], weight: 1 }
-      d1_expropriation: { accept: [full_market_compensation, compensation_where_hardship, buy_out_gradually], reject: [no_compensation, workers_take_directly], weight: 2 }
-      d1_reforms_accumulate: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
-      d1_price_signals: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 1 }
-      d1_police_and_army: { accept: [accountable_professional_force], reject: [no_armed_body, community_bodies_no_force], weight: 2 }
-      d1_party_needed: { accept: [party_of_their_own], reject: [union_ideas_only], weight: 2 }
-      d1_organisation_form: { accept: [mass_membership_party], reject: [disciplined_cadre_body], weight: 2 }
-      d1_religion_and_liberation: { accept: [private_matter], weight: 1 }
-      d1_state_role: { accept: [use_and_expand], reject: [smash_and_replace, abolish_outright], weight: 2 }
-      d1_change_route: { accept: [win_elections_and_legislate], reject: [organised_insurrection, protracted_armed_struggle], weight: 2 }
-      d1_pluralism_after: { accept: [competitive_elections], reject: [one_party], weight: 2 }
-      d1_civil_liberties: { accept: [liberties_are_the_point, ordinary_law_only], reject: [conditional_on_revolution], weight: 2 }
-      d1_violence: { accept: [not_needed_legal], weight: 2 }
-      d1_change_by_example: { accept: [win_legislation], weight: 1 }
+    stances: {}
 
   - id: market_socialism
     name: Market and cooperative socialism
     order: 4
+    group: reforming_left
     summary: >-
       Holds that social ownership is compatible with, and best served by,
       enterprises that remain distinct from one another — owned by those who
       work in them or by the public, and coordinating through markets or
       negotiated association rather than a single plan.
     # A family of two: a default needs both members.
-    stances:
-      d1_expropriation: { accept: [buy_out_gradually, compensation_where_hardship], reject: [no_transfer_at_all], weight: 1 }
-      d1_reforms_accumulate: { accept: [strongly_agree, agree], weight: 1 }
-      d1_workplace_control: { accept: [workers_self_manage], reject: [owners_under_regulation], weight: 2 }
-      d1_pluralism_after: { accept: [competitive_elections], weight: 2 }
+    stances: {}
 
   - id: post_marxist
     name: Post-Marxist and new left
     order: 5
+    group: reforming_left
     summary: >-
       Retains the socialist aim while rejecting the claim that class position
       determines political allegiance, and builds a majority by linking many
@@ -103,14 +83,12 @@ families:
     # A family of three: a default needs all three. They agree on democratic
     # pluralism and liberties and on little else, which is the family's known
     # weakness (docs/question-blueprint.md §10.9).
-    stances:
-      d1_organisation_form: { accept: [broad_front_of_movements], reject: [disciplined_cadre_body], weight: 2 }
-      d1_pluralism_after: { accept: [competitive_elections], reject: [one_party], weight: 2 }
-      d1_civil_liberties: { accept: [liberties_are_the_point], reject: [conditional_on_revolution], weight: 2 }
+    stances: {}
 
   - id: religious_left
     name: Religious left
     order: 6
+    group: faith_left
     summary: >-
       Grounds the case against exploitation and for common provision in a
       religious tradition, treating solidarity with the poor as a requirement of
@@ -118,19 +96,12 @@ families:
     # Six of six ground their politics in faith. Violence, ownership and the
     # state split the family (Gandhian and Buddhist non-violence against
     # liberation theology's just rebellion), so those are per member.
-    stances:
-      d1_religion_and_liberation: { accept: [ally_of_liberation, reform_the_tradition], reject: [obstacle_to_liberation], weight: 2 }
-      d1_faith_grounds:
-        accept: [grounds_it]
-        reject: [secular_reason]
-        weight: 3
-        note: >-
-          Defining for the family. A member that held the same economics on
-          secular grounds would be a secular socialism, and belong elsewhere.
+    stances: {}
 
   - id: anti_colonial
     name: Anti-colonial and decolonial left
     order: 7
+    group: national_and_anticolonial
     summary: >-
       Treats colonial and imperial domination as the primary structure to be
       broken — including the forms of it that survive formal independence, and
@@ -140,13 +111,12 @@ families:
     # 9 of 11: ambedkarism clears it (its target is caste, and its quarrel with
     # the nationalist movement was that independence left caste intact) and
     # nehruvian_socialism overrides it (development, not rupture).
-    stances:
-      d1_wealth_from_periphery: { accept: [strongly_agree, agree], reject: [strongly_disagree], weight: 2 }
-      d1_imperialism_primary: { accept: [nations_primary, both_intertwined], reject: [not_primary_structure], weight: 2 }
+    stances: {}
 
   - id: national_question
     name: National-question left
     order: 8
+    group: national_and_anticolonial
     summary: >-
       Holds that the nation is the unit of emancipation: a people's right to
       govern itself — in a state of its own, or in autonomy within somebody
@@ -160,6 +130,7 @@ families:
   - id: marxism_leninism
     name: Marxism–Leninism and descendants
     order: 9
+    group: revolutionary_socialist
     summary: >-
       Holds that a disciplined party must take state power, replace the old
       apparatus, and direct a planned economy through a transition it expects to
@@ -168,31 +139,12 @@ families:
     # members inherit through the tendency tree. Family defaults cover what
     # sandinismo, the one flat member, also holds. sandinismo overrides
     # pluralism and liberties, and clears the grounds default.
-    stances:
-      d1_race_structure: { accept: [division_within_the_class, colonial_relation_inside], weight: 1 }
-      d1_autonomous_movements:
-        accept: [section_under_the_programme]
-        reject: [beyond_the_movement]
-        weight: 2
-      d1_expropriation: { accept: [no_compensation], reject: [full_market_compensation, no_transfer_at_all], weight: 2 }
-      d1_owners_resist: { accept: [resist_by_any_means], reject: [accept_the_law, fight_within_rules], weight: 2 }
-      d1_reforms_accumulate: { accept: [strongly_disagree, disagree], reject: [strongly_agree, agree], weight: 2 }
-      d1_price_signals: { accept: [strongly_disagree, disagree], reject: [strongly_agree], weight: 2 }
-      d1_state_neutrality: { accept: [built_to_protect_property], reject: [staffed_by_one_layer, it_is_a_proper_check], weight: 2 }
-      d1_police_and_army: { accept: [rebuilt_under_new_authority, popular_militia], reject: [accountable_professional_force, community_bodies_no_force, no_armed_body], weight: 2 }
-      d1_party_needed: { accept: [union_ideas_only], reject: [revolutionary_through_struggle, no_ready_made_politics], weight: 2 }
-      d1_organisation_form: { accept: [disciplined_cadre_body], reject: [as_little_as_possible, federation_of_local_groups], weight: 2 }
-      d1_state_role: { accept: [smash_and_replace], reject: [use_and_expand, abolish_outright], weight: 2 }
-      d1_party_role: { accept: [lead_and_direct], reject: [refuse_to_direct, dissolve_into_movement], weight: 2 }
-      d1_violence: { accept: [rupture_necessary, armed_struggle_now], reject: [principled_nonviolence], weight: 2 }
-      d1_pluralism_after: { accept: [one_party, one_movement_with_allies], reject: [no_state_to_contest], weight: 2 }
-      d1_civil_liberties: { accept: [conditional_on_revolution, restrict_during_emergency], reject: [liberties_are_the_point], weight: 2 }
-      d1_state_after_transition: { accept: [withers_as_functions_end], reject: [never_existed_as_such], weight: 2 }
-      d1_faith_grounds: { accept: [material_interest, secular_reason], reject: [grounds_it], weight: 1 }
+    stances: {}
 
   - id: maoism
     name: Maoism
     order: 10
+    group: revolutionary_socialist
     summary: >-
       Holds that the rural poor are a revolutionary force in their own right and
       that class struggle continues inside a socialist society, requiring the
@@ -204,6 +156,7 @@ families:
   - id: trotskyism
     name: Trotskyism
     order: 11
+    group: revolutionary_socialist
     summary: >-
       Keeps the Leninist party form while holding that a revolution confined to
       one poor country produces a privileged administrative layer that must be
@@ -215,6 +168,7 @@ families:
   - id: left_communism
     name: Left communism and autonomism
     order: 12
+    group: revolutionary_socialist
     summary: >-
       Broke left from the Leninist tradition: hostile to managing a transitional
       state, and holding that the class acts through its own organs rather than
@@ -227,32 +181,12 @@ families:
     # authored per member. See docs/roster-decisions.md.
     # Defaults are the family's internationalism and class analysis, which all
     # eight share. The state, the party and elections are per member.
-    stances:
-      d1_nation_unity: { accept: [disagree, strongly_disagree], reject: [strongly_agree], weight: 2 }
-      d1_race_structure:
-        accept: [division_within_the_class]
-        reject: [own_structure_not_reducible, colonial_relation_inside]
-        weight: 2
-      d1_small_property:
-        accept: [absorbed_into_common]
-        reject: [spread_them_widely, protected_alongside_social]
-        weight: 2
-      d1_expropriation: { accept: [no_compensation, workers_take_directly], reject: [full_market_compensation, buy_out_gradually, no_transfer_at_all], weight: 2 }
-      d1_owners_resist: { accept: [never_gets_that_far, resist_by_any_means], reject: [accept_the_law], weight: 2 }
-      d1_reforms_accumulate: { accept: [strongly_disagree, disagree], reject: [strongly_agree, agree], weight: 2 }
-      d1_price_signals: { accept: [strongly_disagree, disagree], reject: [strongly_agree], weight: 2 }
-      d1_state_neutrality: { accept: [built_to_protect_property], reject: [staffed_by_one_layer, it_is_a_proper_check], weight: 2 }
-      d1_police_and_army: { accept: [popular_militia], reject: [accountable_professional_force, rebuilt_under_new_authority], weight: 2 }
-      d1_religion_and_liberation: { accept: [obstacle_to_liberation], weight: 1 }
-      d1_world_revolution: { accept: [wrong_question, only_holding_operation], reject: [yes_one_country, self_reliance], weight: 2 }
-      d1_imperialism_primary: { accept: [class_everywhere], reject: [nations_primary, development_gap], weight: 2 }
-      d1_nation_self_gov: { accept: [class_over_nation], reject: [unify_divided_nation, independence_first], weight: 2 }
-      d1_single_subject: { accept: [class_decisive], reject: [national_unity_first], weight: 2 }
-      d1_faith_grounds: { accept: [material_interest, secular_reason], reject: [grounds_it], weight: 1 }
+    stances: {}
 
   - id: anarchism
     name: Anarchism
     order: 13
+    group: anarchist
     summary: >-
       Holds that concentrated coercive authority reproduces domination whoever
       holds it, and that the means used to reach a free society have to be of
@@ -260,17 +194,4 @@ families:
     # The anti-state core, 14 of 14. No default on violence, property,
     # distribution or strategy: those are the family's internal divisions.
     # christian_anarchism overrides the grounds default and zapatismo clears it.
-    stances:
-      d1_expropriation: { accept: [workers_take_directly], reject: [full_market_compensation, buy_out_gradually], weight: 2 }
-      d1_owners_resist: { accept: [resist_by_any_means, never_gets_that_far], reject: [accept_the_law], weight: 2 }
-      d1_reforms_accumulate: { accept: [strongly_disagree, disagree], reject: [strongly_agree], weight: 2 }
-      d1_state_neutrality: { accept: [any_apparatus_defends_itself], reject: [staffed_by_one_layer, it_is_a_proper_check], weight: 2 }
-      d1_police_and_army: { accept: [community_bodies_no_force, popular_militia], reject: [accountable_professional_force, rebuilt_under_new_authority], weight: 2 }
-      d1_party_needed: { accept: [revolutionary_through_struggle], reject: [union_ideas_only], weight: 2 }
-      d1_organisation_form: { accept: [federation_of_local_groups], reject: [mass_membership_party, disciplined_cadre_body], weight: 2 }
-      d1_religion_and_liberation: { accept: [obstacle_to_liberation], weight: 1 }
-      d1_state_role: { accept: [abolish_outright, bypass_and_build], reject: [use_and_expand, smash_and_replace, win_own_state], weight: 2 }
-      d1_pluralism_after: { accept: [no_state_to_contest], reject: [one_party, one_movement_with_allies], weight: 2 }
-      d1_party_role: { accept: [refuse_to_direct, dissolve_into_movement], reject: [lead_and_direct], weight: 2 }
-      d1_world_revolution: { accept: [wrong_question], reject: [yes_one_country], weight: 1 }
-      d1_faith_grounds: { accept: [secular_reason, material_interest], weight: 1 }
+    stances: {}

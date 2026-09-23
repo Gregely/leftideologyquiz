@@ -1,1951 +1,242 @@
-# Question bank.
+# Question bank — REDESIGN PILOT.
 #
-# Depth 1 is the core set from docs/question-inventory.md: the smallest group of
-# ungated questions that puts mass on every family, plus the follow-ups the
-# blueprint planned inside that set. Every question here follows the ten design
-# principles in SPEC.md §11: no proper nouns, no dates, concrete scenarios, and
-# each option phrased the way someone who holds it would phrase it.
+# Twelve tier-1 questions, chosen in docs/redesign.md §8 to split the six broad
+# groups as far as everyday values can. The 55 questions this replaced are on
+# the annotated tag `pre-redesign`; retrieve one with
+# `git show pre-redesign:content/questions.yaml`. Nothing is duplicated in the
+# repo, and the scale-up restores them one at a time, rewritten to the tier
+# rules (docs/redesign-baseline.md).
 #
-# Implicit options `unsure` and `unknown_term` are injected by the loader onto
-# every question and never appear here. They never update scores.
-# `likert5` questions get the five canonical points injected the same way.
+# TIER 1 MEANS: a respondent with no political education, no vocabulary and no
+# interest in politics can answer it from their own life. Stems ≤ 18 words,
+# options ≤ 8 words, 2-5 options, reading grade ≤ 7, no tooltip, nothing from
+# content/lint/tier1-banned.txt, and everyday situations only — a job, a
+# landlord, a hospital, a police stop, a will. No invented revolutions.
+# `npm run lint:content` enforces all of it; none of these carries a waiver.
+#
+# Implicit options `unsure` and `unknown_term` are injected by the loader and
+# never appear here. `likert5` questions get the five canonical points the same
+# way. Neither ever updates a score.
 
 questions:
   # ---------------------------------------------------------------------------
-  # Depth 1 — split the field into families
+  # How change happens — the main axis tier 1 can reach
   # ---------------------------------------------------------------------------
 
-  - id: d1_state_role
+  - id: t1_elections_change_things
     depth: 1
-    kind: single_choice
-    tags: [state, strategy]
+    kind: likert5
+    tags: [change, government]
     text: >-
-      Think about the machinery of government as it exists now — the ministries,
-      the courts, the police, the army. A movement wants a different economic
-      order. What should it do with that machinery?
-    options:
-      - id: use_and_expand
-        short: Win it and use it
-        label: >-
-          Win control of it and use it. It is the only instrument large enough to
-          reorganise an economy, and it can be made to answer to ordinary people.
-      - id: use_then_dissolve
-        short: Use it, then wind it down
-        label: >-
-          Take it over and use it through the transition, then wind down its
-          coercive parts as they stop being needed.
-      - id: smash_and_replace
-        short: Break it up and replace it
-        label: >-
-          It is built to protect the present order and cannot be repurposed. It
-          has to be broken up and replaced with bodies elected directly from
-          workplaces and neighbourhoods.
-      - id: bypass_and_build
-        short: Bypass it and build alternatives
-        label: >-
-          Leave aside the question of capturing it. Build the institutions that
-          will replace it — co-operatives, assemblies, unions — until it is no
-          longer the thing that runs society.
-      - id: abolish_outright
-        short: Dismantle it
-        label: >-
-          Dismantle it. No transitional version of it is safe, because
-          concentrated coercive power reproduces itself whoever is holding it.
-      - id: win_own_state
-        short: Win a state of our own
-        label: >-
-          First ask whose machinery it is. A people ruled from outside needs a
-          state of its own, answerable to it, before any economic order can be
-          its own choice.
+      Voting changes who is in charge, but not who really runs things.
     follow_ups:
       - when:
-          answer_in: [use_then_dissolve, smash_and_replace]
-        ask: [d1_state_after_transition]
-        mode: force
-
-  - id: d1_state_after_transition
-    depth: 1
-    kind: single_choice
-    tags: [transition, state]
-    requires:
-      answered:
-        d1_state_role: [use_then_dissolve, smash_and_replace]
-    text: >-
-      You said the state is something to work through for the transition —
-      "{{answers.d1_state_role.short}}". Once that transition is complete, what
-      should happen to it?
-    options:
-      - id: withers_as_functions_end
-        short: its coercive functions fall away
-        label: >-
-          Its coercive functions fall away as the conditions that called for
-          them disappear. What is left is administration, not rule.
-      - id: retained_as_planner
-        short: it stays, as the planner
-        label: >-
-          It stays. An economy of that size needs a permanent public authority to
-          run it, and pretending otherwise is a mistake.
-      - id: dissolved_deliberately
-        short: it has to be taken apart on purpose
-        label: >-
-          It does not fall away on its own. It has to be deliberately taken apart
-          at a decided point, or the people inside it will keep finding reasons
-          to hold on.
-      - id: never_existed_as_such
-        short: there should have been no such state
-        label: >-
-          There should have been no transitional state to dispose of. The bodies
-          that made the revolution should have been the new administration from
-          the first day.
-    follow_ups:
-      - when:
-          answer_in: [withers_as_functions_end]
-        ask: [d1_world_revolution]
+          answer_in: [strongly_agree, agree]
+        ask: [t1_how_change_happens]
         mode: boost
         boost: 2.0
 
-  - id: d1_change_route
+  - id: t1_how_change_happens
     depth: 1
     kind: single_choice
-    tags: [strategy, rupture]
+    tags: [change, strategy]
     text: >-
-      A movement has broad public support, but those who hold economic power
-      will not concede what it is asking for. Which road should it actually be
-      organising for?
+      Which is closest to how things actually get better?
     options:
-      - id: win_elections_and_legislate
+      - id: laws_step_by_step
+        short: laws passed one at a time
         label: >-
-          Win a majority and legislate. Where a government has a mandate and
-          holds its nerve, there is very little it cannot do.
-      - id: build_counter_power_then_rupture
+          Laws passed, one at a time.
+      - id: organise_until_they_give_way
+        short: organising until those in charge give way
         label: >-
-          Build organisation in workplaces and communities until it is strong
-          enough to stop the economy, and take the opening that creates.
-      - id: organised_insurrection
+          People organising until those in charge give way.
+      - id: build_alongside
+        short: building something better alongside
         label: >-
-          Build a disciplined organisation capable of taking power at the moment
-          the old order loses its grip, because that moment is short.
-      - id: protracted_armed_struggle
+          Building something better alongside, and spreading it.
+      - id: everything_changes_hands
+        short: everything changing hands at once
         label: >-
-          Build armed forces among the people where the state is weakest, and
-          grow them over years until they can take on the state's own army.
-      - id: prefigure_and_replace
-        label: >-
-          Build the new society's institutions now, at whatever scale is
-          possible, and let them displace the old ones.
-      - id: long_cultural_work
-        label: >-
-          Win the argument first. Until what most people take for granted has
-          changed, anything seized is built on sand.
-
-  - id: d1_ownership
-    depth: 1
-    kind: single_choice
-    tags: [ownership, economy]
-    text: >-
-      In the society you want, who should own the large productive enterprises —
-      the factories, the energy grid, the transport network?
-    options:
-      - id: private_with_strong_public
-        label: >-
-          Mostly private owners, alongside a large public sector and enough
-          regulation and taxation to keep the results fair.
-      - id: public_ownership_planned
-        label: >-
-          The public, through bodies that answer to an elected government and
-          direct them to a plan.
-      - id: worker_owned_market
-        label: >-
-          The people who work in them, running them as their own firms and
-          trading and competing with each other.
-      - id: common_ownership_no_market
-        label: >-
-          Held in common, with what gets made and where it goes worked out
-          directly between producers and communities rather than through buying
-          and selling.
-      - id: occupancy_and_use
-        label: >-
-          Whoever is actually using them. Title should follow use rather than
-          investment, and defending that needs no authority above the people
-          concerned.
-      - id: widely_held_small_property
-        label: >-
-          As few enterprises that large as possible. Break up what can be broken
-          up, so that property is spread across families, smallholders and small
-          co-operatives.
-
-  - id: d1_planning_or_market
-    depth: 1
-    kind: single_choice
-    tags: [economy, coordination]
-    text: >-
-      However the large enterprises are owned, something has to settle what gets
-      produced, and how much of it. What should do that?
-    options:
-      - id: regulated_market
-        label: >-
-          Markets between ordinary firms, with the state steering them through
-          taxes, regulation and public investment wherever markets fall short.
-      - id: central_plan_with_targets
-        label: >-
-          A central plan, setting targets that the productive units are held to.
-          Someone has to weigh the whole thing up, and it should be a body the
-          public can remove.
-      - id: negotiated_plan_between_units
-        label: >-
-          Worked out between producers, users and communities through open
-          negotiation, with no central body handing down targets.
-      - id: market_between_worker_firms
-        label: >-
-          A market between enterprises the workers themselves own. Prices carry
-          information no committee can assemble.
-      - id: direct_allocation_by_need
-        label: >-
-          Taken freely from a common store, with production adjusted to what is
-          actually being drawn down. No accounting of who contributed what.
-      - id: computed_plan
-        label: >-
-          Computed. Given enough information about needs and capacities the
-          allocation problem is a technical one, and it can be solved and then
-          revised continuously.
-    modifier_tags:
-      computed_plan: technology
+          Everything changing hands at once.
     follow_ups:
       - when:
-          answer_in: [market_between_worker_firms]
-        ask: [d1_workplace_control]
+          answer_in: [everything_changes_hands, organise_until_they_give_way]
+        ask: [t1_force_in_politics]
         mode: boost
         boost: 1.5
 
-  - id: d1_workplace_control
-    depth: 1
-    kind: single_choice
-    tags: [workplace, economy]
-    text: >-
-      In a large workplace — a hospital, a steelworks, a rail depot — who should
-      have the final say over how the work is organised?
-    options:
-      - id: workers_self_manage
-        label: >-
-          The people who work there, through their own meetings and managers
-          they elect and can remove.
-      - id: public_authority_manages
-        label: >-
-          Managers appointed by the public body that owns it, answerable to the
-          plan and to the public, with the workforce consulted.
-      - id: owners_under_regulation
-        label: >-
-          The owners and the managers they appoint, within strong labour law,
-          with unions bargaining over pay and conditions.
-      - id: codetermination
-        label: >-
-          Shared. Elected worker representatives sit alongside management on the
-          board, and major decisions need both.
-      - id: union_runs_it
-        label: >-
-          The union that organises the whole industry, which its members already
-          control, should run it as one body.
+  # ---------------------------------------------------------------------------
+  # Work and who owns it
+  # ---------------------------------------------------------------------------
 
-  - id: d1_party_role
-    depth: 1
-    kind: single_choice
-    tags: [organisation, party]
-    text: >-
-      A political organisation has a worked-out programme and a few thousand
-      committed members. A mass movement erupts that does not share that
-      programme. What is the organisation's job inside it?
-    options:
-      - id: lead_and_direct
-        label: >-
-          Win the leadership of it. A movement without a programme is defeated or
-          bought off, and the organisation exists to supply one.
-      - id: fight_for_its_line_democratically
-        label: >-
-          Argue for its positions inside the movement, and where it loses the
-          argument, carry out what the movement decided anyway.
-      - id: keep_programme_intact
-        label: >-
-          Keep the programme intact and say so openly, even from a small
-          minority. The organisation's whole value is that it does not bend to
-          the mood of the moment.
-      - id: dissolve_into_movement
-        label: >-
-          Put its members at the movement's disposal and stop operating as a
-          separate body with a line of its own.
-      - id: refuse_to_direct
-        label: >-
-          Back the movement's own organs and refuse any role that would place the
-          organisation above them.
-    follow_ups:
-      - when:
-          answer_in: [lead_and_direct]
-        ask: [d1_guiding_leader]
-        mode: force
-
-  - id: d1_guiding_leader
-    depth: 1
-    kind: single_choice
-    tags: [leadership, party]
-    requires:
-      answered:
-        d1_party_role: [lead_and_direct, fight_for_its_line_democratically, keep_programme_intact]
-    text: >-
-      A movement has one leader whose writings and judgement have guided it
-      through its hardest years. Its members now disagree about a new situation.
-      How should the disagreement be settled?
-    options:
-      - id: leaders_thought_settles
-        label: >-
-          By the leader's thought. It has been tested in struggle, and applying
-          it is how the movement stays united and on course.
-      - id: collective_leadership
-        label: >-
-          By the leading bodies, deciding together. A leader's writings are
-          guidance, not scripture, and no one person settles disputes.
-      - id: members_decide
-        label: >-
-          By the members, through open debate and a vote. Any leader, however
-          respected, answers to them.
-      - id: no_leaders
-        label: >-
-          The situation is the warning. A movement with one guiding leader is
-          building its next ruler, however good that leader is.
-
-  - id: d1_pluralism_after
-    depth: 1
-    kind: single_choice
-    tags: [democracy, state]
-    text: >-
-      A socialist movement has come to power, by whatever route. Should other
-      parties be free to organise and to compete to replace it?
-    options:
-      - id: competitive_elections
-        short: other parties should compete freely
-        label: >-
-          Yes, all of them, including parties that want to undo what was won. A
-          majority that can be voted out is the only kind worth having.
-      - id: socialist_parties_only
-        short: only parties that accept the new order should compete
-        label: >-
-          Parties that accept the new order should compete freely, with each
-          other and inside the councils. Parties of the old owners should not.
-      - id: one_party
-        short: one party should lead
-        label: >-
-          No. One party, open to everyone committed to the project, with real
-          debate inside it. Rival parties become the channel for the old order
-          to return.
-      - id: one_movement_with_allies
-        short: one party should lead, with allied parties beside it
-        label: >-
-          A leading party with smaller allied parties that accept its
-          leadership, so different parts of society have a voice without
-          dividing the country's direction.
-      - id: no_state_to_contest
-        short: there should be no government to compete for
-        label: >-
-          The question assumes a government worth competing for. Decisions
-          should belong to assemblies and federations, with no seat of power
-          left for parties to win.
-    follow_ups:
-      - when:
-          answer_in: [competitive_elections, socialist_parties_only, one_party, one_movement_with_allies]
-        ask: [d1_civil_liberties]
-        mode: force
-
-  - id: d1_civil_liberties
-    depth: 1
-    kind: single_choice
-    tags: [liberties, democracy]
-    requires:
-      answered:
-        d1_pluralism_after: [competitive_elections, socialist_parties_only, one_party, one_movement_with_allies]
-    text: >-
-      You said that once a socialist movement is in power,
-      {{answers.d1_pluralism_after.short}}. Former owners now fund newspapers
-      and rallies arguing to reverse the changes. What should happen to their
-      freedom to publish and to meet?
-    options:
-      - id: liberties_are_the_point
-        label: >-
-          Leave them free. Speech and assembly for opponents are part of what
-          socialism is for, not a privilege it grants once it feels secure.
-      - id: ordinary_law_only
-        label: >-
-          Leave them free to argue, and prosecute them under ordinary law only
-          for what would be a crime anywhere — violence, fraud, conspiracy.
-      - id: restrict_during_emergency
-        label: >-
-          Restrict them while the danger is real, by law and for a stated
-          period, and restore the freedoms once it has passed.
-      - id: conditional_on_revolution
-        label: >-
-          Their freedom depends on the new order being secure. Campaigns paid for
-          to reverse it are part of the fight against it, and are treated that
-          way.
-
-  - id: d1_world_revolution
-    depth: 1
-    kind: single_choice
-    tags: [internationalism, transition]
-    text: >-
-      A revolution succeeds in one country. Its neighbours stay capitalist and
-      hostile, and no other revolution follows for decades. Can it build
-      socialism on its own?
-    options:
-      - id: yes_one_country
-        label: >-
-          Yes. With enough land, industry and determination a country can build
-          socialism by its own efforts, and it owes the world an example.
-      - id: only_holding_operation
-        label: >-
-          It can hold power and build what it can, but socialism itself depends
-          on revolution spreading. Isolated for long enough, it decays.
-      - id: regional_union
-        label: >-
-          Not alone. It needs a union with the neighbouring peoples who share
-          its situation, large enough to stand on its own against the powerful.
-      - id: self_reliance
-        label: >-
-          Yes, and it should rely on nobody — not the capitalist powers, and not
-          the big socialist ones either, whose help comes with orders attached.
-      - id: wrong_question
-        label: >-
-          A revolution that stops at a border and settles in to govern a country
-          has already stopped. The question assumes the thing that went wrong.
-
-  - id: d1_nation_self_gov
-    depth: 1
-    kind: single_choice
-    tags: [nation, self_government]
-    text: >-
-      A people with its own language and history is governed by a state run
-      mostly by another people, and faces poverty and discrimination. What should
-      its movement aim for?
-    options:
-      - id: own_state_socialist
-        label: >-
-          A state of its own, and a socialist one. Independence that leaves the
-          same owners in charge is only a change of flag.
-      - id: independence_first
-        label: >-
-          Independence first. How the economy is run is settled afterwards, by
-          the people themselves, once they are the ones deciding.
-      - id: autonomy_where_we_live
-        label: >-
-          Self-government in its own schools, language and institutions wherever
-          its people live, inside a shared state, without drawing a new border.
-      - id: unify_divided_nation
-        label: >-
-          Unity with the rest of its nation, split across several states by
-          outsiders, into one state strong enough to stand up to the powerful.
-      - id: confederation_no_state
-        label: >-
-          Self-government through its own assemblies, confederated with
-          neighbouring peoples, without founding a new state to rule someone
-          else in turn.
-      - id: class_over_nation
-        label: >-
-          Its workers should organise together with the workers of the dominant
-          people. Dividing them by nation weakens the only force that can end the
-          discrimination.
-    modifier_tags:
-      own_state_socialist: nation
-      independence_first: nation
-      autonomy_where_we_live: nation
-      unify_divided_nation: nation
-      confederation_no_state: nation
-    follow_ups:
-      - when:
-          answer_in: [independence_first, unify_divided_nation]
-        ask: [d1_guiding_leader]
-        mode: unlock
-
-  - id: d1_imperialism_primary
-    depth: 1
-    kind: single_choice
-    tags: [imperialism, class]
-    text: >-
-      Across the world some countries are rich and many are poor, and wealth
-      flows from the second to the first. For a socialist, which is the main
-      thing to break?
-    options:
-      - id: nations_primary
-        label: >-
-          The domination of poor nations by rich ones. Until that is broken,
-          struggles inside rich countries are mostly about sharing the proceeds.
-      - id: class_everywhere
-        label: >-
-          Class rule inside every country. The owners in poor countries exploit
-          their own workers too, and the line that matters runs through each one.
-      - id: both_intertwined
-        label: >-
-          Neither comes first. Domination of poor nations is how the system works
-          at world scale, and fighting it and fighting the owners are one fight.
-      - id: development_gap
-        label: >-
-          Mainly the gap in development. Poor countries need to industrialise
-          under their own control, in a fairer world order, more than a new
-          revolution.
-      - id: not_primary_structure
-        label: >-
-          Neither is the thing to break. Poverty abroad calls for fair trade,
-          cancelled debts and aid, pursued by democratic governments.
-    modifier_tags:
-      nations_primary: anti_colonial
-      both_intertwined: anti_colonial
-    follow_ups:
-      - when:
-          answer_in: [nations_primary]
-        ask: [d1_decisive_agent]
-        mode: boost
-        boost: 1.5
-
-  - id: d1_wealth_from_periphery
+  - id: t1_who_should_own_work
     depth: 1
     kind: likert5
-    tags: [imperialism, economy]
+    tags: [work, ownership]
     text: >-
-      The prosperity of the rich countries rests substantially on wealth taken
-      from poorer ones — and still does, through the terms on which they trade,
-      borrow and are invested in.
+      The people who work somewhere should own it.
+    follow_ups:
+      - when:
+          answer_in: [strongly_agree, agree, disagree, strongly_disagree]
+        ask: [t1_final_say_at_work]
+        mode: force
+
+  - id: t1_final_say_at_work
+    depth: 1
+    kind: single_choice
+    tags: [work, control]
+    text: >-
+      At a large workplace, who should have the final say?
+    options:
+      - id: the_owners
+        short: the people who own it
+        label: >-
+          The people who own it.
+      - id: managers_an_elected_government_picks
+        short: managers an elected government picks
+        label: >-
+          Managers picked by an elected government.
+      - id: the_people_who_work_there
+        short: the people who work there
+        label: >-
+          The people who work there.
+      - id: everyone_it_serves
+        short: everyone who uses what it makes
+        label: >-
+          Everyone who uses what it makes.
+
+  - id: t1_paid_for_together
+    depth: 1
+    kind: likert5
+    tags: [public, money]
+    text: >-
+      Health care and housing should be run by government, not bought and sold.
+
+  - id: t1_how_much_inequality
+    depth: 1
+    kind: likert5
+    tags: [money, fairness]
+    text: >-
+      Some people earning twenty times what others earn is wrong, however hard
+      they work.
+
+  # ---------------------------------------------------------------------------
+  # Authority: police, unjust laws, force
+  # ---------------------------------------------------------------------------
+
+  - id: t1_police_instead
+    depth: 1
+    kind: single_choice
+    tags: [police, safety]
+    text: >-
+      What would you want in place of the police as they are?
+    options:
+      - id: same_but_answerable
+        short: the same, but properly answerable
+        label: >-
+          The same, but properly answerable.
+      - id: fewer_police_more_support
+        short: fewer police, more support services
+        label: >-
+          Fewer of them, more support services.
+      - id: neighbourhoods_handle_it
+        short: neighbourhoods handling it themselves
+        label: >-
+          Neighbourhoods handling it themselves.
+      - id: ordinary_people_elected
+        short: ordinary people, elected and trained
+        label: >-
+          Ordinary people, elected and trained.
+      - id: nothing_like_it_at_all
+        short: nothing like it at all
+        label: >-
+          Nothing of the kind at all.
+
+  - id: t1_unjust_law
+    depth: 1
+    kind: single_choice
+    tags: [law, protest]
+    text: >-
+      A law is clearly unjust. What should people do?
+    options:
+      - id: obey_and_campaign
+        short: obey it and campaign to change it
+        label: >-
+          Obey it, and campaign to change it.
+      - id: break_openly_take_punishment
+        short: break it openly and take the punishment
+        label: >-
+          Break it openly and accept the punishment.
+      - id: break_it_and_avoid
+        short: break it and avoid getting caught
+        label: >-
+          Break it, and avoid getting caught.
+      - id: obeying_was_never_the_point
+        short: obeying was never the point
+        label: >-
+          Obeying was never really the point.
+    follow_ups:
+      - when:
+          answer_in: [break_openly_take_punishment, break_it_and_avoid, obeying_was_never_the_point]
+        ask: [t1_police_instead]
+        mode: boost
+        boost: 1.5
+
+  - id: t1_force_in_politics
+    depth: 1
+    kind: single_choice
+    tags: [force, change]
+    text: >-
+      Is there ever a good reason to use force to change how a country is run?
+    options:
+      - id: never_for_any_reason
+        short: no, never, for any reason
+        label: >-
+          No, never, for any reason.
+      - id: only_defending_people
+        short: only to defend people being attacked
+        label: >-
+          Only to defend people being attacked.
+      - id: when_nothing_else_worked
+        short: yes, when nothing else has worked
+        label: >-
+          Yes, when nothing else has worked.
+      - id: nobody_gives_up_willingly
+        short: yes, nobody gives up willingly
+        label: >-
+          Yes. Nobody gives up willingly.
+
+  # ---------------------------------------------------------------------------
+  # Where your politics comes from, and who it is for
+  # ---------------------------------------------------------------------------
+
+  - id: t1_faith_and_right
+    depth: 1
+    kind: likert5
+    tags: [faith, values]
+    text: >-
+      My sense of right and wrong comes mainly from my religion.
+    modifier_tags:
+      strongly_agree: religion
+      agree: religion
+
+  - id: t1_wealth_from_elsewhere
+    depth: 1
+    kind: likert5
+    tags: [money, world]
+    text: >-
+      Rich countries are rich partly because of what they took from poorer ones.
     modifier_tags:
       strongly_agree: anti_colonial
       agree: anti_colonial
 
-  - id: d1_decisive_agent
-    depth: 1
-    kind: single_choice
-    tags: [agency, class]
-    text: >-
-      When it comes to actually forcing a change of system, whose organisation
-      counts most?
-    options:
-      - id: industrial_workers
-        short: workers in industry
-        label: >-
-          Workers who make and move physical goods. Their hands are on the
-          machinery the whole economy runs on, and they can stop it.
-      - id: all_wage_workers
-        short: everyone who works for a wage
-        label: >-
-          Everyone who has to work for a wage or salary, whatever the job —
-          nurses, clerks and drivers as much as factory hands.
-      - id: peasants_rural_poor
-        short: the rural poor
-        label: >-
-          The rural poor, who work land they do not own. In much of the world
-          they are the majority, and the countryside is where power is built.
-      - id: colonised_peoples
-        short: peoples held down by richer nations
-        label: >-
-          Peoples held down by richer nations. Their fight for liberation is what
-          shakes the whole system.
-      - id: citizens_majority
-        short: the public at large
-        label: >-
-          The public at large, acting as citizens through elections and civic
-          organisations, across the lines of class.
-      - id: many_movements
-        short: many movements together
-        label: >-
-          No single group. Change comes when workers', women's, anti-racist,
-          environmental and community movements combine, with none leading.
-    modifier_tags:
-      colonised_peoples: anti_colonial
-    follow_ups:
-      - when:
-          answer_in: [industrial_workers, all_wage_workers, colonised_peoples, citizens_majority, many_movements]
-        ask: [d1_peasantry]
-        mode: force
-
-  - id: d1_peasantry
+  - id: t1_run_our_own_affairs
     depth: 1
     kind: likert5
-    tags: [peasantry, agency]
-    requires:
-      answered:
-        d1_decisive_agent: [industrial_workers, all_wage_workers, colonised_peoples, citizens_majority, many_movements]
+    tags: [place, belonging]
     text: >-
-      You said the force that counts is {{answers.d1_decisive_agent.short}}.
-      Where most people still work the land, though, the rural poor are a
-      revolutionary force in their own right, not only allies of the towns.
-
-  - id: d1_violence
-    depth: 1
-    kind: single_choice
-    tags: [violence, strategy]
-    text: >-
-      A movement for a different economic order meets determined resistance from
-      those who hold power. Where does its own use of force fit in?
-    options:
-      - id: principled_nonviolence
-        label: >-
-          It has no place, even under attack. Means shape ends, and a society won
-          by violence carries the violence into what it builds.
-      - id: not_needed_legal
-        label: >-
-          Where there is democracy it is unnecessary. Elections, strikes and
-          courts are enough, and force hands opponents their excuse.
-      - id: defensive_only
-        label: >-
-          Only in self-defence, when the movement or a community it has built is
-          attacked, and never as the way to take power.
-      - id: rupture_necessary
-        label: >-
-          When the old order is finally challenged it will fight, and the
-          movement must be ready to meet that with force at the decisive moment.
-      - id: armed_struggle_now
-        label: >-
-          Where the state rules by force, organised armed struggle is how power
-          is won. Waiting for one decisive moment leaves people unarmed too long.
-      - id: offensive_action
-        label: >-
-          Attacks on the property and institutions of the present order are
-          legitimate now. They show it is not untouchable and spread the revolt.
-
-  - id: d1_faith_grounds
-    depth: 1
-    kind: single_choice
-    tags: [religion, grounds]
-    text: >-
-      Where does your commitment to a fairer economy ultimately come from?
-    options:
-      - id: grounds_it
-        label: >-
-          From my faith. What it teaches about the poor, about possessions and
-          about our duties to one another is the ground of my politics.
-      - id: ethical_ideal
-        label: >-
-          From a moral ideal of human dignity and freedom, which people reach
-          from many directions, religious and otherwise.
-      - id: secular_reason
-        label: >-
-          From reason and human solidarity alone. Religion adds nothing to it,
-          and has more often stood on the other side.
-      - id: material_interest
-        label: >-
-          From the interests and experience of working people. Politics is about
-          who owns what and who works for whom, not about beliefs.
-    modifier_tags:
-      grounds_it: religion
-    follow_ups:
-      - when:
-          answer_in: [grounds_it]
-        ask: [d1_violence]
-        mode: boost
-        boost: 1.5
-
-  - id: d1_religion_and_liberation
-    depth: 1
-    kind: single_choice
-    tags: [religion, movements]
-    text: >-
-      In a movement for a fairer economy, what place should religion have?
-    options:
-      - id: ally_of_liberation
-        label: >-
-          An ally, and more than that. The tradition makes its own demand for
-          justice, and believers organising as believers belong in the movement.
-      - id: reform_the_tradition
-        label: >-
-          The tradition is worth fighting over. Its own teaching condemns what
-          is done in its name, and reclaiming it is part of the wider fight.
-      - id: private_matter
-        label: >-
-          A private matter. What people believe is their own business, and a
-          movement should neither promote it nor attack it.
-      - id: obstacle_to_liberation
-        label: >-
-          An obstacle. Religious institutions have taught the poor to accept
-          their place, and a movement that leans on them inherits that.
-    modifier_tags:
-      ally_of_liberation: religion
-      reform_the_tradition: religion
-
-  - id: d1_ecology_priority
-    depth: 1
-    kind: likert5
-    tags: [ecology, growth]
-    tooltip: >-
-      "Total material output" means the whole physical throughput of an economy —
-      energy, materials, land — not the money value of what it produces.
-    text: >-
-      Staying inside ecological limits should take priority over raising total
-      material output, even where that means people in the wealthiest places
-      consume less than they do now.
-    modifier_tags:
-      strongly_agree: ecology
-      agree: ecology
-
-  - id: d1_growth
-    depth: 1
-    kind: likert5
-    tags: [growth, ecology]
-    text: >-
-      A socialist economy should keep increasing its total material output —
-      more goods, more energy, more building — for as long as people still want
-      more.
-    modifier_tags:
-      strongly_disagree: ecology
-      disagree: ecology
-
-  - id: d1_care_work
-    depth: 1
-    kind: likert5
-    tags: [social_reproduction, gender]
-    text: >-
-      Unpaid care and household work — raising children, looking after the sick
-      and the old — is not a secondary issue. Reorganising it matters as much as
-      reorganising paid work.
-    modifier_tags:
-      strongly_agree: gender
-      agree: gender
-
-  - id: d1_gender_division
-    depth: 1
-    kind: likert5
-    tags: [gender, economy]
-    text: >-
-      A socialist economy that leaves the division of work between women and men
-      as it found it has not achieved socialism, however fairly it shares out
-      income.
-    modifier_tags:
-      strongly_agree: gender
-      agree: gender
-
-  - id: d1_technology_scale
-    depth: 1
-    kind: single_choice
-    tags: [technology, scale]
-    text: >-
-      A new automated system could halve the working hours of a whole region,
-      but only if it is run as one large network rather than many small local
-      ones. What should the region do?
-    options:
-      - id: run_it_and_socialise_gains
-        label: >-
-          Build it and share out the time it frees. Turning down a tool that
-          could lift half the work off people keeps everyone poorer and more
-          tired.
-      - id: run_it_under_direct_control
-        label: >-
-          Build it, but under bodies the people affected elect and can recall,
-          so those running it stay answerable to everyone else.
-      - id: break_it_up_for_local_control
-        label: >-
-          Build smaller systems that local communities can run and repair
-          themselves, even though that saves far less work.
-      - id: forgo_it
-        label: >-
-          Do without it. Each system like this makes people more dependent on
-          machinery they cannot control, and the time saved is not worth that.
-    modifier_tags:
-      run_it_and_socialise_gains: technology
-
-  - id: d1_single_subject
-    depth: 1
-    kind: single_choice
-    tags: [movements, class]
-    text: >-
-      Think of the movements against exploitation and oppression — labour,
-      women's, anti-racist, environmental and others. How should they relate to
-      one another?
-    options:
-      - id: class_decisive
-        label: >-
-          The working class is the force that can end all of them, because its
-          exploitation is at the centre. The others win lasting gains through
-          its struggle.
-      - id: class_plus_autonomous
-        label: >-
-          Class is at the centre, but oppressed groups need organisations of
-          their own too, which the class movement should back rather than absorb.
-      - id: no_privileged_subject
-        label: >-
-          None is at the centre. A majority for change is built by linking many
-          different demands into one front, with no struggle ranked above the
-          rest.
-      - id: each_its_own
-        label: >-
-          Each oppression has its own roots and its own movement. Solidarity
-          matters, but no common programme should override any of them.
-      - id: national_unity_first
-        label: >-
-          Divisions of class and group should give way inside the nation, with
-          everyone brought together behind its independence and development.
-
-  - id: d1_change_by_example
-    depth: 1
-    kind: single_choice
-    tags: [example, strategy]
-    text: >-
-      A group has founded a co-operative settlement that works: shared property,
-      shorter hours, no bosses. What is the most important thing it can do for
-      wider change?
-    options:
-      - id: spread_by_example
-        label: >-
-          Keep going and let people see it. A working example persuades more
-          people than any argument, and others will copy it.
-      - id: network_of_alternatives
-        label: >-
-          Link up with others like it into a network strong enough to replace
-          the old institutions and to defend itself when they push back.
-      - id: support_wider_struggle
-        label: >-
-          Put its resources behind the struggle for power in the wider society.
-          An island of good conditions changes little until society changes
-          hands.
-      - id: win_legislation
-        label: >-
-          Serve as a demonstration for public policy. What it shows can work
-          should be written into law and extended to everyone by government.
-
-  - id: d1_distribution
-    depth: 1
-    kind: single_choice
-    tags: [distribution, economy]
-    text: >-
-      In the society you want, how should what has been produced be shared out?
-    options:
-      - id: by_need
-        label: >-
-          According to need. Everyone takes what they need from what has been
-          produced, whatever work they did.
-      - id: by_labour
-        label: >-
-          According to work done. Each receives in proportion to what they
-          contributed, after setting aside enough for common services.
-      - id: market_income_plus_floor
-        label: >-
-          Mostly through wages and prices set in markets, with taxes and public
-          services making sure nobody falls below a decent level.
-      - id: free_exchange
-        label: >-
-          By free exchange between producers. Each keeps the full product of
-          their own work and trades it on equal terms, with no rent or interest
-          taken.
-
-  - id: d1_individual_sovereignty
-    depth: 1
-    kind: single_choice
-    tags: [individual, community]
-    text: >-
-      When a person's own choices and the decisions of the community they live
-      in come into conflict, which should give way?
-    options:
-      - id: individual_is_the_point
-        label: >-
-          The community. The individual is the point of any social arrangement,
-          and no majority has the right to run someone else's life.
-      - id: freedom_through_association
-        label: >-
-          Neither should have to. Freedom is achieved together, by free
-          association, so a good community widens each person's freedom.
-      - id: collective_prior
-        label: >-
-          The person. People are formed by their society, and their real
-          interests are served by the common good even when they do not feel it.
-      - id: rights_balanced_by_law
-        label: >-
-          It depends on the right at stake. Written rights, protected by courts,
-          mark where the community cannot go; elsewhere the majority decides.
-
-  # --- batch 1 of the deferred depth-1 rows (docs/depth1-batches.md) ---------
-  # Blueprint §2 dimensions D1-D6: ownership, reform or rupture, markets, the
-  # existing state, and organisation. d1_hostile_press is absorbed into
-  # d1_civil_liberties rather than written; see docs/depth1-batches.md.
-
-  - id: d1_expropriation
-    depth: 1
-    kind: single_choice
-    tags: [ownership, transition]
-    text: >-
-      A government decides the country's largest firms should belong to the
-      public. The people who own them now hold shares worth a great deal. On
-      what terms should the change be made?
-    options:
-      - id: full_market_compensation
-        label: >-
-          Pay the full market value. Taking property without paying for it is
-          confiscation whatever it is called, and a government that does it once
-          will not be trusted again.
-      - id: compensation_where_hardship
-        label: >-
-          Pay where the loss would really hurt — small savers, pension funds —
-          and not where it would only reduce a large fortune.
-      - id: buy_out_gradually
-        label: >-
-          Buy them out over years, through public funds that take a growing share
-          of the profits, so ownership shifts without any single moment of
-          seizure.
-      - id: no_compensation
-        label: >-
-          Pay nothing. The wealth was made by the people who worked there, and
-          buying it back from those who took it means paying for it twice.
-      - id: workers_take_directly
-        label: >-
-          No government needs to arrange it. The people who work there take the
-          places over and run them, and the question of payment never comes up.
-      - id: no_transfer_at_all
-        label: >-
-          Nothing should pass into public hands. Tax, competition law and support
-          for smaller firms can break up great concentrations of wealth without
-          the state taking anything over.
-    follow_ups:
-      - when:
-          answer_in: [no_compensation, workers_take_directly]
-        ask: [d1_owners_resist]
-        mode: force
-      - when:
-          answer_in: [full_market_compensation, compensation_where_hardship, buy_out_gradually]
-        ask: [d1_owners_resist]
-        mode: boost
-        boost: 1.5
-
-  - id: d1_land
-    depth: 1
-    kind: single_choice
-    tags: [ownership, land]
-    text: >-
-      Most of the farmland in a country is held by a few hundred families and
-      worked by people who own none of it. What should happen to the land itself?
-    options:
-      - id: to_those_who_work_it
-        label: >-
-          Divide it among the households who actually farm it, as their own. A
-          family that owns the field it works has something no landlord can take
-          back from it.
-      - id: state_or_collective_farms
-        label: >-
-          Bring it into public ownership and work it as large farms planned
-          alongside the rest of the economy, where machinery and scale can do
-          what small plots cannot.
-      - id: village_holds_in_common
-        label: >-
-          The village should hold it together and share out its use, as
-          communities did before landlords appeared. It belongs to all of them
-          and to none of them separately.
-      - id: public_with_secure_tenure
-        label: >-
-          Public ownership, leased on secure terms to the households and
-          co-operatives that farm it, so nobody can be evicted and nobody can
-          build up estates again.
-      - id: ceiling_on_holdings
-        label: >-
-          Leave it in private hands, with a firm limit on how much any one family
-          may hold and real support for those working small plots.
-      - id: title_follows_use
-        label: >-
-          Title should follow the working of it. Land is held while it is being
-          used and lapses when it is not, and no rent is owed to anybody for it.
-    follow_ups:
-      - when:
-          answer_in: [to_those_who_work_it, village_holds_in_common, state_or_collective_farms]
-        ask: [d1_peasantry]
-        mode: boost
-        boost: 1.5
-
-  - id: d1_owners_resist
-    depth: 1
-    kind: single_choice
-    tags: [strategy, rupture, class]
-    text: >-
-      A government elected on a clear majority begins transferring the largest
-      firms into public ownership, by law and through the courts. What will the
-      people who own those firms actually do?
-    options:
-      - id: accept_the_law
-        short: accept it in the end
-        label: >-
-          Accept it, under protest. Where courts and elections are settled,
-          owners have in the end complied with a law they could not overturn.
-      - id: fight_within_rules
-        short: fight hard, but within the rules
-        label: >-
-          Fight it with everything the rules allow — courts, newspapers,
-          lobbying — and a government that holds its nerve can see that down.
-      - id: capital_strike
-        short: strangle the economy until it retreats
-        label: >-
-          Stop investing and move their money out, and let shortages and a
-          falling currency do the rest. The government retreats without a shot
-          being fired.
-      - id: resist_by_any_means
-        short: resist by any means, force included
-        label: >-
-          Resist by any means, force included, and find friends among the
-          officers or abroad. A movement that has not prepared for that will be
-          broken by it.
-      - id: never_gets_that_far
-        short: it never gets that far
-        label: >-
-          It never reaches that point. Long before such a majority exists, the
-          movement that built it has been drawn into managing things as they
-          are.
-    follow_ups:
-      - when:
-          answer_in:
-            [accept_the_law, fight_within_rules, capital_strike, resist_by_any_means, never_gets_that_far]
-        ask: [d1_reforms_accumulate]
-        mode: force
-      - when:
-          answer_in: [capital_strike, resist_by_any_means]
-        ask: [d1_state_neutrality]
-        mode: boost
-        boost: 2.0
-
-  - id: d1_reforms_accumulate
-    depth: 1
-    kind: likert5
-    tags: [strategy, reform]
-    requires:
-      answered:
-        d1_owners_resist:
-          [accept_the_law, fight_within_rules, capital_strike, resist_by_any_means, never_gets_that_far]
-    text: >-
-      You said the owners would {{answers.d1_owners_resist.short}}. Reforms won
-      one at a time — a service taken into public hands here, stronger rights at
-      work there — add up, and can turn one kind of society into another without
-      any decisive break.
-
-  - id: d1_price_signals
-    depth: 1
-    kind: likert5
-    tags: [economy, coordination]
-    text: >-
-      Prices that come out of people buying and selling carry information about
-      what is wanted and what it costs to make — information that no planning
-      body could gather any other way.
-    follow_ups:
-      - when:
-          answer_in: [strongly_agree, agree]
-        ask: [d1_planning_or_market]
-        mode: boost
-        boost: 1.5
-
-  - id: d1_state_neutrality
-    depth: 1
-    kind: single_choice
-    tags: [state, class]
-    text: >-
-      A government committed to working people takes office. It finds that the
-      civil service, the courts and the central bank keep steering its decisions
-      back towards what business will accept. Why does that happen?
-    options:
-      - id: staffed_by_one_layer
-        short: they are staffed from one narrow layer
-        label: >-
-          Because those institutions are staffed almost entirely from one narrow
-          layer of society. Change who works in them and they will serve a
-          different government perfectly well.
-      - id: built_to_protect_property
-        short: they were built to protect property
-        label: >-
-          Because they were built to protect property and will work that way
-          whoever staffs them. They cannot be inherited and used; they have to be
-          replaced.
-      - id: any_apparatus_defends_itself
-        short: any apparatus that size defends itself
-        label: >-
-          Because any apparatus of that size grows interests of its own and
-          defends them. It would do the same to a socialist government, and where
-          there has been one, it has.
-      - id: balance_of_forces
-        short: not enough pressure has been built outside it
-        label: >-
-          Because the government is pushing on its own. Those institutions bend
-          when there is organised pressure on them from outside, and not enough
-          of it has been built.
-      - id: it_is_a_proper_check
-        short: that is the check working as it should
-        label: >-
-          Because they exist to stop any single government doing whatever it
-          likes, which is worth keeping even when it frustrates a government you
-          voted for.
-    follow_ups:
-      - when:
-          answer_in:
-            [staffed_by_one_layer, built_to_protect_property, any_apparatus_defends_itself, balance_of_forces, it_is_a_proper_check]
-        ask: [d1_police_and_army]
-        mode: force
-      - when:
-          answer_in: [built_to_protect_property, any_apparatus_defends_itself]
-        ask: [d3_class_struggle_under_socialism, d3_bureaucratic_planned_economy]
-        mode: unlock
-
-  - id: d1_police_and_army
-    depth: 1
-    kind: single_choice
-    tags: [state, force]
-    requires:
-      answered:
-        d1_state_neutrality:
-          [staffed_by_one_layer, built_to_protect_property, any_apparatus_defends_itself, balance_of_forces, it_is_a_proper_check]
-    text: >-
-      You said that happens because {{answers.d1_state_neutrality.short}}.
-      Whatever else changes, some body still has to deal with armed robbery, and
-      with an invasion. In the society you want, what does that body look like?
-    options:
-      - id: accountable_professional_force
-        label: >-
-          Much as now — trained professionals, a police service and an army — but
-          under real democratic control, properly inspected and answerable to an
-          elected government.
-      - id: rebuilt_under_new_authority
-        label: >-
-          The existing forces broken up and built again from the bottom under the
-          new order's command. The officers of the old one cannot be kept on and
-          cannot be trusted.
-      - id: popular_militia
-        label: >-
-          The people themselves, armed and organised where they live and work,
-          with officers elected for short terms and no standing force existing
-          apart from them.
-      - id: community_bodies_no_force
-        label: >-
-          Bodies the community picks and can dissolve, dealing with harm by
-          agreement and repair, with nothing resembling a police force or a
-          standing army anywhere.
-      - id: no_armed_body
-        label: >-
-          No armed body at all. Meeting force with force is what keeps force
-          alive; a people defends itself by refusing, in numbers, to cooperate
-          with anyone trying to rule it.
-
-  - id: d1_party_needed
-    depth: 1
-    kind: single_choice
-    tags: [organisation, class, party]
-    text: >-
-      Left to their own experience — the job, the strike, the election — where do
-      working people's political ideas end up?
-    options:
-      - id: union_ideas_only
-        label: >-
-          At better terms inside the present order, and no further. A wider
-          understanding has to be brought to them by an organisation that has
-          worked it out and argues for it.
-      - id: revolutionary_through_struggle
-        label: >-
-          At revolutionary conclusions, reached through the struggle itself. What
-          an organisation can do is help people see what they are already doing,
-          not instruct them in it.
-      - id: party_of_their_own
-        label: >-
-          At building a party of their own to carry their interests into
-          government — one they join, pay for, and can vote the leadership out
-          of.
-      - id: argued_out_between_people
-        label: >-
-          Nowhere on their own, and nowhere handed down from outside either. They
-          are fought out between people in the movement and everyone around it,
-          over a long time.
-      - id: no_ready_made_politics
-        label: >-
-          Nowhere in particular. There is no politics waiting inside a class to
-          be woken up, and expecting one is how movements end up being spoken
-          for.
-    follow_ups:
-      - when:
-          answer_in: [union_ideas_only]
-        ask: [d1_party_role]
-        mode: boost
-        boost: 2.0
-      - when:
-          answer_in: [union_ideas_only]
-        ask: [d3_party_vs_class]
-        mode: unlock
-      - when:
-          answer_in: [revolutionary_through_struggle]
-        ask: [d3_council_or_programme]
-        mode: unlock
-
-  - id: d1_organisation_form
-    depth: 1
-    kind: single_choice
-    tags: [organisation, party]
-    text: >-
-      People who want a different economic order have to organise somehow. What
-      is actually worth building?
-    options:
-      - id: mass_membership_party
-        label: >-
-          A mass party anyone who supports its programme can join, standing
-          candidates at elections, with its leaders held to what its own
-          conference decides.
-      - id: disciplined_cadre_body
-        label: >-
-          A smaller organisation of tested and committed people, trained to act
-          as one and able to keep going if it is driven underground.
-      - id: broad_front_of_movements
-        label: >-
-          A broad front joining parties, unions, campaigns and community groups,
-          held together by what they agree on rather than by one programme.
-      - id: federation_of_local_groups
-        label: >-
-          A federation of local groups that keeps every decision as near the
-          ground as it can be, sending delegates upward who can be recalled at
-          any time.
-      - id: workplace_bodies
-        label: >-
-          Organisation where people work — a union, or a body elected by everyone
-          in the workplace — because that is where their strength actually is.
-      - id: as_little_as_possible
-        label: >-
-          As little permanent structure as possible. People come together for
-          what has to be done and disperse afterwards; anything lasting grows
-          interests of its own.
-    follow_ups:
-      - when:
-          answer_in: [workplace_bodies]
-        ask: [d2_union_role]
-        mode: boost
-        boost: 2.0
-      - when:
-          answer_in: [federation_of_local_groups, as_little_as_possible]
-        ask: [d3_specific_organisation]
-        mode: unlock
-      - when:
-          answer_in: [disciplined_cadre_body]
-        ask: [d1_party_needed]
-        mode: boost
-        boost: 1.5
-
-  # --- batch 2 of the deferred depth-1 rows (docs/depth1-batches.md) ---------
-  # Blueprint §2 dimensions D7-D23: the cross-cutting questions, which is where
-  # the `nation`, `race` and `caste` modifier tags are fed. Two pairs travel
-  # together by a forced follow-up (d1_race_structure → d1_autonomous_movements,
-  # d1_internal_hierarchy → d1_reserved_places), so a tag measured once is
-  # measured twice — which is what the display threshold of two needs.
-
-  - id: d1_autonomy_without_state
-    depth: 1
-    kind: likert5
-    tags: [nation, self_government]
-    text: >-
-      A people ruled from a capital that is not its own can be genuinely
-      self-governing without a state of its own — through its own language, its
-      own schools, its own elected bodies, wherever its members happen to live.
+      People should run their own affairs, in their own area and language.
     modifier_tags:
       strongly_agree: nation
       agree: nation
-    follow_ups:
-      - when:
-          answer_in: [strongly_agree, agree]
-        ask: [d1_nation_self_gov]
-        mode: boost
-        boost: 2.0
-      - when:
-          answer_in: [strongly_disagree, disagree]
-        ask: [d1_nation_unity]
-        mode: boost
-        boost: 1.5
-
-  - id: d1_nation_unity
-    depth: 1
-    kind: likert5
-    tags: [nation, self_government]
-    text: >-
-      A people split between several states by borders that outsiders drew
-      should be brought back together into one state of its own.
-    modifier_tags:
-      strongly_agree: nation
-      agree: nation
-    follow_ups:
-      - when:
-          answer_in: [strongly_agree, agree]
-        ask: [d1_alignment]
-        mode: boost
-        boost: 2.0
-
-  - id: d1_alignment
-    depth: 1
-    kind: single_choice
-    tags: [internationalism, state]
-    text: >-
-      A poor country has just come through a revolution, or has just won its
-      independence. The great powers are watching it closely. Where should it
-      stand in the world?
-    options:
-      - id: join_the_socialist_camp
-        short: with the countries that have made the same change
-        label: >-
-          With the countries that have made the same change. Alone, any one of
-          them can be picked off; together they are strong enough that none has
-          to face the powerful by itself.
-      - id: non_aligned_together
-        short: with the other poor countries, in neither camp
-        label: >-
-          With the other poor countries, in a grouping of its own that takes
-          trade and aid from either side and instructions from neither.
-      - id: union_with_neighbours
-        short: merged into a union with its neighbours
-        label: >-
-          Merged into a union with the neighbours who share its position. Each
-          of them apart is too small for independence to amount to much.
-      - id: stand_alone_self_reliant
-        short: on its own feet, depending on nobody
-        label: >-
-          On its own feet, depending on nobody. Every offer of help arrives with
-          conditions attached, and a country living on them is governed from
-          somewhere else.
-      - id: help_revolutions_elsewhere
-        short: behind the movements still fighting elsewhere
-        label: >-
-          Behind the movements still fighting in other countries. One that
-          settles down to govern itself alone will be strangled whichever camp
-          it picks.
-      - id: ordinary_relations_all
-        short: in ordinary relations with everybody
-        label: >-
-          In ordinary relations with everybody — trade, treaties, the
-          international bodies. Picking a camp buys quarrels it does not need
-          and costs it the markets it does.
-    follow_ups:
-      - when:
-          answer_in: [stand_alone_self_reliant, help_revolutions_elsewhere, union_with_neighbours]
-        ask: [d1_world_revolution]
-        mode: boost
-        boost: 2.0
-
-  - id: d1_violence_initiation
-    depth: 1
-    kind: single_choice
-    tags: [violence, strategy, organisation]
-    text: >-
-      Most people in a country are not behind the movement yet. A small group
-      inside it is certain the moment has come, and is ready to take up arms.
-      Should it act?
-    options:
-      - id: action_creates_conditions
-        short: act, because the first blow makes the conditions
-        label: >-
-          Yes. People are convinced by seeing the thing done, not by being asked
-          to wait. The first blow creates the conditions everyone else has been
-          waiting for.
-      - id: small_groups_act_now
-        short: act, because there is no moment to wait for
-        label: >-
-          Yes, and there is no moment to wait for. Small groups acting on their
-          own account, now, are what revolt is. A mass movement is nobody's
-          precondition.
-      - id: organisation_judges_moment
-        short: only if the leadership judges the moment has come
-        label: >-
-          Only if the movement's own leadership, weighing the whole situation,
-          judges that the moment has come. That is not a judgement a group can
-          make for itself.
-      - id: substitutes_for_the_class
-        short: no, it puts itself in the place of everyone else
-        label: >-
-          No. A handful acting for everyone else puts itself in their place, and
-          what comes out of it takes orders rather than decisions.
-      - id: only_under_attack
-        short: only if people are actually being attacked
-        label: >-
-          Only if people are actually being attacked. Arms taken up before that
-          are something the group has chosen rather than something it was driven
-          to.
-      - id: force_never_opens_it
-        short: no, and not later either
-        label: >-
-          No, and not later either. Nothing a small armed group does opens the
-          way to a free society. What a minority can do ahead of everyone else
-          is refuse, openly and unarmed.
-    follow_ups:
-      - when:
-          answer_in: [action_creates_conditions, small_groups_act_now]
-        ask: [d1_guiding_leader]
-        mode: boost
-        boost: 1.5
-
-  - id: d1_race_structure
-    depth: 1
-    kind: single_choice
-    tags: [race, class]
-    text: >-
-      Think of a country where the worst-paid work, the heaviest policing and
-      the worst housing all fall on people of one origin. What is that, at
-      bottom?
-    options:
-      - id: own_structure_not_reducible
-        short: a structure of its own
-        label: >-
-          A structure of domination in its own right, with a history of its own.
-          Change who owns the factories and it is still there, because it was
-          never only about ownership.
-      - id: division_within_the_class
-        short: a division driven through the working class
-        label: >-
-          A division driven through the working class. It is kept up because it
-          holds wages down for everybody, so ending exploitation is what ends
-          it.
-      - id: two_names_one_process
-        short: two names for one process
-        label: >-
-          Two names for one process. The labour of some people was made cheap by
-          conquest, so the class order was built on that ranking from the start.
-          Neither can be attacked alone.
-      - id: colonial_relation_inside
-        short: colonial rule carried on inside one country
-        label: >-
-          The relation between a coloniser and the colonised, carried on inside
-          one country's borders. Those held down are a people apart with a claim
-          of their own, not a section of somebody else's class.
-      - id: legacy_wearing_away
-        short: the residue of an injustice already abolished
-        label: >-
-          The residue of an injustice already abolished. Equal law, decent
-          schools and steady work wear it down, and each generation inherits
-          less of it than the last.
-    modifier_tags:
-      own_structure_not_reducible: race
-      two_names_one_process: race
-      colonial_relation_inside: race
-    follow_ups:
-      - when:
-          answer_in:
-            [own_structure_not_reducible, division_within_the_class, two_names_one_process, colonial_relation_inside, legacy_wearing_away]
-        ask: [d1_autonomous_movements]
-        mode: force
-
-  - id: d1_autonomous_movements
-    depth: 1
-    kind: single_choice
-    tags: [movements, race, organisation]
-    requires:
-      answered:
-        d1_race_structure:
-          [own_structure_not_reducible, division_within_the_class, two_names_one_process, colonial_relation_inside, legacy_wearing_away]
-    text: >-
-      You said it is {{answers.d1_race_structure.short}}. Workers in that
-      position now want a body of their own inside the labour movement, picking
-      their own officers, deciding their own demands. What should the movement
-      say to them?
-    options:
-      - id: oppose_separate_bodies
-        label: >-
-          Argue against it. Dividing the movement along the lines employers use
-          is how the thing is kept alive, and everyone who works loses by it.
-      - id: section_under_the_programme
-        label: >-
-          Welcome it as a section of the movement, working to the programme the
-          movement as a whole has agreed. Acting as one body is what makes any
-          demand stick.
-      - id: back_it_autonomous
-        label: >-
-          Back it, and leave it to run itself. The people carrying that
-          oppression know it best, and a movement that insists on directing them
-          repeats what it says it is against.
-      - id: beyond_the_movement
-        label: >-
-          Back it, and accept that it need not stay inside the labour movement
-          at all. Its own organisations, its own institutions, its own politics,
-          allied where the interests actually meet.
-      - id: one_front_of_many
-        label: >-
-          Treat it as one movement among the many a majority has to be built out
-          of, with none of them under the others and none of them the main one.
-    modifier_tags:
-      back_it_autonomous: race
-      beyond_the_movement: race
-    follow_ups:
-      - when:
-          answer_in: [one_front_of_many]
-        ask: [d1_single_subject]
-        mode: boost
-        boost: 2.0
-
-  - id: d1_small_property
-    depth: 1
-    kind: single_choice
-    tags: [ownership, property]
-    text: >-
-      A family owns the smallholding, the workshop or the little shop it works
-      in, and employs nobody but itself. In the society you want, what becomes
-      of holdings like that?
-    options:
-      - id: spread_them_widely
-        label: >-
-          They are the model. As many families as possible should own something
-          they work themselves, so that nobody depends on an employer or an
-          official for a living.
-      - id: protected_alongside_social
-        label: >-
-          They stay, and are protected, while the large enterprises pass into
-          social ownership. Small proprietors are not the enemy, and treating
-          them as one makes enemies nobody needed.
-      - id: drawn_into_cooperation
-        label: >-
-          They are left alone, and drawn into co-operatives over time by example
-          and by support — at their own pace, never by force.
-      - id: absorbed_into_common
-        label: >-
-          They go the way of everything else, into common ownership. Making
-          things to sell is the thing being ended, and a small owner selling is
-          still doing it.
-      - id: merged_into_large_units
-        label: >-
-          They are combined into large modern units. Small holdings mean long
-          hours, poor tools and debt to the merchant, and scale is what frees
-          the people working them.
-    follow_ups:
-      - when:
-          answer_in: [spread_them_widely, merged_into_large_units]
-        ask: [d1_land]
-        mode: boost
-        boost: 1.5
-
-  - id: d1_internal_hierarchy
-    depth: 1
-    kind: single_choice
-    tags: [hierarchy, caste]
-    tooltip: >-
-      A ranking of this kind is usually called caste. Hereditary estates and
-      orders of birth in other societies work the same way: the group a person
-      is born into is fixed for life and passed on to their children.
-    text: >-
-      In some countries people are born into ranked groups, and the rank someone
-      is born into still shapes the work they get, who they may marry, where
-      they may live. What should a movement for a fairer economy do about it?
-    options:
-      - id: abolish_by_law_and_organisation
-        short: attack it head on, first
-        label: >-
-          Attack it head on, and first: rights written into law, schooling, and
-          organisations run by the people it puts at the bottom. Nothing that
-          happens to the economy dissolves it on its own.
-      - id: break_with_the_tradition
-        short: break with the tradition itself
-        label: >-
-          Break with the teaching that ranks people by birth, altogether. Those
-          it ranks lowest owe nothing to a tradition that has justified their
-          treatment for as long as it has existed.
-      - id: reform_from_within
-        short: change it from inside
-        label: >-
-          Change it from inside, by the example of people who refuse its rules
-          and by persuading those who keep them. A ranking held up by belief is
-          not ended by a law against belief.
-      - id: dissolves_with_development
-        short: let development dissolve it
-        label: >-
-          Industry, schooling and cities dissolve it. What holds it up is the
-          village economy it grew in, so that is what a movement should be
-          changing.
-      - id: fought_together_with_class
-        short: fight it together with exploitation
-        label: >-
-          Fight it and exploitation as one thing. The people at the bottom of
-          the ranking are the people doing the worst work, and a movement that
-          separates the two loses both.
-      - id: equal_rights_leave_customs
-        short: guarantee equal rights and leave customs alone
-        label: >-
-          Guarantee equal rights and equal treatment in law, and leave people's
-          own customs alone. A state deciding which traditions are acceptable is
-          a worse danger than the one it corrects.
-    modifier_tags:
-      abolish_by_law_and_organisation: caste
-      break_with_the_tradition: caste
-      fought_together_with_class: caste
-    follow_ups:
-      - when:
-          answer_in:
-            [abolish_by_law_and_organisation, break_with_the_tradition, reform_from_within, dissolves_with_development, fought_together_with_class, equal_rights_leave_customs]
-        ask: [d1_reserved_places]
-        mode: force
-      - when:
-          answer_in: [break_with_the_tradition, reform_from_within]
-        ask: [d1_religion_and_liberation]
-        mode: boost
-        boost: 2.0
-
-  - id: d1_reserved_places
-    depth: 1
-    kind: likert5
-    tags: [hierarchy, caste]
-    requires:
-      answered:
-        d1_internal_hierarchy:
-          [abolish_by_law_and_organisation, break_with_the_tradition, reform_from_within, dissolves_with_development, fought_together_with_class, equal_rights_leave_customs]
-    text: >-
-      You said a movement should {{answers.d1_internal_hierarchy.short}}. Places
-      in parliament, in universities and in public jobs should be kept aside for
-      people born into the groups such a ranking holds at the bottom.
-    modifier_tags:
-      strongly_agree: caste
-      agree: caste
-  # ---------------------------------------------------------------------------
-  # Depth 2 — place within a family
-  # ---------------------------------------------------------------------------
-
-  - id: d2_reform_horizon
-    depth: 2
-    kind: single_choice
-    tags: [strategy, reform]
-    requires:
-      answered:
-        d1_change_route: [win_elections_and_legislate, long_cultural_work]
-    text: >-
-      A left government has spent a decade doing everything a parliamentary
-      majority allows — strong unions, a large public sector, heavy taxes on
-      wealth. Private ownership of the largest firms is untouched. Is that the
-      destination or a waypoint?
-    options:
-      - id: destination_mixed_economy
-        label: >-
-          The destination. A mixed economy with the proceeds shared fairly is
-          what was worth wanting; the ownership question was always a proxy for
-          it.
-      - id: waypoint_to_social_ownership
-        label: >-
-          A waypoint. Until the major firms are socially owned, everything won
-          can be taken back the moment the balance shifts.
-      - id: waypoint_but_only_by_rupture
-        label: >-
-          A waypoint, but the last stretch cannot be legislated. At some point
-          the owners refuse, and that confrontation has to be prepared for rather
-          than wished away.
-      - id: destination_but_deepen_democracy
-        label: >-
-          The destination, provided the gains are built into how firms are
-          governed — workers on boards, funds that buy the firms out over time —
-          rather than resting on who wins the next election.
-
-  - id: d2_union_role
-    depth: 2
-    kind: single_choice
-    tags: [organisation, workplace]
-    requires:
-      any:
-        - answered:
-            d1_state_role: [smash_and_replace, bypass_and_build, abolish_outright]
-        - family_mass_gte:
-            anarchism: 0.15
-    text: >-
-      What is the organisation people belong to as workers actually for, in the
-      long run?
-    options:
-      - id: bargaining_within_system
-        label: >-
-          Getting the best terms available inside the present order. That is
-          worth doing, and expecting it to become something more than that
-          misunderstands what it is.
-      - id: school_and_vehicle_of_revolution
-        label: >-
-          Both the weapon in the fight and the body that runs production
-          afterwards. The organisation people build to strike is the one that
-          inherits the workplace.
-      - id: one_organ_among_several
-        label: >-
-          One organ among several. Where people live and what they need outside
-          work matter as much as what they make, so neighbourhood and communal
-          bodies stand alongside it.
-      - id: transmission_belt
-        label: >-
-          Connecting the political organisation to the mass of workers, and
-          carrying decisions in both directions.
-      - id: dissolved_into_councils
-        label: >-
-          Being superseded. Bodies elected from everyone in a workplace, not from
-          a union's membership, are what should decide.
-
-  # ---------------------------------------------------------------------------
-  # Depth 3 — separate near-neighbours
-  # ---------------------------------------------------------------------------
-
-  - id: d3_dissent_after_revolution
-    depth: 3
-    kind: single_choice
-    tags: [state, dissent, transition]
-    requires:
-      all:
-        - depth_unlocked_gte: 3
-        - any:
-            - answered:
-                d1_state_role: [use_then_dissolve, smash_and_replace]
-            - family_mass_gte:
-                marxism_leninism: 0.1
-            - family_mass_gte:
-                trotskyism: 0.1
-            - family_mass_gte:
-                left_communism: 0.1
-    text: >-
-      A new government is defending a revolution against real threats. A group of
-      workers loyal to its aims begins organising against its decisions. What
-      should it do?
-    options:
-      - id: negotiate_and_permit
-        label: >-
-          Let them organise and argue in the open. A revolution that has to
-          silence its own supporters has already lost the thing it was
-          defending.
-      - id: permit_but_restrict
-        label: >-
-          Allow them to organise politically while the emergency lasts, but not
-          to act against decisions already taken, and say plainly that this is an
-          emergency measure rather than a principle.
-      - id: suppress_until_secure
-        label: >-
-          Stop them until the threat has passed. Organised opposition inside a
-          besieged revolution is the opening through which it is destroyed,
-          whatever the intentions of the people doing it.
-      - id: defer_to_workers_councils
-        label: >-
-          It is not the government's call. The councils that the workers elected
-          should settle it, and if they rule against the government, that is the
-          answer.
-    follow_ups:
-      - when:
-          answer_in: [suppress_until_secure]
-        ask: [d3_party_vs_class]
-        mode: force
-
-  - id: d3_party_vs_class
-    depth: 3
-    kind: single_choice
-    tags: [organisation, party, class]
-    exclusive_with: [d3_council_or_programme]
-    requires:
-      all:
-        - depth_unlocked_gte: 3
-        - any:
-            - family_mass_gte:
-                marxism_leninism: 0.1
-            - family_mass_gte:
-                trotskyism: 0.1
-            - family_mass_gte:
-                left_communism: 0.1
-    text: >-
-      In a free vote, the majority of workers back a course that a revolutionary
-      organisation is certain will destroy everything they have won. What should
-      the organisation do?
-    options:
-      - id: accept_the_vote
-        label: >-
-          Accept it. There is no revolution apart from what working people
-          actually decide, and an organisation that overrides them has become
-          something other than what it claimed to be.
-      - id: argue_and_submit_then_fight_on
-        label: >-
-          Argue hard, lose, carry out the decision, and go on making the case.
-          Being outvoted is not the same as being wrong, but it is binding.
-      - id: hold_the_line_without_power
-        label: >-
-          Refuse to carry it out and say publicly why, while seizing no power to
-          stop it. Holding a correct position from a minority is a thing an
-          organisation has to be able to do.
-      - id: act_against_the_vote
-        label: >-
-          Act on what it knows. The interest of a class is not the same thing as
-          its opinion on a given day, and some mistakes cannot be reversed
-          afterwards.
-
-  - id: d3_council_or_programme
-    depth: 3
-    kind: single_choice
-    tags: [organisation, councils, programme]
-    exclusive_with: [d3_party_vs_class]
-    requires:
-      all:
-        - depth_unlocked_gte: 3
-        - family_mass_gte:
-            left_communism: 0.1
-    tooltip: >-
-      "Programme" here means a set of positions treated as settled by long
-      experience, which the organisation does not revise to suit circumstances.
-    text: >-
-      Two bodies each claim to speak for a revolution: an assembly of delegates
-      elected from every workplace and recallable at any time, and an
-      organisation holding a programme worked out across generations of defeats.
-      They disagree. Which should prevail?
-    options:
-      - id: assembly_prevails
-        label: >-
-          The assembly. It is the form the class actually takes when it acts, and
-          nothing standing outside it has better standing than it does.
-      - id: programme_prevails
-        label: >-
-          The programme. What an assembly wants on a given day is shaped by the
-          pressures on it; the programme is what survives those pressures.
-      - id: assembly_but_organisation_argues
-        label: >-
-          The assembly decides, and the organisation should say openly that it
-          thinks the assembly is wrong and go on saying it.
-      - id: question_is_wrong
-        label: >-
-          The disagreement itself shows one of them has stopped being what it
-          claims. A programme the assembly rejects has failed its test; an
-          assembly that drops the programme has been captured.
-
-  - id: d3_bureaucratic_planned_economy
-    depth: 3
-    kind: single_choice
-    history_class: true
-    tags: [class_analysis, state, transition]
-    tooltip: >-
-      This describes a general type of society, not any particular country.
-      Several of the large one-party states of the last century fit the
-      description to different degrees.
-    requires:
-      all:
-        - depth_unlocked_gte: 3
-        - any:
-            - family_mass_gte:
-                trotskyism: 0.1
-            - family_mass_gte:
-                marxism_leninism: 0.1
-            - family_mass_gte:
-                left_communism: 0.1
-    text: >-
-      A country's industry is publicly owned and run to a plan. The people who
-      take the decisions are appointed from above, cannot be removed by those who
-      work there, and live noticeably better than them. What kind of society is
-      that?
-    options:
-      - id: workers_state_deformed
-        short: a workers' state with a bad growth on it
-        label: >-
-          A workers' state with a bad growth on it. The form of ownership is the
-          decisive thing, and it is worth defending against countries where
-          industry is privately held, while fighting to remove the people running
-          it.
-      - id: state_capitalism
-        short: capitalism with a single owner
-        label: >-
-          Capitalism with one owner instead of many. The people who decide stand
-          in the same relation to the people who work as any employer does, and
-          competition with other states drives them to accumulate the same way.
-      - id: new_class_society
-        short: a new kind of class society
-        label: >-
-          Neither one nor the other. A form of class society with no earlier
-          example, which is not capitalist, is not socialist, and is not a stage
-          on the way to anything.
-      - id: socialism_with_problems
-        short: socialism under siege
-        label: >-
-          Socialism, carrying the distortions any society develops under siege.
-          Judge it against what came before it and what surrounds it, not against
-          a drawing.
-    follow_ups:
-      - when:
-          answer_in: [state_capitalism, new_class_society]
-        ask: [d3_war_between_such_states]
-        mode: force
-      - when:
-          answer_in: [workers_state_deformed, socialism_with_problems]
-        ask: [d3_war_between_such_states]
-        mode: boost
-        boost: 2.0
-
-  - id: d3_war_between_such_states
-    depth: 3
-    kind: single_choice
-    history_class: true
-    tags: [war, internationalism, class_analysis]
-    requires:
-      all:
-        - depth_unlocked_gte: 3
-        - answered:
-            d3_bureaucratic_planned_economy:
-              [workers_state_deformed, state_capitalism, new_class_society, socialism_with_problems]
-    text: >-
-      You said a society like that is best described as
-      "{{answers.d3_bureaucratic_planned_economy.short}}". Two countries of that
-      kind now go to war with each other. What should socialists in each of them
-      do?
-    options:
-      - id: defend_the_more_progressive
-        label: >-
-          Work out which side's defeat would set working people back further, and
-          take that side, without illusions about who is leading it.
-      - id: defeat_own_side_both
-        label: >-
-          Work for the defeat of their own government, on both sides. Neither is
-          worth a worker's life, and the quarrel belongs to the people running
-          them.
-      - id: support_neither_but_no_defeatism
-        label: >-
-          Back neither, and do not work for either defeat. Both things are
-          somebody else's war, and organising against your own army in wartime
-          buys nothing.
-      - id: judge_case_by_case
-        label: >-
-          Decide on the particular war. There is no general rule that survives
-          contact with what is actually at stake in a given case.
-
-  - id: d3_class_struggle_under_socialism
-    depth: 3
-    kind: single_choice
-    history_class: true
-    tags: [class_analysis, transition, bureaucracy]
-    requires:
-      all:
-        - depth_unlocked_gte: 3
-        - any:
-            - family_mass_gte:
-                marxism_leninism: 0.1
-            - family_mass_gte:
-                trotskyism: 0.1
-    text: >-
-      Twenty years after the old owners are gone, the officials who run things
-      have become a settled layer with interests of their own. Is that a class
-      question?
-    options:
-      - id: yes_needs_mass_campaigns
-        label: >-
-          Yes. New divisions can form inside a socialist society, and the only
-          thing that reverses them is mobilising ordinary people against the
-          officials directly — at a real cost to output and order, which is worth
-          paying.
-      - id: yes_but_administrative_fix
-        label: >-
-          Yes, but it is met with rules — rotation, recall, inspection, wage
-          ceilings — not by turning a population loose on its own administration.
-      - id: no_a_hangover
-        label: >-
-          No. It is a survival of old habits and of scarcity, and it goes as the
-          conditions that produce it go.
-      - id: yes_and_it_means_restoration
-        label: >-
-          Yes, and it means the society has already ceased to be socialist.
-          Treating it as a stage to be corrected is exactly how the change gets
-          accepted.
-
-  - id: d3_specific_organisation
-    depth: 3
-    kind: single_choice
-    tags: [organisation, anarchism, movements]
-    requires:
-      all:
-        - depth_unlocked_gte: 3
-        - family_mass_gte:
-            anarchism: 0.1
-    text: >-
-      A group of anarchists who agree with one another form an organisation, and
-      then go to work inside a large housing campaign that is not anarchist.
-      Inside that campaign, how should they act?
-    options:
-      - id: single_agreed_line_bound
-        label: >-
-          As one body with one position, settled among themselves beforehand and
-          argued for together. Members who lost that argument still carry the
-          decision in public.
-      - id: ideological_pole_not_direction
-        label: >-
-          As a visible anarchist current that argues for its ideas and helps the
-          campaign run itself, without seeking control of it and without binding
-          members to a single public line.
-      - id: no_separate_organisation
-        label: >-
-          They should not be operating as a bloc at all. Organised caucuses
-          inside a movement are how movements end up being steered.
-      - id: informal_affinity_only
-        label: >-
-          Through small groups of people who already trust each other, formed for
-          what needs doing and dissolved afterwards. Permanent structure is what
-          turns a movement into a machine.

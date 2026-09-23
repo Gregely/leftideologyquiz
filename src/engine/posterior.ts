@@ -9,7 +9,7 @@
 
 import { IMPLICIT_OPTION_IDS } from '../content/schema.js';
 import type { EngineModel, NodeLevel } from './model.js';
-import { familyKey, nodeKeyFor, ROOT_ID } from './model.js';
+import { familyKey, groupKey, nodeKeyFor, ROOT_ID } from './model.js';
 
 /** One recorded answer. `optionIds` holds one id except on multi/ranking. */
 export interface Answer {
@@ -274,6 +274,14 @@ function nodeMassByKey(posterior: Posterior, key: string): NodeMass | null {
     ownMass: node.kind === 'ideology' ? massOfIdeology(posterior, node.id) : 0,
     mass: subtreeMassByKey(posterior, node.key),
   };
+}
+
+/** Aggregate mass per broad group, highest first. */
+export function groupMasses(posterior: Posterior): NodeMass[] {
+  return posterior.model.content.groups
+    .map((group) => nodeMassByKey(posterior, groupKey(group.id)))
+    .filter((m): m is NodeMass => m !== null)
+    .sort((a, b) => b.mass - a.mass || a.id.localeCompare(b.id));
 }
 
 /** Aggregate mass per family, highest first. */

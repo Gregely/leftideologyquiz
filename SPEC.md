@@ -57,17 +57,28 @@ posterior, not an input to it.
 
 ### 2.1 Shape
 
-A three-level tree. Every scored entity is a **leaf**; interior nodes exist so
+A four-level tree. Every scored entity is a **leaf**; interior nodes exist so
 the test can back off to them.
 
 ```
-family        12 nodes    "Trotskyism"
-  tendency     ~8 nodes    "orthodox_trotskyism"
-    sect      93 leaves    "cliffism"
+group          6 nodes    "revolutionary_socialist"
+  family      13 nodes    "Trotskyism"
+    tendency  ~8 nodes    "orthodox_trotskyism"
+      sect    93 leaves   "cliffism"
 ```
 
-Some families are effectively two levels deep (a tendency with one leaf). That is
-allowed; the resolver collapses single-child chains when reporting (§8.1).
+Some families are effectively two levels deep (a tendency with one leaf), and
+some groups hold one family. That is allowed; the resolver collapses
+single-child chains when reporting (§8.1).
+
+**Why groups exist.** Tier-1 questions (§3.3) cannot separate 13 families. Four
+of them — Marxism–Leninism, Maoism, Trotskyism and left communism — agree on
+every everyday value a respondent holds, and differ on the party, the
+peasantry, the bureaucracy and the councils, none of which has an everyday
+form. Returning one of those four to a Quick respondent would be exactly the
+false precision §1.1 exists to prevent. Returning the group they share is true,
+and Standard mode then takes it further. Groups live in `content/groups.yaml`
+and each family names one.
 
 ### 2.2 The family list
 
@@ -213,32 +224,54 @@ authored:
 
 - `single` — 3 to 6 authored options, exactly one chosen. The default, and most
   of the bank.
-- `likert` — one proposition on a 5-point agree/disagree scale. Used only where
-  the disagreement really is one of degree. Capped at 15% of the bank; if a
-  question can be written as `single`, it must be.
+- `likert` — one proposition on a 5-point agree/disagree scale.
+
+  **Tier 1 is exempt from the cap, and should mostly use this form.** A likert
+  asks the respondent to react to a sentence; a five-option single-choice asks
+  them to *recognise five positions*, which is the thing someone with no
+  political education cannot do. A tier-1 question is a likert or a 2-3 option
+  choice unless a wider set is genuinely needed.
+
+  **Tiers 2 and 3 together are capped at 15% of their combined count**, where
+  the old rule applies unchanged: used only where the disagreement really is one
+  of degree, and if a question can be written as `single`, it must be. The cap
+  is computed over tier-2-plus-tier-3 questions only, so a tier-1 bank that is
+  mostly likert cannot push the deeper tiers over it.
 
 Ranking, multi-select and slider questions are out of scope for v1.
 
 ### 3.3 Depths
 
-| Depth | Job | Example of what it decides |
-| --- | --- | --- |
-| 1 | Split the field into families | Whether existing state institutions can be used to get where you want to go, or have to be dismantled |
-| 2 | Place within a family | Inside Leninism: whether a planned economy run by an unaccountable bureaucracy is still a form of workers' power |
-| 3 | Separate near-neighbours inside a tendency | Inside the state-capitalist current: whether that analysis changes what you do when two such states go to war |
+**Depth is a tier: it says what the respondent has to know to answer, not how
+fine an ideology distinction the question draws.**
+
+| Tier | Asked in | The respondent needs… | Subject matter | Voice |
+| --- | --- | --- | --- | --- |
+| **1** | Quick (and above) | **nothing.** No political education, no vocabulary, no interest in politics. | Everyday values and situations: work, healthcare, housing, tax, inheritance, police, protest, unjust laws, the environment, unpaid care, faith, where wealth came from. | Plain. Options state a position; they do not argue for it. |
+| **2** | Standard (and above) | **to have thought about politics.** Follows the news, has opinions about governments and movements, has no factional vocabulary. | How change should happen; what to do with the state; markets and plans; parties, unions and movements; nation and empire. | Plain words. Any technical term is explained inline in **under 8 words**. |
+| **3** | Deep | **to know left debates.** Can tell a council from a party and knows why it matters. | Near-neighbour separation inside a family or tendency. | Concrete invented scenarios, camp-voice options, the history-class allowance. |
 
 Depth is a property of the question, not of when it is asked. A depth-3 question
 may be asked early if its gating is satisfied and its information gain is high —
 that is the point of adaptive selection.
 
-**The depth rule.** A question is **depth 2** if its answer changes which branch
-or tendency of a family is favoured, and it is worth asking in Standard mode. It
-is **depth 3** if it only separates near-neighbours that already share a branch —
-pairs that agree on every depth-2 question of their family — and is worth asking
-only in Deep mode. Because depth decides which mode asks a question, **it
-changes what respondents see**: a depth-3 question is never asked in Standard
-mode. Consequence worth knowing: in a family where every member descends from
-one tendency (Trotskyism), Standard mode resolves to that tendency and only Deep
+**Why the rule changed.** Depth used to be defined by which level of the tree a
+question's answer moved: depth 1 split families, depth 2 split branches within
+one, depth 3 separated near-neighbours. Nothing in that test asked whether a
+respondent could answer. The dimensions that best separate 13 families are
+movement-theory dimensions — the party, the revolutionary agent, the state
+machinery, the transition — so depth 1 filled with them, and Quick mode asked a
+newcomer to hold positions on questions they had never been asked. Of the 46
+depth-1 questions that produced the complaint, 28 were about how movements and
+states should be organised. The full argument and measurements are in
+docs/redesign.md.
+
+**Consequences worth knowing.** Tier 1 cannot separate 13 families: four of them
+agree on every everyday value a respondent holds. Quick therefore reports a
+**broad group** (§2.1, §8.1) and never a family or a sect. Because tier decides
+which mode asks a question, it changes what respondents see — a tier-3 question
+is never asked in Standard mode. In a family where every member descends from
+one tendency (Trotskyism), Standard resolves to that tendency and only Deep
 separates the sects. Close calls are listed in docs/question-inventory.md.
 
 ---
@@ -247,9 +280,14 @@ separates the sects. Close calls are listed in docs/question-inventory.md.
 
 | Mode | Max depth | Question budget | Target resolution |
 | --- | --- | --- | --- |
-| Quick | 1 (plus up to 3 depth-2 questions of exceptional gain) | 12–15 | Family, sometimes tendency |
-| Standard | 2 | 25–35 | Tendency, often sect |
+| Quick | 1 (plus up to 3 tier-2 questions of exceptional gain) | 12–15 | **Broad group. Never a family, never a sect.** |
+| Standard | 2 | 25–35 | Tendency, or a flat family's member |
 | Deep | 3 | up to 60 | Sect, with honest back-off |
+
+Each mode carries a `maxReportLevel` alongside its depth cap — `group`,
+`tendency`, `sect` — and the resolver will not name anything deeper, however the
+evidence falls (§8.1). This is what stops Quick returning a sect on twelve
+everyday questions because the thresholds happened to clear.
 
 Quick allows a small number of depth-2 questions because some family boundaries
 are genuinely settled by a question that also does depth-2 work; the cap keeps it
@@ -672,6 +710,20 @@ boundary tests:
 | `minAnswersForSect` | 8 | Never name a sect on fewer answers |
 | `absoluteFloor` | 0.12 | A node below this absolute mass is never reported, even if it wins its parent |
 
+**The report cap.** Each mode also carries a `maxReportLevel` — Quick `group`,
+Standard `tendency`, Deep `sect` (§4) — and the walk stops there however the
+evidence falls. A mode that stops at its cap returns `Resolved(node)` with the
+children listed as candidates and `backOffReason: 'mode-reports-no-deeper'`:
+the evidence supported getting there, so it is not a back-off, but it is not
+the whole story either and the result page says so.
+
+The cap is measured by position in the tree, not by `NodeLevel`, because a flat
+family's members sit directly under the family while being `sect`-level. Under
+`tendency` the walk may name any ideology hanging straight off a family — which
+is what Standard has always done — but not one hanging off another ideology.
+`council_communism` therefore stays a Standard answer and `cliffism` stays a
+Deep one.
+
 Result kinds:
 
 - `Resolved(leaf)` — "You're a Cliffite."
@@ -744,16 +796,21 @@ questions twice.
 
 | Bucket | Range | Hard rule |
 | --- | --- | --- |
-| Total questions | 117–143 (planned 130) | |
-| Depth 1 | 42–52 (planned 47) | Every family reachable via ≥ 3 depth-1 questions |
-| Depth 2 | 50–60 (planned 55) | Every same-family pair in different branches separated by ≥ 2 questions at depth ≤ 2 |
-| Depth 3 | 25–31 (planned 28, incl. self-ID) | Every same-family pair separated by ≥ 2 independent questions at some depth, or recorded in docs/inseparable.md |
-| `history_class: true` | ≤ 10% of bank (≈ 13) | Lint fails above 10% |
-| `kind: likert` | ≤ 15% of bank | |
-| `self_id: true` | ≤ 1 per family, depth 3 only | Max effective stance weight 1; lint fails otherwise |
-| Effective stances per leaf | ≥ 15 | Lint fails below. Depth-3 stances are required only for leaves in a pair that needs them — most leaves have none, by the depth rule |
+| Total questions | ~112 (tier 1 ≈ 21, tier 2 ≈ 60, tier 3 ≈ 30) | |
+| Tier 1 | 18–24 | **Every broad group reachable via ≥ 3 tier-1 questions** |
+| Tier 2 | 50–62 | **Every family reachable via ≥ 3 questions at tier ≤ 2**; every same-family pair in different branches separated by ≥ 2 questions at tier ≤ 2 |
+| Tier 3 | 25–31 (incl. self-ID) | Every same-family pair separated by ≥ 2 independent questions at some tier, or recorded in docs/inseparable.md |
+| `history_class: true` | ≤ 10% of bank | Tier 3 only. Lint fails above 10% |
+| `kind: likert` | ≤ 15% of tiers 2+3; **tier 1 exempt** | §3.2 |
+| `self_id: true` | ≤ 1 per family, tier 3 only | Max effective stance weight 1; lint fails otherwise |
+| Effective stances per leaf | ≥ 15 | Lint fails below. Tier-3 stances are required only for leaves in a pair that needs them |
 | Weight-3 stances per leaf | ≤ 6, each with a `note` | Lint fails otherwise |
-| Modifier tags | every tag fed by ≥ 2 depth-1 questions | So the display threshold is reachable in Quick mode |
+| Modifier tags | every tag fed by ≥ 2 questions **at or below the lowest tier at which it can be asked honestly**, and that tier recorded | Forcing two tier-1 feeders for every tag would put a question about hereditary rank in front of every respondent, which is the failure this revision corrects. A tag whose lowest honest tier is 2 is a Standard-and-deeper tag, and the result page says nothing about it in Quick |
+
+The totals fell from 117–143 because tier 1 is smaller than depth 1 was (about
+21 questions against 46) and because the demoted depth-1 questions merge with
+depth-2 inventory rows that covered the same ground. The audit is in
+docs/redesign.md §5.
 
 "Independent separators" means two questions on which the pair hold different
 positions and both hold a position — a stance against silence does not count.
@@ -811,18 +868,30 @@ weights are 0), run the engine in each mode, and record what comes back.
 
 | Metric | Deep | Standard | Quick |
 | --- | --- | --- | --- |
-| Exact leaf recovery, noise 0 | ≥ 85% | ≥ 60% | — |
+| Exact leaf recovery, noise 0 | ≥ 85% | ≥ 60% | — (Quick cannot name a leaf) |
 | Result node is an ancestor-or-self of the true leaf | ≥ 98% | ≥ 98% | ≥ 98% |
-| True leaf present in `candidates` when `undecided` | ≥ 95% | ≥ 95% | ≥ 95% |
-| Correct family, noise 0 | ≥ 97% | ≥ 95% | ≥ 90% |
+| True leaf present in `candidates` when `undecided` | ≥ 95% | ≥ 95% | — |
+| True family among the families a group result lists | — | — | ≥ 95% |
+| Correct family, noise 0 | ≥ 97% | ≥ 95% | — (retired) |
+| **Correct group, noise 0** | — | — | **≥ 95%** |
 | Exact leaf recovery, noise 0.15 | ≥ 70% | — | — |
-| **Confidently wrong sect** (resolved, not an ancestor of truth) | ≤ 2% | ≤ 2% | ≤ 2% |
+| **Confidently wrong sect** (resolved, not an ancestor of truth) | ≤ 2% | ≤ 2% | 0% by construction |
+| **Answerable without knowledge** | — | — | 100% of tier-1 questions pass the novice review (docs/redesign.md §9) |
 
 Noise ε: with probability ε the synthetic respondent picks a non-argmax option,
 weighted by its stance. Seeded and deterministic per run.
 
-The last row matters most. One confidently wrong sect is worse than a hundred
-honest `undecided`s, and the thresholds are set to say so.
+The last two rows matter most. One confidently wrong sect is worse than a
+hundred honest `undecided`s, and the thresholds are set to say so. Quick's
+confidently-wrong rate is 0% by construction rather than by tuning: the mode
+cannot name a sect at all (§4, §8.1).
+
+**Quick's targets changed with the tier model.** Correct-family was retired for
+Quick because tier-1 questions are not written to separate families — four of
+the thirteen agree on every everyday value — so scoring the mode against that
+distinction would reward writing tier-1 questions that presuppose the answer.
+The baseline the current content sets under the new criterion is recorded in
+docs/redesign-baseline.md; it is a reference, not a target.
 
 ### 10.4 `npm run separability`
 
@@ -856,29 +925,77 @@ humans during authoring; not a gate, but printed in CI.
    knowing a date, a named event, a named person or a named organisation. Those
    may appear only in tooltips, as optional context.
 
-2. **Concrete, not abstract.** Use short hypothetical scenarios with real
-   trade-offs ("A new government is defending a revolution against real threats.
-   A group of workers loyal to its aims starts organising against its decisions.
-   What should it do?"), never "Is authority ever justified?". Scenarios are
-   invented or generic, not real events.
+2. **Concrete, not abstract — and at tier 1, familiar.**
 
-3. **Limited history allowance.** Where two ideologies differ only in their
-   verdict on a historical class of cases (e.g. 20th-century one-party socialist
-   states), phrase it as a verdict on the general class, describe it in plain
-   words, put examples in the tooltip, and cap such questions at ~10% of the bank.
+   **Tier 1:** an everyday situation the respondent has been in or can picture
+   from their own life — a job, a landlord, a hospital, a school, a will, a
+   police stop, a strike, a bill, looking after a relative. **No invented
+   revolutions, no new governments, no movements, no transitions.** Where a
+   proposition works better than a scenario, use the proposition: at tier 1 a
+   sentence to agree or disagree with asks less of the reader than a scenario
+   they must imagine themselves into.
+
+   **Tiers 2 and 3:** short hypothetical scenarios with real trade-offs ("A new
+   government is defending a revolution against real threats. A group of workers
+   loyal to its aims starts organising against its decisions. What should it
+   do?"), never "Is authority ever justified?". Scenarios are invented or
+   generic, not real events.
+
+   Concreteness was never the missing property; familiarity was. The scenario
+   quoted above is perfectly concrete and perfectly unanswerable by someone who
+   has never thought about revolutions.
+
+3. **Limited history allowance, at tier 3 only.** Where two ideologies differ
+   only in their verdict on a historical class of cases (e.g. 20th-century
+   one-party socialist states), phrase it as a verdict on the general class,
+   describe it in plain words, put examples in the tooltip, and cap such
+   questions at ~10% of the bank. **`history_class: true` is a tier-3
+   property:** a verdict on a class of historical cases cannot be given by
+   someone who does not know the cases, so such a question belongs in the mode
+   that assumes they do.
 
 4. **One position per question.** No double-barrelled stems.
 
-5. **Every camp must recognise its own view.** Each option is phrased the way a
-   committed member of that camp would phrase it. No strawman options; no option
-   is obviously the "reasonable" one.
+5. **Every camp must recognise its own view; camp voice at tier 3 only.**
 
-6. **Plain stems, glossed jargon.** The stem must be answerable without knowing
-   the ideology's vocabulary; describe the idea in plain words and put the
-   technical term in a tooltip.
+   Each option is a **plain statement of a position some camp would choose**,
+   and the option set together covers the range of answers the question admits.
+   No strawman options; no option is obviously the "reasonable" one. That is
+   achieved by giving every option **equal standing and equal length**, not by
+   making each one argue its case.
 
-7. **3–6 options per question (except likert).** Every question has implicit
-   "unsure" and "don't know this term" options that never update scores.
+   **Camp voice** — the option written as a member would put it, carrying its
+   own justification clause — is permitted at **tier 3** only. At tiers 1 and 2
+   the justification is what turns an option into a small manifesto: it is why
+   the depth-1 options that prompted this revision averaged 27 words, and why
+   the longest ran to 34.
+
+   What is kept from the older wording: the anti-strawman requirement, and the
+   test that a committed member of each camp would recognise their own view in
+   the option meant for them. Only the means changes.
+
+6. **Plain stems, and less glossing the shallower the tier.**
+
+   **Tier 1: no technical term at all**, in stem or option, glossed or not, and
+   **no tooltip**. The banned list is `content/lint/tier1-banned.txt` and a
+   match is a lint error. If a position cannot be stated in everyday words, the
+   question is not a tier-1 question — that is the rule working, not failing. A
+   tooltip at tier 1 is an admission that the question needs vocabulary the
+   respondent does not have.
+
+   **Tier 2:** any term the stem or an option still needs is explained **inline
+   in under 8 words**, not in a tooltip. A tooltip is a tax on the reader, and
+   at tier 2 it is usually avoidable.
+
+   **Tier 3:** the stem must be answerable without knowing the ideology's
+   vocabulary; describe the idea in plain words and put the technical term in a
+   tooltip.
+
+7. **Options per question: 2–5 at tier 1, 3–6 at tiers 2 and 3 (except
+   likert).** Two is a legitimate tier-1 question — a genuine binary — and six
+   short options is still six positions to hold in mind. Every question has
+   implicit "unsure" and "don't know this term" options that never update
+   scores.
 
 8. **Ideology-specific questions only appear after gating shows they're
    relevant.**

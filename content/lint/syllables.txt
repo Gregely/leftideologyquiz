@@ -1,0 +1,35 @@
+# Syllable-count exceptions for the reading-grade estimator (docs/redesign.md §2.1).
+#
+# Format: `word<space>count`. The estimator counts vowel groups, which is right
+# most of the time and wrong in predictable places. Correcting a word here is a
+# content change, not a code change, which is the point: the formula stays
+# fixed and auditable while the exceptions stay editable.
+
+are 1
+one 1
+once 1
+there 1
+where 1
+were 1
+have 1
+give 1
+live 1
+come 1
+some 1
+done 1
+gone 1
+love 1
+move 1
+every 2
+area 3
+idea 3
+being 2
+doing 2
+going 2
+people 2
+police 2
+science 2
+quiet 2
+riot 2
+create 2
+creating 3

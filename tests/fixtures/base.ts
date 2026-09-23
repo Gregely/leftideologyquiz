@@ -11,17 +11,28 @@ export type Json = string | number | boolean | null | Json[] | { [key: string]: 
 export type Record_ = { [key: string]: Json };
 
 export interface Docs {
+  groups: { groups: Json[] };
   families: { families: Json[] };
   ideologies: { ideologies: Json[] };
   questions: { questions: Json[] };
 }
 
 const BASE: Docs = {
+  groups: {
+    groups: [
+      {
+        id: 'grp_one',
+        name: 'Group one',
+        description: 'A group that holds both families, so the tree has a level above them.',
+      },
+    ],
+  },
   families: {
     families: [
       {
         id: 'fam_a',
         name: 'Family A',
+        group: 'grp_one',
         summary: 'A family that holds a default position on the first question.',
         stances: {
           q_one: { accept: ['opt_first'], reject: ['opt_third'], weight: 2 },
@@ -30,6 +41,7 @@ const BASE: Docs = {
       {
         id: 'fam_b',
         name: 'Family B',
+        group: 'grp_one',
         summary: 'A family with a different default.',
         stances: {
           q_one: { accept: ['opt_second'], weight: 1 },
@@ -128,6 +140,7 @@ export function docs(mutate?: (d: Docs) => void): Docs {
 /** Serialise a fixture to the raw YAML `parseContent` expects. */
 export function toRaw(d: Docs): RawContent {
   return {
+    groups: stringify(d.groups),
     families: stringify(d.families),
     ideologies: stringify(d.ideologies),
     questions: stringify(d.questions),
@@ -148,3 +161,4 @@ function find(list: Json[], id: string, what: string): Record_ {
 export const q = (d: Docs, id: string): Record_ => find(d.questions.questions, id, 'question');
 export const ideo = (d: Docs, id: string): Record_ => find(d.ideologies.ideologies, id, 'ideology');
 export const fam = (d: Docs, id: string): Record_ => find(d.families.families, id, 'family');
+export const grp = (d: Docs, id: string): Record_ => find(d.groups.groups, id, 'group');

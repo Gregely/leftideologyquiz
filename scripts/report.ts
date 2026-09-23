@@ -52,6 +52,7 @@ export function readFile(relativePath: string): string {
 /** Load and parse the three content files. */
 export function loadContent(): LoadResult {
   return parseContent({
+    groups: readFile('content/groups.yaml'),
     families: readFile('content/families.yaml'),
     ideologies: readFile('content/ideologies.yaml'),
     questions: readFile('content/questions.yaml'),

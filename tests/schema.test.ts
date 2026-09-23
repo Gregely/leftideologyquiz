@@ -67,18 +67,31 @@ describe('file roots', () => {
 });
 
 describe('question shape', () => {
-  it('rejects fewer than three options on a single_choice', () => {
+  // The schema enforces the *structural* bound only — enough options to be a
+  // choice, few enough to render. The design caps (2-5 at tier 1, 3-6 deeper)
+  // are lint errors, because a schema error drops the whole question record and
+  // every stance naming it then reports as a dangling reference.
+  it('rejects a single_choice with only one option', () => {
     const result = parse((d) => {
-      (q(d, 'q_one')['options'] as Json[]).pop();
-      (q(d, 'q_one')['options'] as Json[]).pop();
+      const options = q(d, 'q_one')['options'] as Json[];
+      options.length = 1;
     });
-    expect(result.text).toMatch(/single_choice needs 3-6 options/);
+    expect(result.text).toMatch(/single_choice needs 2-6 options/);
   });
 
   it('rejects more than six options on a single_choice', () => {
     const result = parse((d) => {
       const options = q(d, 'q_one')['options'] as Json[];
       for (let i = 0; i < 5; i++) options.push({ id: `extra_${i}`, label: `Extra ${i}.` });
+    });
+    expect(result.text).toMatch(/single_choice needs 2-6 options/);
+  });
+
+  it('rejects fewer than three options on a tier-2 question', () => {
+    const result = parse((d) => {
+      const question = q(d, 'q_two');
+      const options = question['options'] as Json[];
+      options.length = 2;
     });
     expect(result.text).toMatch(/single_choice needs 3-6 options/);
   });
@@ -93,7 +106,7 @@ describe('question shape', () => {
       const options = question['options'] as Json[];
       for (let i = 0; i < 5; i++) options.push({ id: `extra_${i}`, label: `Extra ${i}.` });
     });
-    expect(result.text).toMatch(/multi needs 3-6 options/);
+    expect(result.text).toMatch(/multi needs 2-6 options/);
   });
 
   it('allows a multi at exactly six options', () => {

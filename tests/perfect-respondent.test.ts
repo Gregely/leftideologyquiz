@@ -141,11 +141,14 @@ describe('judge', () => {
     expect(blueTwo.returned.candidates).toContain('blue_two');
   });
 
-  it('judges Quick at the family: any node in the right family passes', () => {
+  it('judges Quick at the group: any node in the right group passes', () => {
     const model = rosterModel();
     const o = outcome(model, 'blue_lineage', 'quick');
     expect(o.verdict).toBe('pass');
-    expect(o.expected).toBe('blue');
+    // Quick is judged at the broad group the family sits in, not the family:
+    // tier-1 questions are not written to separate families (SPEC.md §10.3).
+    expect(o.expected).toBe('cool');
+    expect(o.group).toBe('cool');
   });
 
   it('judges Standard at the tendency: the parent ideology, not the family', () => {

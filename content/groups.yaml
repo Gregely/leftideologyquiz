@@ -1,0 +1,62 @@
+# Broad groups — the level above family (SPEC.md §2.1), and the deepest answer
+# Quick mode is allowed to give (SPEC.md §8.1).
+#
+# Groups exist because tier-1 questions cannot separate 13 families. Four of
+# them — Marxism–Leninism, Maoism, Trotskyism and left communism — agree on
+# every everyday value a respondent holds, and differ on the party, the
+# peasantry, the bureaucracy and the councils, none of which has an everyday
+# form. Returning one of those four to a Quick respondent would be the false
+# precision SPEC.md §1.1 exists to prevent. Returning the group they share is
+# true, and it is what Standard mode then takes further.
+#
+# `description` is shown to a Quick respondent as their result, so it is held
+# to the tier-1 language rules: everyday words, nothing from
+# content/lint/tier1-banned.txt, and a reading grade the lint checks. Write it
+# as a sentence someone would recognise themselves in, not as a definition.
+#
+# The group id `faith_left` is deliberately not `religious_left`: that is
+# already a family id, and a bare id that names both a group and a family makes
+# every `requires` clause and every report line ambiguous to read.
+
+groups:
+  - id: reforming_left
+    name: Reforming left
+    order: 1
+    description: >-
+      You want a fairer country, and you think it can be won by voting, by law,
+      and by rules on business. Big changes, but made step by step.
+
+  - id: revolutionary_socialist
+    name: Revolutionary socialist
+    order: 2
+    description: >-
+      You think the people who own things will not give way to a vote. It takes
+      a movement strong enough to take charge and change who owns what.
+
+  - id: anarchist
+    name: Anarchist
+    order: 3
+    description: >-
+      You want people to run things themselves, from the bottom up. Nobody in
+      charge, no police standing over them, nobody waiting for permission.
+
+  - id: faith_left
+    name: Faith-grounded left
+    order: 4
+    description: >-
+      Your sense of right and wrong comes from your faith, and it tells you to
+      stand with the people who have least.
+
+  - id: national_and_anticolonial
+    name: National and anti-colonial left
+    order: 5
+    description: >-
+      You start from who rules whom. A people should run its own affairs, and
+      rich countries owe much of what they have to poorer ones.
+
+  - id: communitarian
+    name: Build-it-now left
+    order: 6
+    description: >-
+      You think the way to show a better life is to build it. Start it now,
+      live it, and let other people copy it.

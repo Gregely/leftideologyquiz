@@ -19,15 +19,20 @@ export { DEFAULT_ENGINE_CONFIG, withConfig, type EngineConfig } from './config.j
 
 export {
   buildModel,
+  groupOfFamily,
+  groupOfIdeology,
   lineageShibboleths,
+  REPORT_LEVEL_RANK,
   ROOT_ID,
   familyKey,
+  groupKey,
   ideologyKey,
   nodeKeyFor,
   type EngineModel,
   type NodeKind,
   type NodeLevel,
   type QuestionLikelihood,
+  type ReportLevel,
   type Tree,
   type TreeNode,
 } from './model.js';
@@ -36,6 +41,7 @@ export {
   childMasses,
   computePosterior,
   familyMasses,
+  groupMasses,
   massOfIdeology,
   rankIdeologies,
   subtreeMass,

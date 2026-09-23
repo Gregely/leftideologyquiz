@@ -10,6 +10,7 @@ import { rosterDocs } from './roster.js';
 const docs = rosterDocs();
 
 export const rawContent: RawContent = {
+  groups: stringify(docs.groups),
   families: stringify(docs.families),
   ideologies: stringify(docs.ideologies),
   questions: stringify(docs.questions),

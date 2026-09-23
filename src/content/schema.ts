@@ -95,6 +95,18 @@ export const MODIFIER_TAG_LABELS: Record<ModifierTag, string> = {
 export const QUESTION_KINDS = ['single_choice', 'likert5', 'multi', 'ranking'] as const;
 export type QuestionKind = (typeof QUESTION_KINDS)[number];
 
+/**
+ * What a respondent has to know to answer a question (SPEC.md §3.3).
+ *
+ * The numeric `depth` field carries this: 1 needs no political knowledge,
+ * 2 needs to have thought about politics, 3 needs to know left debates. The
+ * field kept its name and its role in mode gating when the meaning changed
+ * from "how fine an ideology distinction this draws"; `Tier` exists so code
+ * that reasons about the new meaning does not have to say `depth` and hope the
+ * reader knows which sense is meant.
+ */
+export type Tier = 1 | 2 | 3;
+
 export const ROSTER_TIERS = ['core', 'niche', 'boundary'] as const;
 
 export const FOLLOW_UP_MODES = ['force', 'boost', 'unlock'] as const;
@@ -115,6 +127,45 @@ export const OPTION_COUNT_LIMITS: Record<QuestionKind, { min: number; max: numbe
   ranking: { min: 3, max: 6 },
   likert5: { min: 0, max: 5 },
 };
+
+/**
+ * Tier 1 allows 2-5 options instead of 3-6.
+ *
+ * Two is a legitimate tier-1 question (a genuine binary), and six short options
+ * is still six positions to hold in mind — which is the thing a respondent with
+ * no political education cannot do. SPEC.md §11 principle 7.
+ */
+export const TIER1_OPTION_COUNT_LIMITS: Record<QuestionKind, { min: number; max: number }> = {
+  single_choice: { min: 2, max: 5 },
+  multi: { min: 2, max: 5 },
+  ranking: { min: 2, max: 5 },
+  likert5: { min: 0, max: 5 },
+};
+
+/** The design limits, enforced by `lint:content`. */
+export function optionCountLimits(kind: QuestionKind, tier: Tier): { min: number; max: number } {
+  return (tier === 1 ? TIER1_OPTION_COUNT_LIMITS : OPTION_COUNT_LIMITS)[kind];
+}
+
+/**
+ * What the *schema* will accept, which is deliberately looser than the design
+ * limits above.
+ *
+ * A schema error drops the whole record, so a question one option over the
+ * tier-1 cap would vanish from the bank and take its stances' referents with
+ * it — 450 cascading `stance/unknown-question` errors that say nothing about
+ * the actual problem. The structural rule is therefore only "enough options to
+ * be a choice, few enough to render"; the real 2-5 cap is a lint error, which
+ * fails CI just as hard while leaving the question loadable and the diagnosis
+ * readable.
+ */
+export function schemaOptionCountLimits(
+  kind: QuestionKind,
+  tier: Tier,
+): { min: number; max: number } {
+  const limits = OPTION_COUNT_LIMITS[kind];
+  return tier === 1 && kind !== 'likert5' ? { min: 2, max: limits.max } : limits;
+}
 
 /** `.label` longer than this reads badly interpolated into another stem. */
 export const MAX_INTERPOLATED_LABEL_CHARS = 70;
@@ -223,7 +274,7 @@ export const QuestionSchema = z
   })
   .strict()
   .superRefine((q, ctx) => {
-    const limits = OPTION_COUNT_LIMITS[q.kind];
+    const limits = schemaOptionCountLimits(q.kind, q.depth);
 
     if (q.kind === 'likert5') {
       // Either omit options entirely and take the canonical five, or restate
@@ -333,6 +384,19 @@ export const StanceSchema = z
     weight: z.number().int().min(0).max(3),
     /** Required at weight 3: what changes about the ideology if this reverses. */
     note: z.string().min(1).optional(),
+    /**
+     * The underlying doctrine this stance expresses. **Inert: the engine never
+     * reads it and scoring does not change.**
+     *
+     * It exists for one validator check. An ideology that states the same
+     * doctrine on two questions is counted twice by the likelihood, which is
+     * how `mutualism` came to carry occupancy-and-use at weight 3 on both
+     * `d1_ownership` and `d1_land`, and how `democratic_confederalism` came to
+     * state its answer to the national question at weight 3 twice. Tagging both
+     * stances with the same issue lets `validate` say so instead of waiting for
+     * someone to notice (docs/redesign.md §10.2).
+     */
+    issue: Id.optional(),
   })
   .strict()
   .superRefine((s, ctx) => {
@@ -428,8 +492,33 @@ export const FamilySchema = z
     name: z.string().min(1),
     order: z.number().int().optional(),
     summary: z.string().min(1),
+    /** The broad group this family sits in (`content/groups.yaml`). */
+    group: Id,
     /** Defaults every member ideology inherits and may override. */
     stances: z.record(Id, StanceSchema).default({}),
+  })
+  .strict();
+
+/**
+ * A broad group: the level above family, and the deepest answer Quick mode is
+ * allowed to give (SPEC.md §2.1, §8.1).
+ *
+ * Groups exist because tier-1 questions cannot separate 13 families — four of
+ * them agree on every everyday value a respondent holds — and returning a
+ * family on evidence that does not support one is the failure SPEC.md §1.1
+ * exists to prevent.
+ */
+export const GroupSchema = z
+  .object({
+    id: Id,
+    name: z.string().min(1),
+    order: z.number().int().optional(),
+    /**
+     * Shown to a Quick respondent as their result, so it is held to the tier-1
+     * language rules: plain words, nothing from the tier-1 banned list, and a
+     * reading grade the lint checks.
+     */
+    description: z.string().min(1),
   })
   .strict();
 
@@ -440,6 +529,7 @@ export const FamilySchema = z
 export const QuestionsFileSchema = z.object({ questions: z.array(z.unknown()) }).strict();
 export const IdeologiesFileSchema = z.object({ ideologies: z.array(z.unknown()) }).strict();
 export const FamiliesFileSchema = z.object({ families: z.array(z.unknown()) }).strict();
+export const GroupsFileSchema = z.object({ groups: z.array(z.unknown()) }).strict();
 
 // -----------------------------------------------------------------------------
 // Inferred types
@@ -451,3 +541,4 @@ export type Question = z.infer<typeof QuestionSchema>;
 export type Stance = z.infer<typeof StanceSchema>;
 export type Ideology = z.infer<typeof IdeologySchema>;
 export type Family = z.infer<typeof FamilySchema>;
+export type Group = z.infer<typeof GroupSchema>;

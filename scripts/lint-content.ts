@@ -36,6 +36,10 @@ const lists: LintLists = {
   namedEntities: parseWordList(readFile('content/lint/named-entities.txt')),
   loadedWords: parseWordList(readFile('content/lint/loaded-words.txt')),
   jargon: parseWordList(readFile('content/lint/jargon.txt')),
+  tier1Banned: parseWordList(readFile('content/lint/tier1-banned.txt')),
+  filler: parseWordList(readFile('content/lint/filler.txt')),
+  stopwords: parseWordList(readFile('content/lint/stopwords.txt')),
+  syllables: parseWordList(readFile('content/lint/syllables.txt')),
 };
 
 const { issues: allIssues, waivers } = lintContent(loaded, lists);
@@ -53,6 +57,8 @@ if (asJson) {
           namedEntities: lists.namedEntities.length,
           loadedWords: lists.loadedWords.length,
           jargon: lists.jargon.length,
+          tier1Banned: lists.tier1Banned.length,
+          filler: lists.filler.length,
         },
         byRule: countByRule(),
         waivers,
@@ -104,7 +110,8 @@ function printSummary(): void {
     `\n${dim(
       `${loaded.content?.questions.length ?? 0} questions linted against ` +
         `${lists.namedEntities.length} named entities, ${lists.jargon.length} jargon terms, ` +
-        `${lists.loadedWords.length} loaded words`,
+        `${lists.loadedWords.length} loaded words, ${lists.tier1Banned.length} tier-1 banned terms, ` +
+        `${lists.filler.length} filler phrases`,
     )}`,
   );
 

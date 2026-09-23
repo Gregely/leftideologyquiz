@@ -15,6 +15,8 @@ import type { ZodType } from 'zod';
 import {
   FamiliesFileSchema,
   FamilySchema,
+  GroupSchema,
+  GroupsFileSchema,
   IdeologiesFileSchema,
   IdeologySchema,
   IMPLICIT_OPTIONS,
@@ -22,6 +24,7 @@ import {
   QuestionSchema,
   QuestionsFileSchema,
   type Family,
+  type Group,
   type Ideology,
   type Option,
   type Question,
@@ -34,7 +37,11 @@ import {
 
 export type Severity = 'error' | 'warning';
 
-export type ContentFile = 'content/families.yaml' | 'content/ideologies.yaml' | 'content/questions.yaml';
+export type ContentFile =
+  | 'content/groups.yaml'
+  | 'content/families.yaml'
+  | 'content/ideologies.yaml'
+  | 'content/questions.yaml';
 
 export interface Issue {
   severity: Severity;
@@ -53,6 +60,7 @@ export interface Issue {
 }
 
 export const FILES = {
+  groups: 'content/groups.yaml',
   families: 'content/families.yaml',
   ideologies: 'content/ideologies.yaml',
   questions: 'content/questions.yaml',
@@ -72,9 +80,11 @@ export interface NormalisedQuestion extends Omit<Question, 'options'> {
 }
 
 export interface Content {
+  groups: Group[];
   families: Family[];
   ideologies: Ideology[];
   questions: NormalisedQuestion[];
+  groupById: Map<string, Group>;
   familyById: Map<string, Family>;
   ideologyById: Map<string, Ideology>;
   questionById: Map<string, NormalisedQuestion>;
@@ -84,6 +94,8 @@ export interface Content {
   scorableOptionIds: Map<string, Set<string>>;
   /** Family id -> ideologies in it, in file order. */
   ideologiesByFamily: Map<string, Ideology[]>;
+  /** Group id -> families in it, in file order. */
+  familiesByGroup: Map<string, Family[]>;
 }
 
 export interface SourceMap {
@@ -98,10 +110,11 @@ export interface LoadResult {
   /** Null only when a file could not be parsed or its root shape was wrong. */
   content: Content | null;
   issues: Issue[];
-  sources: Record<'families' | 'ideologies' | 'questions', SourceMap>;
+  sources: Record<'groups' | 'families' | 'ideologies' | 'questions', SourceMap>;
 }
 
 export interface RawContent {
+  groups: string;
   families: string;
   ideologies: string;
   questions: string;
@@ -406,6 +419,14 @@ export function resolveStances(
 export function parseContent(raw: RawContent): LoadResult {
   const issues: Issue[] = [];
 
+  const groupsFile = parseFile<Group>(
+    FILES.groups,
+    raw.groups,
+    'groups',
+    GroupsFileSchema as unknown as ZodType<Record<string, unknown[]>>,
+    GroupSchema,
+    issues,
+  );
   const familiesFile = parseFile<Family>(
     FILES.families,
     raw.families,
@@ -432,6 +453,15 @@ export function parseContent(raw: RawContent): LoadResult {
   );
 
   const sources = {
+    groups: groupsFile.doc
+      ? makeSourceMap(
+          FILES.groups,
+          groupsFile.doc,
+          groupsFile.lineCounter,
+          'groups',
+          groupsFile.indexById,
+        )
+      : EMPTY_SOURCE_MAP(FILES.groups),
     families: familiesFile.doc
       ? makeSourceMap(
           FILES.families,
@@ -462,12 +492,13 @@ export function parseContent(raw: RawContent): LoadResult {
   };
 
   // A file that failed to parse leaves nothing worth cross-checking.
-  if (!familiesFile.doc || !ideologiesFile.doc || !questionsFile.doc) {
+  if (!groupsFile.doc || !familiesFile.doc || !ideologiesFile.doc || !questionsFile.doc) {
     return { content: null, issues, sources };
   }
 
   const questions = questionsFile.records.map(normaliseQuestion);
 
+  const groupById = new Map(groupsFile.records.map((g) => [g.id, g]));
   const familyById = new Map(familiesFile.records.map((f) => [f.id, f]));
   const ideologyById = new Map(ideologiesFile.records.map((i) => [i.id, i]));
   const questionById = new Map(questions.map((q) => [q.id, q]));
@@ -489,17 +520,27 @@ export function parseContent(raw: RawContent): LoadResult {
     else ideologiesByFamily.set(ideology.family, [ideology]);
   }
 
+  const familiesByGroup = new Map<string, Family[]>();
+  for (const family of familiesFile.records) {
+    const list = familiesByGroup.get(family.group);
+    if (list) list.push(family);
+    else familiesByGroup.set(family.group, [family]);
+  }
+
   return {
     content: {
+      groups: groupsFile.records,
       families: familiesFile.records,
       ideologies: ideologiesFile.records,
       questions,
+      groupById,
       familyById,
       ideologyById,
       questionById,
       optionIds,
       scorableOptionIds,
       ideologiesByFamily,
+      familiesByGroup,
     },
     issues,
     sources,

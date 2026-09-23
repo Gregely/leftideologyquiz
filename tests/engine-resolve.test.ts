@@ -96,12 +96,14 @@ describe('stepping up on a tie', () => {
     expect(result.level).toBe('sect');
   });
 
-  it('stops at family level when no family separates either', () => {
+  it('stops at the top when nothing separates the groups', () => {
+    // The root enumerates groups now, not families, so backing off all the way
+    // reports the groups that are tied rather than the families inside them.
     const result = resultOf([answer('q_family', 'pick_neither')]);
     expect(result.kind).toBe('undecided');
-    expect(result.level).toBe('family');
+    expect(result.level).toBe('group');
     expect(result.node.kind).toBe('root');
-    expect(result.candidates.map((c) => c.id).sort()).toEqual(['blue', 'red']);
+    expect(result.candidates.map((c) => c.id).sort()).toEqual(['cool', 'warm']);
   });
 
   it('descends once the margin is met and not before', () => {

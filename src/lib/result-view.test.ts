@@ -13,7 +13,9 @@ function ideology(docs: RosterDocs, id: string): Record<string, unknown> {
 }
 
 describe('a resolved result', () => {
-  const view = buildResultView(rosterModel(), RED_LEFT, 'standard', 'exhausted');
+  // Deep, because naming a sect is what Deep is for: Standard's report cap
+  // stops at the tendency (SPEC.md §8.1).
+  const view = buildResultView(rosterModel(), RED_LEFT, 'deep', 'exhausted');
 
   it('names the sect, with its summary and plain-language confidence', () => {
     expect(view.kind).toBe('resolved');
@@ -55,7 +57,7 @@ describe('a resolved result', () => {
         a('q_red_shared', 'shared_yes'),
         a('q_eco', 'disagree'),
       ],
-      'standard',
+      'deep',
       'exhausted',
     );
     expect(against.why?.ideology.id).toBe('red_left');
@@ -65,7 +67,7 @@ describe('a resolved result', () => {
 
   it('carries the stop reason, mode and count through', () => {
     expect(view.stopReason).toBe('exhausted');
-    expect(view.mode).toBe('standard');
+    expect(view.mode).toBe('deep');
     expect(view.answeredCount).toBe(3);
   });
 
@@ -78,7 +80,7 @@ describe('a resolved result', () => {
 
 describe('an undecided result', () => {
   it('names the node it stopped at and the candidates inside it', () => {
-    const view = buildResultView(rosterModel(), RED_TIE, 'quick', 'user');
+    const view = buildResultView(rosterModel(), RED_TIE, 'deep', 'user');
     expect(view.kind).toBe('undecided');
     expect(view.node.id).toBe('red_trunk');
     // The tendency itself stays a candidate: "this, and neither sect inside it".
@@ -87,25 +89,25 @@ describe('an undecided result', () => {
   });
 
   it('calls a tendency that is its own candidate "itself"', () => {
-    const view = buildResultView(rosterModel(), RED_TIE, 'quick', 'user');
+    const view = buildResultView(rosterModel(), RED_TIE, 'deep', 'user');
     const self = view.candidates.find((c) => c.id === 'red_trunk');
     expect(self?.name).toBe('Red trunk itself');
     expect(view.candidates.find((c) => c.id === 'red_left')?.name).toBe('Red left');
   });
 
   it('says how many answers a sect needs when there were too few', () => {
-    const view = buildResultView(rosterModel({ minAnswersForSect: 8 }), RED_LEFT, 'quick', 'budget');
+    const view = buildResultView(rosterModel({ minAnswersForSect: 8 }), RED_LEFT, 'deep', 'budget');
     expect(view.kind).toBe('undecided');
     expect(view.backOffText).toMatch(/at least 8 answers/);
   });
 
-  it('with no answers, reports the whole field rather than a family', () => {
+  it('with no answers, reports the whole field rather than a group', () => {
     const view = buildResultView(rosterModel(), [], 'quick', 'user');
     expect(view.level).toBe('field');
-    expect(view.node.name).toBe('Several families');
+    expect(view.node.name).toBe('Several parts of the left');
     // The root always holds all the mass; that must not read as confidence.
     expect(view.confidence).toBe(1);
-    expect(view.confidenceText).toMatch(/do not favour one family/);
+    expect(view.confidenceText).toMatch(/do not favour one part of the left/);
     expect(view.why).toBeNull();
     expect(view.modifiers).toEqual([]);
   });
@@ -122,7 +124,7 @@ describe('notices', () => {
     const m = rosterModel({}, (d) => {
       ideology(d, 'red_left')['boundary'] = true;
     });
-    const view = buildResultView(m, RED_LEFT, 'standard', 'exhausted');
+    const view = buildResultView(m, RED_LEFT, 'deep', 'exhausted');
     expect(view.boundary).toEqual([{ id: 'red_left', name: 'Red left' }]);
   });
 
@@ -132,7 +134,7 @@ describe('notices', () => {
     const view = buildResultView(
       rosterModel(),
       [a('q_family', 'pick_blue'), a('q_blue_split', 'blue_c')],
-      'standard',
+      'deep',
       'exhausted',
     );
     expect(view.kind).toBe('undecided');
@@ -157,7 +159,7 @@ describe('notices', () => {
       ideology(d, 'red_left')['inseparable_from'] = [{ ideology: 'red_right', note }];
       ideology(d, 'red_right')['inseparable_from'] = [{ ideology: 'red_left', note }];
     });
-    const view = buildResultView(m, RED_TIE, 'standard', 'exhausted');
+    const view = buildResultView(m, RED_TIE, 'deep', 'exhausted');
     expect(view.inseparable).toEqual([
       {
         ideologies: [

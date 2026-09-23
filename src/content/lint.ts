@@ -15,26 +15,113 @@
  * contain one. Heuristic rules can be waived per question with `lint_waiver`.
  */
 
-import type { Issue, LoadResult, NormalisedQuestion } from './load.js';
+import type { Issue, LoadResult, NormalisedQuestion, Severity } from './load.js';
 import { FILES, resolveStances } from './load.js';
-import type { Stance } from './schema.js';
+import { optionCountLimits, type Stance } from './schema.js';
+
+/** `word count` lines from content/lint/syllables.txt. */
+export function parseSyllableList(lines: readonly string[]): Map<string, number> {
+  const out = new Map<string, number>();
+  for (const line of lines) {
+    const [word, count] = line.split(/\s+/);
+    const n = Number(count);
+    if (word && Number.isInteger(n) && n > 0) out.set(word.toLowerCase(), n);
+  }
+  return out;
+}
 
 // -----------------------------------------------------------------------------
 // Tunables
 // -----------------------------------------------------------------------------
 
-/** SPEC.md §10.2 caps stems at 55 words; the brief for this tool says 60. */
-export const MAX_STEM_WORDS = 60;
+/**
+ * Per-tier language limits (docs/redesign.md §2.1, SPEC.md §11).
+ *
+ * Tier 1 must be answerable by someone with no political education, so its
+ * limits are the tight ones: a stem you can hold in your head and options that
+ * state a position rather than argue for it. Tier 3 keeps the limits the bank
+ * was written to.
+ */
+export interface TierLimits {
+  /** Maximum words in a stem. */
+  stemWords: number;
+  /** Maximum words in any one authored option. */
+  optionWords: number;
+  /** Flesch-Kincaid grade ceiling for stem plus options; null means unchecked. */
+  readingGrade: number | null;
+  /** Severity of a reading-grade miss. */
+  readingGradeSeverity: Severity;
+  /** Longest option may be this multiple of the shortest... */
+  optionLengthRatio: number;
+  /** ...but only once the absolute gap is this many words. */
+  optionLengthGap: number;
+}
+
+export const TIER_LIMITS: Record<1 | 2 | 3, TierLimits> = {
+  1: {
+    stemWords: 18,
+    optionWords: 8,
+    readingGrade: 7,
+    readingGradeSeverity: 'error',
+    optionLengthRatio: 2,
+    optionLengthGap: 4,
+  },
+  2: {
+    stemWords: 30,
+    optionWords: 14,
+    readingGrade: 9,
+    readingGradeSeverity: 'warning',
+    optionLengthRatio: 2.5,
+    optionLengthGap: 12,
+  },
+  3: {
+    stemWords: 60,
+    optionWords: 40,
+    readingGrade: null,
+    readingGradeSeverity: 'warning',
+    optionLengthRatio: 2.5,
+    optionLengthGap: 12,
+  },
+};
+
+/** Kept for callers that predate the tier table; tier 3's stem cap. */
+export const MAX_STEM_WORDS = TIER_LIMITS[3].stemWords;
 
 /** Options this much longer than the shortest signal which one is "right". */
-export const OPTION_LENGTH_RATIO = 2.5;
+export const OPTION_LENGTH_RATIO = TIER_LIMITS[3].optionLengthRatio;
 
 /** ...but only once the absolute gap is big enough to be visible on screen. */
-export const OPTION_LENGTH_ABSOLUTE_GAP = 12;
+export const OPTION_LENGTH_ABSOLUTE_GAP = TIER_LIMITS[3].optionLengthGap;
 
 /** SPEC.md §11 principle 7. Applies to every kind except likert. */
 export const MIN_OPTIONS = 3;
 export const MAX_OPTIONS = 6;
+
+/**
+ * Settings a tier-1 stem may not invent (docs/redesign.md §2.5).
+ *
+ * Softer than the banned list and kept separate from it so the message can say
+ * *why*: the problem is not the word, it is that the question is asking the
+ * respondent to imagine a situation they have never been in. Tier 1 uses
+ * situations from a life — a job, a landlord, a hospital, a police stop — and
+ * never an invented revolution.
+ */
+export const TIER1_FORBIDDEN_SETTINGS = [
+  'revolution',
+  'revolutionary',
+  'the movement',
+  'a movement',
+  'the party',
+  'a party',
+  'the state',
+  'regime',
+  'transition',
+  'colonial',
+  'colony',
+  'seize power',
+  'take power',
+  'comes to power',
+];
 
 /** Years from here on are treated as dates rather than as quantities. */
 const YEAR_PATTERN = /\b(1[5-9]\d{2}|20\d{2})\b/g;
@@ -51,6 +138,14 @@ export interface LintLists {
   namedEntities: string[];
   loadedWords: string[];
   jargon: string[];
+  /** Political vocabulary banned outright at tier 1 (docs/redesign.md §2.2). */
+  tier1Banned: string[];
+  /** Phrases that add words without adding a position. */
+  filler: string[];
+  /** Removed before comparing an option with its stem. */
+  stopwords: string[];
+  /** `word count` lines correcting the syllable estimator. */
+  syllables: string[];
 }
 
 // -----------------------------------------------------------------------------
@@ -84,6 +179,58 @@ function findTerms(text: string, patterns: Map<string, RegExp>): string[] {
 
 function wordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+/**
+ * Syllables in one word, by vowel-group count.
+ *
+ * Deterministic and dependency-free on purpose: `src/` must run in a browser
+ * with no polyfills, and a reading-grade number that moved when a library
+ * updated would be worse than no number at all. Predictable misses are
+ * corrected by `content/lint/syllables.txt` rather than by making the rule
+ * cleverer.
+ */
+export function syllables(word: string, exceptions: Map<string, number> = new Map()): number {
+  const clean = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (!clean) return 0;
+  const known = exceptions.get(clean);
+  if (known !== undefined) return known;
+  if (clean.length <= 3) return 1;
+  const trimmed = clean.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '').replace(/^y/, '');
+  const groups = trimmed.match(/[aeiouy]{1,2}/g);
+  return groups ? groups.length : 1;
+}
+
+function sentenceCount(text: string): number {
+  const marks = text.match(/[.!?]+(\s|$)/g);
+  return marks && marks.length > 0 ? marks.length : 1;
+}
+
+/**
+ * Flesch-Kincaid grade level: roughly the US school year needed to read it.
+ *
+ * `0.39 · (words / sentences) + 11.8 · (syllables / words) − 15.59`, exactly as
+ * docs/redesign.md §2.1 fixes it, so the lint and the plan agree on every
+ * number either of them quotes.
+ */
+export function readingGrade(text: string, exceptions: Map<string, number> = new Map()): number {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  if (words.length === 0) return 0;
+  const syllableTotal = words.reduce((a, w) => a + syllables(w, exceptions), 0);
+  return (
+    0.39 * (words.length / sentenceCount(text)) +
+    11.8 * (syllableTotal / words.length) -
+    15.59
+  );
+}
+
+/** Content words: everything that is not a stopword, lower-cased. */
+function contentWords(text: string, stopwords: Set<string>): string[] {
+  return text
+    .toLowerCase()
+    .replace(/\{\{[^}]*\}\}/g, ' ')
+    .split(/[^a-z']+/)
+    .filter((w) => w.length > 0 && !stopwords.has(w));
 }
 
 /** The sentences of a stem that actually ask something. */
@@ -168,6 +315,10 @@ export function lintContent(loaded: LoadResult, lists: LintLists): LintResult {
   const namedEntities = new Map(lists.namedEntities.map((t) => [t, termPattern(t)]));
   const loadedWords = new Map(lists.loadedWords.map((t) => [t, termPattern(t)]));
   const jargon = new Map(lists.jargon.map((t) => [t, termPattern(t)]));
+  const tier1Banned = new Map(lists.tier1Banned.map((t) => [t, termPattern(t)]));
+  const filler = new Map(lists.filler.map((t) => [t, termPattern(t)]));
+  const stopwords = new Set(lists.stopwords.map((t) => t.toLowerCase()));
+  const syllableExceptions = parseSyllableList(lists.syllables);
 
   const stances = effectiveStances(content);
   const source = loaded.sources.questions;
@@ -189,6 +340,11 @@ export function lintContent(loaded: LoadResult, lists: LintLists): LintResult {
     checkLoadedWords(question, authored, loadedWords, push, lineOf);
     checkJargon(question, authored, jargon, push, lineOf);
     checkLengths(question, authored, push, lineOf);
+    checkReadingGrade(question, authored, syllableExceptions, push, lineOf);
+    checkTier1Vocabulary(question, authored, tier1Banned, push, lineOf);
+    checkFiller(question, authored, filler, push, lineOf);
+    checkOptionRestatesStem(question, authored, stopwords, push, lineOf);
+    checkTier1Form(question, push, lineOf);
     checkOptionCount(question, authored, push, lineOf);
     checkOptionDiscrimination(question, authored, stances, push, lineOf);
     checkFollowUpParents(question, stances, push, lineOf);
@@ -371,15 +527,30 @@ function checkLengths(
   push: Push,
   lineOf: LineOf,
 ): void {
+  const limits = TIER_LIMITS[question.depth];
+
   const stemWords = wordCount(question.text);
-  if (stemWords > MAX_STEM_WORDS) {
+  if (stemWords > limits.stemWords) {
     push({
       severity: 'error',
       code: 'lint/stem-too-long',
       path: 'text',
       line: lineOf(['text']),
-      message: `stem is ${stemWords} words, over the ${MAX_STEM_WORDS}-word cap`,
+      message: `stem is ${stemWords} words, over the tier-${question.depth} cap of ${limits.stemWords}`,
       hint: 'a scenario people have to re-read is a scenario they answer by vibe',
+    });
+  }
+
+  for (const [i, option] of authored.entries()) {
+    const words = wordCount(option.label);
+    if (words <= limits.optionWords) continue;
+    push({
+      severity: 'error',
+      code: 'lint/option-too-long',
+      path: `options[${i}].label`,
+      line: lineOf(['options', i, 'label']),
+      message: `option "${option.id}" is ${words} words, over the tier-${question.depth} cap of ${limits.optionWords}`,
+      hint: 'state the position and stop. The argument for it belongs at tier 3, if anywhere',
     });
   }
 
@@ -391,7 +562,7 @@ function checkLengths(
   const gap = longest.words - shortest.words;
   const ratio = shortest.words === 0 ? Infinity : longest.words / shortest.words;
 
-  if (ratio >= OPTION_LENGTH_RATIO && gap >= OPTION_LENGTH_ABSOLUTE_GAP) {
+  if (ratio >= limits.optionLengthRatio && gap >= limits.optionLengthGap) {
     push({
       severity: 'warning',
       code: 'lint/option-length-imbalance',
@@ -403,6 +574,192 @@ function checkLengths(
   }
 }
 
+// --- reading grade -----------------------------------------------------------
+
+function checkReadingGrade(
+  question: NormalisedQuestion,
+  authored: NormalisedQuestion['options'],
+  exceptions: Map<string, number>,
+  push: Push,
+  lineOf: LineOf,
+): void {
+  const limits = TIER_LIMITS[question.depth];
+  if (limits.readingGrade === null) return;
+
+  // A likert's five points are injected by the loader, identical on every
+  // likert question and not the author's prose. Measuring them would score the
+  // same twenty-five words on every likert in the bank, and — having no
+  // sentence-ending punctuation — would count the whole run as one sentence and
+  // inflate the words-per-sentence term past anything the stem could cause.
+  const measured =
+    question.kind === 'likert5'
+      ? [question.text]
+      : [question.text, ...authored.map((o) => o.label)];
+  const grade = readingGrade(measured.join(' '), exceptions);
+  if (grade <= limits.readingGrade) return;
+
+  push({
+    severity: limits.readingGradeSeverity,
+    code: 'lint/reading-grade',
+    path: 'text',
+    line: lineOf(['text']),
+    message: `reads at grade ${grade.toFixed(1)}, over the tier-${question.depth} ceiling of ${limits.readingGrade}`,
+    hint: 'shorter sentences and shorter words, in that order. A long word in a short sentence costs more here than the other way round',
+  });
+}
+
+// --- tier-1 vocabulary -------------------------------------------------------
+
+function checkTier1Vocabulary(
+  question: NormalisedQuestion,
+  authored: NormalisedQuestion['options'],
+  banned: Map<string, RegExp>,
+  push: Push,
+  lineOf: LineOf,
+): void {
+  if (question.depth !== 1) return;
+
+  const fields: { text: string; path: string; line: ReadonlyArray<string | number> }[] = [
+    { text: question.text, path: 'text', line: ['text'] },
+  ];
+  for (const [i, option] of authored.entries()) {
+    fields.push({ text: option.label, path: `options[${i}].label`, line: ['options', i, 'label'] });
+  }
+
+  for (const field of fields) {
+    const found = findTerms(field.text, banned);
+    if (found.length === 0) continue;
+    push({
+      severity: 'error',
+      code: 'lint/tier1-vocabulary',
+      path: field.path,
+      line: lineOf(field.line),
+      message: `tier 1 uses ${found.map((t) => `"${t}"`).join(', ')}`,
+      hint: 'say it in words someone with no political education already uses, or move the question to tier 2. A tooltip is not a fix at tier 1',
+    });
+  }
+
+  const settings = findTerms(question.text, new Map(TIER1_FORBIDDEN_SETTINGS.map((t) => [t, termPattern(t)])));
+  if (settings.length > 0) {
+    push({
+      severity: 'warning',
+      code: 'lint/tier1-setting',
+      path: 'text',
+      line: lineOf(['text']),
+      message: `tier-1 stem is set in ${settings.map((t) => `"${t}"`).join(', ')}`,
+      hint: 'tier 1 uses situations from a life — a job, a landlord, a hospital, a police stop, a will. Not an invented revolution',
+    });
+  }
+}
+
+// --- filler ------------------------------------------------------------------
+
+function checkFiller(
+  question: NormalisedQuestion,
+  authored: NormalisedQuestion['options'],
+  filler: Map<string, RegExp>,
+  push: Push,
+  lineOf: LineOf,
+): void {
+  const severity: Severity = question.depth === 1 ? 'error' : 'warning';
+  const fields: { text: string; path: string; line: ReadonlyArray<string | number> }[] = [
+    { text: question.text, path: 'text', line: ['text'] },
+  ];
+  for (const [i, option] of authored.entries()) {
+    fields.push({ text: option.label, path: `options[${i}].label`, line: ['options', i, 'label'] });
+  }
+
+  for (const field of fields) {
+    const found = findTerms(field.text, filler);
+    if (found.length === 0) continue;
+    push({
+      severity,
+      code: 'lint/filler',
+      path: field.path,
+      line: lineOf(field.line),
+      message: `filler: ${found.map((t) => `"${t}"`).join(', ')}`,
+      hint: 'every one of these can be deleted without changing what the sentence claims. Deleting it buys words back against the cap',
+    });
+  }
+}
+
+// --- an option that restates the stem ----------------------------------------
+
+/**
+ * The pattern this catches: the stem does the work, and the option is "yes,
+ * exactly that" in different words. Such an option carries no position of its
+ * own, so choosing it tells the test nothing, and it crowds out one that would.
+ */
+function checkOptionRestatesStem(
+  question: NormalisedQuestion,
+  authored: NormalisedQuestion['options'],
+  stopwords: Set<string>,
+  push: Push,
+  lineOf: LineOf,
+): void {
+  if (question.kind === 'likert5') return;
+
+  const stemWords = contentWords(question.text, stopwords);
+  if (stemWords.length === 0) return;
+  const stemSet = new Set(stemWords);
+  const stemTrigrams = new Set<string>();
+  for (let i = 0; i + 2 < stemWords.length; i++) {
+    stemTrigrams.add(stemWords.slice(i, i + 3).join(' '));
+  }
+
+  const severity: Severity = question.depth === 1 ? 'error' : 'warning';
+
+  for (const [i, option] of authored.entries()) {
+    const words = contentWords(option.label, stopwords);
+    if (words.length === 0) continue;
+
+    // The ratio is meaningless on a two- or three-word option: one shared word
+    // out of two is 50% and says nothing. Short options are still checked for a
+    // repeated trigram, which cannot happen by accident.
+    const shared = words.filter((w) => stemSet.has(w)).length;
+    const overlap = words.length >= 4 ? shared / words.length : 0;
+
+    let trigram: string | null = null;
+    for (let j = 0; j + 2 < words.length; j++) {
+      const candidate = words.slice(j, j + 3).join(' ');
+      if (stemTrigrams.has(candidate)) {
+        trigram = candidate;
+        break;
+      }
+    }
+
+    if (overlap < 0.5 && trigram === null) continue;
+
+    push({
+      severity,
+      code: 'lint/option-restates-stem',
+      path: `options[${i}].label`,
+      line: lineOf(['options', i, 'label']),
+      message:
+        trigram === null
+          ? `option "${option.id}" is ${Math.round(overlap * 100)}% the stem's own words`
+          : `option "${option.id}" repeats the stem's "${trigram}"`,
+      hint: 'an option should state a position the stem does not; if it only echoes the stem, it separates nobody',
+    });
+  }
+}
+
+// --- tier-1 form -------------------------------------------------------------
+
+function checkTier1Form(question: NormalisedQuestion, push: Push, lineOf: LineOf): void {
+  if (question.depth !== 1) return;
+  if (question.tooltip === undefined) return;
+
+  push({
+    severity: 'error',
+    code: 'lint/tier1-tooltip',
+    path: 'tooltip',
+    line: lineOf(['tooltip']),
+    message: 'tier-1 questions may not carry a tooltip',
+    hint: 'a tooltip at tier 1 is an admission that the question needs vocabulary the respondent does not have. Say it plainly, or move it to tier 2 where a term may be glossed inline in under 8 words',
+  });
+}
+
 // --- principle 7: 3-6 options ------------------------------------------------
 
 function checkOptionCount(
@@ -412,16 +769,17 @@ function checkOptionCount(
   lineOf: LineOf,
 ): void {
   if (question.kind === 'likert5') return;
-  if (authored.length >= MIN_OPTIONS && authored.length <= MAX_OPTIONS) return;
+  const limits = optionCountLimits(question.kind, question.depth);
+  if (authored.length >= limits.min && authored.length <= limits.max) return;
 
   push({
     severity: 'error',
     code: 'lint/option-count',
     path: 'options',
     line: lineOf(['options']),
-    message: `${authored.length} options; principle 7 allows ${MIN_OPTIONS}-${MAX_OPTIONS}`,
+    message: `${authored.length} options; tier ${question.depth} allows ${limits.min}-${limits.max}`,
     hint:
-      authored.length > MAX_OPTIONS
+      authored.length > limits.max
         ? 'too many to hold in mind at once. Split the question, or merge options that are the same position in different words'
         : 'too few to be a real choice',
   });

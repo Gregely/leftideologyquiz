@@ -22,7 +22,13 @@ export interface BankStats {
   followUps: Record<FollowUpMode, number>;
   followUpTargets: number;
   historyClass: { count: number; share: number; cap: number; withinCap: boolean };
-  likert: { count: number; share: number };
+  /**
+   * Counted over tiers 2 and 3 only. Tier 1 is exempt (SPEC.md §3.2): an
+   * agree/disagree statement is the form that does not ask a respondent to
+   * recognise a position, which is the thing someone with no political
+   * education cannot do. `tier1` is reported beside it as information.
+   */
+  likert: { count: number; share: number; cap: number; withinCap: boolean; tier1: number };
   selfId: { count: number; perFamily: { familyId: string; count: number }[] };
   withModifierTags: { count: number; byTag: { tag: string; questions: number }[] };
   longestForcedChain: { length: number; path: string[] };
@@ -32,6 +38,9 @@ export interface BankStats {
 
 /** SPEC.md §9: history-class questions are capped at ~10% of the bank. */
 export const HISTORY_CLASS_CAP = 0.1;
+
+/** SPEC.md §3.2: likert is capped at 15% of the tier-2-plus-tier-3 questions. */
+export const LIKERT_CAP = 0.15;
 
 export function bankStats(loaded: LoadResult): BankStats | null {
   const content = loaded.content;
@@ -77,7 +86,9 @@ export function bankStats(loaded: LoadResult): BankStats | null {
 
   // --- quotas ----------------------------------------------------------------
   const historyCount = questions.filter((q) => q.history_class).length;
-  const likertCount = questions.filter((q) => q.kind === 'likert5').length;
+  const deeper = questions.filter((q) => q.depth > 1);
+  const likertDeeper = deeper.filter((q) => q.kind === 'likert5').length;
+  const likertTier1 = questions.filter((q) => q.depth === 1 && q.kind === 'likert5').length;
   const total = questions.length;
 
   const selfIdQuestions = questions.filter((q) => q.self_id);
@@ -115,7 +126,13 @@ export function bankStats(loaded: LoadResult): BankStats | null {
       cap: HISTORY_CLASS_CAP,
       withinCap: total === 0 || historyCount / total <= HISTORY_CLASS_CAP,
     },
-    likert: { count: likertCount, share: total === 0 ? 0 : likertCount / total },
+    likert: {
+      count: likertDeeper,
+      share: deeper.length === 0 ? 0 : likertDeeper / deeper.length,
+      cap: LIKERT_CAP,
+      withinCap: deeper.length === 0 || likertDeeper / deeper.length <= LIKERT_CAP,
+      tier1: likertTier1,
+    },
     selfId: {
       count: selfIdQuestions.length,
       perFamily: [...selfIdPerFamily.entries()]

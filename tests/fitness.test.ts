@@ -20,6 +20,7 @@ function load(mutate?: (docs: RosterDocs) => void): LoadResult {
   const docs = rosterDocs();
   mutate?.(docs);
   return parseContent({
+    groups: stringify(docs.groups),
     families: stringify(docs.families),
     ideologies: stringify(docs.ideologies),
     questions: stringify(docs.questions),
@@ -108,7 +109,7 @@ describe('with no defaults authored', () => {
   });
 
   it('returns an empty report rather than throwing on unloadable content', () => {
-    const broken = parseContent({ families: 'not: valid', ideologies: '', questions: '' });
+    const broken = parseContent({ groups: '', families: 'not: valid', ideologies: '', questions: '' });
     expect(fitnessReport(broken).families).toEqual([]);
     expect(fitnessReport(broken).familiesWithoutDefaults).toEqual([]);
   });

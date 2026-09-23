@@ -134,11 +134,18 @@ for (const line of table(
       stats.historyClass.withinCap ? green('ok') : red('over'),
     ],
     [
-      'likert (SPEC.md §3.2)',
+      'likert, tiers 2-3 (SPEC.md §3.2)',
       String(stats.likert.count),
       pct(stats.likert.share),
-      '15.0%',
-      stats.likert.share <= 0.15 ? green('ok') : red('over'),
+      pct(stats.likert.cap),
+      stats.likert.withinCap ? green('ok') : red('over'),
+    ],
+    [
+      'likert, tier 1 (exempt)',
+      String(stats.likert.tier1),
+      '',
+      dim('no cap'),
+      green('ok'),
     ],
     [
       'self-identification (principle 10)',

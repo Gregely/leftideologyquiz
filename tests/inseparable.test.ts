@@ -23,6 +23,7 @@ function issuesFor(mutate: (d: RosterDocs) => void) {
   const docs = rosterDocs();
   mutate(docs);
   const loaded = parseContent({
+    groups: stringify(docs.groups),
     families: stringify(docs.families),
     ideologies: stringify(docs.ideologies),
     questions: stringify(docs.questions),
